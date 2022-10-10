@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'My MDM SCOOP app'),
+      home: const MyHomePage(title: 'MDM SCOOP app'),
     );
   }
 }
