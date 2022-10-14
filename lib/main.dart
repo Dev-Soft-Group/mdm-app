@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mdmscoops/screens/onboarding/views/onboarding_one.dart';
+import 'package:mdmscoops/routes/app_pages.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const OnboardingOne(),
+      getPages: AppPages.pages,
+      initialRoute: AppRoutes.ONBOARDING, // Route de départ de l'application
     );
   }
 }
