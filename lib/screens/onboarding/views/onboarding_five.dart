@@ -22,11 +22,11 @@ class OnboardingFive extends StatelessWidget {
         title: "Allons-y",
         back: IconButtonAction(
           iconData: CupertinoIcons.chevron_left,
-          onTap: () {},
+          onTap: () { controller.previousPage(); },
         ),
         next: IconButtonAction(
           iconData: CupertinoIcons.chevron_right,
-          onTap: () {},
+         onTap: () { controller.nextPage(); },
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top : kDefaultPadding*1.5),

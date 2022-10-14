@@ -19,11 +19,11 @@ class OnboardingTwo extends StatelessWidget {
         title: "Votre moteur de recherche !",
         back: IconButtonAction(
           iconData: CupertinoIcons.chevron_left,
-          onTap: () {},
+          onTap: () { controller.previousPage(); },
         ),
         next: IconButtonAction(
           iconData: CupertinoIcons.chevron_right,
-          onTap: () {},
+         onTap: () { controller.nextPage(); },
         ),
         child: Text(
           "Vous pouvez rechercher des produits par catégories; des services par secteurs d'activité et  par corps de métier.",

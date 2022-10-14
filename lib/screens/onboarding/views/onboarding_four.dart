@@ -18,13 +18,13 @@ class OnboardingFour extends StatelessWidget {
       return OnboardingBody(
         control: controller,
         title: "Trouver des Services",
-        back: IconButtonAction(
+       back: IconButtonAction(
           iconData: CupertinoIcons.chevron_left,
-          onTap: () {},
+          onTap: () { controller.previousPage(); },
         ),
         next: IconButtonAction(
           iconData: CupertinoIcons.chevron_right,
-          onTap: () {},
+         onTap: () { controller.nextPage(); },
         ),
         child: Text(
           "Trouvez des services en rapport avec vos activités ou quel qu'en soit le secteur visé.",

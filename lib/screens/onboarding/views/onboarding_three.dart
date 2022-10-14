@@ -19,11 +19,11 @@ class OnboardingThree extends StatelessWidget {
         title: "Comparaison facile & rapide",
         back: IconButtonAction(
           iconData: CupertinoIcons.chevron_left,
-          onTap: () {},
+          onTap: () { controller.previousPage(); },
         ),
         next: IconButtonAction(
           iconData: CupertinoIcons.chevron_right,
-          onTap: () {},
+         onTap: () { controller.nextPage(); },
         ),
         child: Text(
           "Vous pouvez comparer différents produits en fonction du prix, de la note et de la qualité, de la distance, des spécifications et de nombreux autres paramètres.",

@@ -34,15 +34,15 @@ class OnboardingBody extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const SizedBox(height: kDefaultPadding * 3),
+            const SizedBox(height: kDefaultPadding * 2),
             Container(
-                height: 120,
-                width: 120,
+                height: 100,
+                width: 100,
                 clipBehavior: Clip.antiAlias,
                 decoration: const BoxDecoration(),
                 child: Image.asset("assets/images/D-SoftTechWhite.png",
                     fit: BoxFit.fill)),
-            const SizedBox(height: kDefaultPadding * 3),
+            const SizedBox(height: kDefaultPadding * 2),
             Expanded(
               child: Container(
                   padding:

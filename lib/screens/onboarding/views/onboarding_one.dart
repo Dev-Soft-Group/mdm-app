@@ -16,7 +16,7 @@ class OnboardingOne extends GetView<OnboardingController> {
         title: "Bienvenue",
         next: IconButtonAction(
           iconData: CupertinoIcons.chevron_right,
-          onTap: () {},
+          onTap: () { controller.nextPage(); },
         ),
         child: Text(
           "Voici le service de recherche le plus  évolué et rapide du Cameroun. Recherchez ici vos produits et services, négociez directement les prix des produits avec les fournisseurs.",
