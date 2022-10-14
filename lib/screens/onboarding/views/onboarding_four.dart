@@ -43,7 +43,7 @@ class OnboardingFour extends StatelessWidget {
                         children: [
                           const SizedBox(height: kDefaultPadding * 4.2),
                           const Text(
-                            "Bienvenue",
+                            "Trouvez des Services",
                             style: TextStyle(
                               color: kPrimaryColor,
                               fontSize: 36,
@@ -57,7 +57,7 @@ class OnboardingFour extends StatelessWidget {
                               ),
                               decoration: const BoxDecoration(),
                               child: Text(
-                                  "Voici le service de recherche le plus  évolué et rapide du Cameroun. Recherchez ici vos produits et services, négociez directement les prix des produits avec les fournisseurs.",
+                                  "Trouvez des services en rapport avec vos activités ou quel qu'en soit le secteur visé.",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       height: 1.2,

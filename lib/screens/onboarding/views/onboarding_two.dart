@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,7 +30,8 @@ class OnboardingTwo extends StatelessWidget {
               const SizedBox(height: kDefaultPadding * 3),
               Expanded(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: kDefaultPadding),
                       decoration: const BoxDecoration(
                         color: kWhiteColor,
                         borderRadius: BorderRadius.only(
@@ -43,7 +41,7 @@ class OnboardingTwo extends StatelessWidget {
                         children: [
                           const SizedBox(height: kDefaultPadding * 4.2),
                           const Text(
-                            "Bienvenue",
+                            "Votre moteur de recherche",
                             style: TextStyle(
                               color: kPrimaryColor,
                               fontSize: 36,
@@ -57,23 +55,27 @@ class OnboardingTwo extends StatelessWidget {
                               ),
                               decoration: const BoxDecoration(),
                               child: Text(
-                                  "Voici le service de recherche le plus  évolué et rapide du Cameroun. Recherchez ici vos produits et services, négociez directement les prix des produits avec les fournisseurs.",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      height: 1.2,
-                                      letterSpacing:.8,
-                                      fontSize: 16,
-                                      color: kBlackColor.withOpacity(0.6),
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  )),
+                                "Vous pouvez rechercher des produits par catégories; des services par secteurs d'activités et par corps de metier.",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  height: 1.2,
+                                  letterSpacing: .8,
+                                  fontSize: 16,
+                                  color: kBlackColor.withOpacity(0.6),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              )),
                           const Spacer(),
                           Container(
                             alignment: Alignment.centerRight,
-                            margin: const EdgeInsets.only(right: kDefaultPadding),
+                            margin:
+                                const EdgeInsets.only(right: kDefaultPadding),
                             child: InkWell(
-                              onTap: () {print("Page suivante");},
-                              child: const Icon(CupertinoIcons.chevron_right, color: kBlackColor, size: 26),
+                              onTap: () {
+                                print("Page suivante");
+                              },
+                              child: const Icon(CupertinoIcons.chevron_right,
+                                  color: kBlackColor, size: 26),
                             ),
                           ),
                           const SizedBox(height: kDefaultPadding * 2),

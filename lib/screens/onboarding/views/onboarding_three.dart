@@ -43,7 +43,7 @@ class OnboardingThree extends StatelessWidget {
                         children: [
                           const SizedBox(height: kDefaultPadding * 4.2),
                           const Text(
-                            "Bienvenue",
+                            "Comparaison facile/rapide",
                             style: TextStyle(
                               color: kPrimaryColor,
                               fontSize: 36,
@@ -57,7 +57,7 @@ class OnboardingThree extends StatelessWidget {
                               ),
                               decoration: const BoxDecoration(),
                               child: Text(
-                                  "Voici le service de recherche le plus  évolué et rapide du Cameroun. Recherchez ici vos produits et services, négociez directement les prix des produits avec les fournisseurs.",
+                                  "Vous pouvez comparer différents produits en fonction du prix, de la note et de la qualité, de la distance, des spécifications et de nombreux autres paramètres.",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       height: 1.2,

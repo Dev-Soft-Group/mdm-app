@@ -44,7 +44,7 @@ class OnboardingFive extends StatelessWidget {
                         children: [
                           const SizedBox(height: kDefaultPadding * 4.2),
                           const Text(
-                            "Bienvenue",
+                            "Allons-y",
                             style: TextStyle(
                               color: kPrimaryColor,
                               fontSize: 36,
@@ -57,17 +57,39 @@ class OnboardingFive extends StatelessWidget {
                                 horizontal: kDefaultPadding,
                               ),
                               decoration: const BoxDecoration(),
-                              child: Text(
-                                  "Voici le service de recherche le plus  évolué et rapide du Cameroun. Recherchez ici vos produits et services, négociez directement les prix des produits avec les fournisseurs.",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      height: 1.2,
-                                      letterSpacing:.8,
-                                      fontSize: 16,
-                                      color: kBlackColor.withOpacity(0.6),
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  )),
+                              child: Column(
+                                children: [
+                                  Text(
+                                        
+                                        "Tout cela plus encore est ce que vous obtenez de l'application de recherche la plus cool du 237.",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            height: 1.2,
+                                            letterSpacing:.8,
+                                            fontSize: 16,
+                                            color: kBlackColor.withOpacity(0.6),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                    
+                                        ),
+                                   Text(
+                                        
+                                        "Decouvrez!",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            height: 1.2,
+                                            letterSpacing:.8,
+                                            fontSize: 16,
+                                            color: kBlackColor.withOpacity(0.6),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                    
+                                        ),      
+                                ],
+                              ),
+                  
+                                  
+                                  ),
                           const Spacer(),
                           Container(
                             alignment: Alignment.centerRight,
