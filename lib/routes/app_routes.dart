@@ -8,4 +8,5 @@ class AppRoutes {
   
   static const String ONBOARDING = "/onboarding";
   static const String START = "/start";
+  static const String HOMEPAGE = "/home_page";
 }

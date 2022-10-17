@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/onboarding/components/icon_button_action.dart';
 import 'package:mdmscoops/screens/onboarding/components/onboarding_body.dart';
 import 'package:mdmscoops/screens/onboarding/controllers/ondoarding_controller.dart';
@@ -26,7 +27,7 @@ class OnboardingFive extends StatelessWidget {
         ),
         next: IconButtonAction(
           iconData: CupertinoIcons.chevron_right,
-         onTap: () { controller.nextPage(); },
+         onTap: () { Get.offAndToNamed(AppRoutes.HOMEPAGE); },
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top : kDefaultPadding*1.5),
