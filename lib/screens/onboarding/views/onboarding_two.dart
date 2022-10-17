@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_colors.dart';
