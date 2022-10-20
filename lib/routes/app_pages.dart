@@ -4,6 +4,8 @@ import 'package:mdmscoops/screens/home/bindings/home_binding.dart';
 import 'package:mdmscoops/screens/home/views/home_views.dart';
 import 'package:mdmscoops/screens/onboarding/bindings/onboarding_bindings.dart';
 import 'package:mdmscoops/screens/onboarding/views/onboarding.dart';
+import 'package:mdmscoops/screens/products/bindings/product_bindings.dart';
+import 'package:mdmscoops/screens/products/views/product_views.dart';
 import 'package:mdmscoops/screens/start/bindings/start_binding.dart';
 import 'package:mdmscoops/screens/start/views/start_view.dart';
 
@@ -24,6 +26,11 @@ class AppPages {
       name: AppRoutes.HOMEPAGE,
       page: () => const HomeView(),
       binding: HomeBinding(),
+    ),
+     GetPage(
+      name: AppRoutes.PRODUCTS,
+      page: () => const ProductView(),
+      binding: ProductBinding(),
     ),
   ];
 }
