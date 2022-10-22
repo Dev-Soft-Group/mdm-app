@@ -35,46 +35,56 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                       children: [
                         const SizedBox(height: 16),
                         Card(
+                          elevation: 3,
+                          color: kWhiteColor,
+                          shadowColor: kWhiteColor,
+                          clipBehavior: Clip.antiAlias,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(kDefaultRadius)),
                           child: Container(
                             height: 90,
+                            decoration: const BoxDecoration(
+                              color: kWhiteColor,
+                            ),
+                            child: Row(children: [
+                              Image.asset("assets/images/sectors.png",
+                                  height: 90, width: 100, fit: BoxFit.fill),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Spacer(
+                                      flex: 2,
+                                    ),
+                                    Text(
+                                      "Secteur d'activité",
+                                      style: TextStyle(
+                                          color: kBlackColor.withOpacity(0.5),
+                                          fontSize: 23),
+                                    ),
+                                    const SizedBox(height: 3),
+                                    const Text(
+                                      "Banque",
+                                      style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontSize: 27,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    const Spacer(
+                                      flex: 2,
+                                    ),
+                                    Container(),
+                                  ]),
+                            ]),
                           ),
                         ),
                         const SizedBox(height: 16),
-                        const TextTitle(text: "Catégories"),
+                        const TextTitle(text: "Entreprises"),
                         const SizedBox(height: kDefaultPadding),
-                        Container(
-                          height: 30,
-                          decoration: const BoxDecoration(),
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: controller.menus.length,
-                              itemBuilder: (context, index) => InkWell(
-                                    onTap: () {
-                                      controller.onTabChange(index);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: kDefaultPadding * 1.2,
-                                          top: kDefaultPadding / 3,
-                                          bottom: kDefaultPadding / 3),
-                                      child: Text(
-                                        controller.menus[index],
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: controller.selectedTabs ==
-                                                  index
-                                              ? kBlackColor
-                                              : kBlackColor.withOpacity(0.4),
-                                          fontWeight:
-                                              controller.selectedTabs == index
-                                                  ? FontWeight.w600
-                                                  : FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  )),
-                        ),
-                        const SizedBox(height: kDefaultPadding - 4),
                         Expanded(
                           child: GridView.count(
                             crossAxisCount: 3,
@@ -82,10 +92,12 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                             crossAxisSpacing: 10,
                             shrinkWrap: true,
                             children: List.generate(
-                                controller.categories.length, (index) => CustomCard(item: controller.categories[index])),
+                                controller.categories.length,
+                                (index) => CustomCard(
+                                    item: controller.categories[index])),
                           ),
                         ),
-                        const SizedBox(height: kDefaultPadding*1.5)
+                        const SizedBox(height: kDefaultPadding * 1.5)
                       ],
                     ),
                   ),
@@ -140,13 +152,14 @@ class CustomCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: kBlackColor.withOpacity(0.7),
                   ),
-                  child: Text("$item",
+                  child: Text(
+                    "$item",
                     style: const TextStyle(
                       color: kWhiteColor,
                       fontSize: 16,
                     ),
                   ),
-                ), 
+                ),
               ),
             ],
           )),
