@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
-import 'package:mdmscoops/components/card_item.dart';
+import 'package:mdmscoops/components/product_item.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/screens/home/components/line_item.dart';
 import 'package:mdmscoops/screens/home/controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
 
-  @override
+
+   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: GetBuilder<HomeController>(
@@ -21,62 +23,39 @@ class HomeView extends GetView<HomeController> {
             decoration: const BoxDecoration(
               color: kWhiteColor,
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const AppBanner(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: kDefaultPadding),
-                        child: TextTitle(text: "Coach Sportif"),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const AppBanner(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: kDefaultPadding),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const TextTitle(text: "Rechercher un produit"),
+                          const SizedBox(height: kDefaultPadding),
+                          const LineItem(title: "Baskets"),
+                          const SizedBox(height: kDefaultPadding),
+                          const LineItem(title: "Accessoires informatiques"),
+                          const SizedBox(height: kDefaultPadding),
+                          const LineItem(title: "Services"),
+                          const SizedBox(height: kDefaultPadding),
+                          const LineItem(title: "Auto école"),
+                          const SizedBox(height: kDefaultPadding),
+                          const LineItem(title: "Immobiliers"),
+                          const SizedBox(height: kDefaultPadding * 2),
+                          Container(),
+                        ],
                       ),
-                      const SizedBox(height: kDefaultPadding),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...List.generate(10, (index) => const CardItem())
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      const Padding(
-                        padding: EdgeInsets.only(left: kDefaultPadding),
-                        child: TextTitle(text: "Bureaux d'étude"),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...List.generate(10, (index) => const CardItem())
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      const Padding(
-                        padding: EdgeInsets.only(left: kDefaultPadding),
-                        child: TextTitle(text: "Immobilier"),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...List.generate(10, (index) => const CardItem())
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: kDefaultPadding * 2),
-                    ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -84,6 +63,3 @@ class HomeView extends GetView<HomeController> {
     );
   }
 }
-
-
-

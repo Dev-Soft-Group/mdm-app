@@ -51,13 +51,16 @@ class AppBanner extends StatelessWidget {
                     style: const TextStyle(
                       color: kBlackColor,
                       decoration: TextDecoration.none,
+                      fontSize: 14,
                     ),
                     decoration: const InputDecoration(
                         border: InputBorder.none,
                         disabledBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
                         hintText: "Saisir un mot clé...",
                         hintStyle: TextStyle(
                           color: Colors.grey,
+                          fontSize: 14
                         ),
                         contentPadding:
                             EdgeInsets.only(bottom: 13, top: 0, left: 12)),
