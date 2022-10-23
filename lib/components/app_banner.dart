@@ -13,7 +13,7 @@ class AppBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 110,
+      height: 105,
       width: double.infinity,
       decoration: const BoxDecoration(
           color: kWhiteColor,
@@ -28,7 +28,7 @@ class AppBanner extends StatelessWidget {
           children: [
             const SizedBox(height: 16),
             Row(children: [
-              const Icon(Icons.menu, size: 46, color: kWhiteColor),
+              const Icon(Icons.menu, size: 36, color: kWhiteColor),
               const SizedBox(width: 10),
               Expanded(
                 child: Container(
@@ -69,8 +69,8 @@ class AppBanner extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Container(
-                  height: 40,
-                  width: 40,
+                  height: 30,
+                  width: 30,
                   decoration: const BoxDecoration(),
                   child: Image.asset("assets/images/D-SoftTechWhite.png",
                       fit: BoxFit.fill)),

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       getPages: AppPages.pages,
-      initialRoute: AppRoutes.DETAILSSECTEURS, // Route de départ de l'application
+      initialRoute: AppRoutes.PRODUITS, // Route de départ de l'application
     );
   }
 }

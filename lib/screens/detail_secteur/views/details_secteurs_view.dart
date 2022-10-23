@@ -33,7 +33,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 3),
                         Card(
                           elevation: 3,
                           color: kWhiteColor,
