@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
+import 'package:mdmscoops/components/app_menu.dart';
 import 'package:mdmscoops/components/card_item.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
@@ -16,6 +17,8 @@ class ProductView extends GetView<ProductController> {
     return SafeArea(
       child: GetBuilder<ProductController>(
         builder: (controller) => Scaffold(
+          key: controller.scaffoldKey,
+          drawer: const NavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -27,7 +30,7 @@ class ProductView extends GetView<ProductController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const AppBanner(),
+                  AppBanner(controller: controller),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,

@@ -8,9 +8,9 @@ class EntrepriseController extends GetxController{
 
   List menus = [
     "Tous",
-    "Secteurs",
-    "Entreprises",
-    "Produits",
+    "Commerce",
+    "Informatique",
+    "Agricole",
     "Services",
   ];
 

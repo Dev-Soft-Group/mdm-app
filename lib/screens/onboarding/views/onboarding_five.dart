@@ -27,7 +27,7 @@ class OnboardingFive extends StatelessWidget {
         ),
         next: IconButtonAction(
           iconData: CupertinoIcons.chevron_right,
-         onTap: () { Get.offAndToNamed(AppRoutes.HOMEPAGE); },
+         onTap: () { Get.offAndToNamed(AppRoutes.PRODUCTS); },
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top : kDefaultPadding*1.5),

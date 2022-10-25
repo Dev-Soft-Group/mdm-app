@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
-import 'package:mdmscoops/components/product_item.dart';
+import 'package:mdmscoops/components/app_menu.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
@@ -17,6 +17,8 @@ class HomeView extends GetView<HomeController> {
     return SafeArea(
       child: GetBuilder<HomeController>(
         builder: (controller) => Scaffold(
+          key: controller.scaffoldKey,
+          drawer: const NavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -27,7 +29,7 @@ class HomeView extends GetView<HomeController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const AppBanner(),
+                AppBanner(controller: controller),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(
@@ -63,3 +65,4 @@ class HomeView extends GetView<HomeController> {
     );
   }
 }
+

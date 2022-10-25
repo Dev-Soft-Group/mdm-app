@@ -84,7 +84,7 @@ class ProduitsView extends GetView<ProduitController> {
                                         left: 0,
                                         bottom: 0,
                                         bottomLeft: kDefaultPadding -4,
-                                        containerHeight: 203,
+                                        containerHeight: 212,
                                         imageHeight: 100,
                                         logoTop: 85,
                                       )),

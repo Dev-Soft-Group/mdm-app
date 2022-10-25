@@ -8,7 +8,10 @@ import 'package:mdmscoops/core/app_sizes.dart';
 class AppBanner extends StatelessWidget {
   const AppBanner({
     Key? key,
+    this.controller,
   }) : super(key: key);
+
+  final dynamic controller;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,9 @@ class AppBanner extends StatelessWidget {
           children: [
             const SizedBox(height: 16),
             Row(children: [
-              const Icon(Icons.menu, size: 36, color: kWhiteColor),
+              InkWell(
+                onTap: (){controller.openDrawer();},
+                child: const Icon(Icons.menu, size: 36, color: kWhiteColor)),
               const SizedBox(width: 10),
               Expanded(
                 child: Container(
