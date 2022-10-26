@@ -1,5 +1,7 @@
 import 'package:get/route_manager.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
+import 'package:mdmscoops/screens/detail_entreprise/bindings/detail_entreprise_binding.dart';
+import 'package:mdmscoops/screens/detail_entreprise/views/detail_entreprise_view.dart';
 import 'package:mdmscoops/screens/detail_produit/bindings/produit_detal_binding.dart';
 import 'package:mdmscoops/screens/detail_produit/views/produit_detail_view.dart';
 import 'package:mdmscoops/screens/detail_secteur/bindings/details_secteurs_binding.dart';
@@ -70,6 +72,11 @@ class AppPages {
       name: AppRoutes.PRODUITS,
       page: () => const ProduitsView(),
       binding: ProduitBinding(),
+    ),
+     GetPage(
+      name: AppRoutes.ENTREPRISEDETAILS,
+      page: () => const EntrepriseDetailView(),
+      binding: EntrepriseDetailBindiing(),
     ),
   ];
 }

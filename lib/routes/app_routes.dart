@@ -15,4 +15,5 @@ class AppRoutes {
   static const String SECTEURS = "/secteurs";
   static const String DETAILSSECTEURS = "/details_secteurs";
   static const String PRODUITSDETAILS = "/details_produit";
+  static const String ENTREPRISEDETAILS = "/details_entreprise";
 }
