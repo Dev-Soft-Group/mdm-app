@@ -190,6 +190,8 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                   ),
                                 ),
                                 const SizedBox(height: kDefaultPadding / 2),
+                                ...List.generate(
+                                  3, (index) =>
                                 Card(
                                   color: kWhiteColor,
                                   shadowColor: kWhiteColor,
@@ -252,7 +254,60 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                       ],
                                     ),
                                   ),
+                                ),),
+                                const SizedBox(height: kDefaultPadding - 4),
+                                Text(
+                                  "Site web",
+                                  style: TextStyle(
+                                    color: kBlackColor.withOpacity(0.8),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
+                                const SizedBox(height: kDefaultPadding / 2),
+                                Row(
+                                  children: [
+                                    Image.asset("assets/icons/Icon-sitemap.png", height: 30, width: 30),
+                                    const SizedBox(height: kDefaultPadding),
+                                    Text("http://www.facebook.com",
+                                      style: TextStyle(
+                                        color: kBlackColor.withOpacity(0.6),
+                                        fontSize: 15,
+                                        height: 1.5,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  ]
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset("assets/icons/Icon-sitemap.png", height: 30, width: 30),
+                                    const SizedBox(height: kDefaultPadding),
+                                    Text("http://www.youtube.com",
+                                      style: TextStyle(
+                                        color: kBlackColor.withOpacity(0.6),
+                                        fontSize: 15,
+                                        height: 1.5,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  ]
+                                ),
+                                const SizedBox(height: kDefaultPadding*1.5),
+                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset("assets/icons/Icon-facebook.png", height: 40, width: 40),
+                                    const SizedBox(width: kDefaultPadding),
+                                    Image.asset("assets/icons/Iconlogo-whatsapp.png", height: 40, width: 40),
+                                    const SizedBox(width: kDefaultPadding),
+                                    Image.asset("assets/icons/Icon-twitter.png", height: 40, width: 40),
+                                    const SizedBox(width: kDefaultPadding),
+                                  ]
+                                ),
+                                const SizedBox(height: kDefaultPadding*2),
+                                
+
                               ],
                             ),
                           ),
