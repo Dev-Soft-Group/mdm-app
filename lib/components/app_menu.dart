@@ -18,41 +18,41 @@ class NavigationDrawer extends StatelessWidget {
         height: Get.height,
         color: kWhiteColor,
         // padding: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  height: 150,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: kPrimaryColor,
-                  ),
-                  child: Column(
-                    children: [
-                      const Spacer(),
-                      Container(
-                          height: 60,
-                          width: 60,
-                          alignment: Alignment.center,
-                          child: Image.asset(
-                              "assets/images/D-SoftTechWhite.png",
-                              fit: BoxFit.fill)),
-                      const SizedBox(height: kDefaultPadding - 4),
-                      const Text(
-                        "MDM SCOOPS",
-                        style: TextStyle(
-                          color: kWhiteColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 25,
-                        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+                height: 150,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: kPrimaryColor,
+                ),
+                child: Column(
+                  children: [
+                    const Spacer(),
+                    Container(
+                        height: 60,
+                        width: 60,
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                            "assets/images/D-SoftTechWhite.png",
+                            fit: BoxFit.fill)),
+                    const SizedBox(height: kDefaultPadding - 4),
+                    const Text(
+                      "MDM SCOOPS",
+                      style: TextStyle(
+                        color: kWhiteColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 25,
                       ),
-                      const Spacer(),
-                    ],
-                  )),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    ),
+                    const Spacer(),
+                  ],
+                )),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -60,7 +60,7 @@ class NavigationDrawer extends StatelessWidget {
                     MenuItem(
                       image: "assets/icons/Icon-home.png",
                       title: "Accueil",
-                      onTap: () {},
+                      onTap: () { Get.offAndToNamed(AppRoutes.PRODUCTS);},
                     ),
                     MenuItem(
                       image: "assets/icons/Icon-building.png",
@@ -69,10 +69,10 @@ class NavigationDrawer extends StatelessWidget {
                         Get.offAndToNamed(AppRoutes.ENTREPRISES);
                       },
                     ),
-                    const MenuItem(
+                    MenuItem(
                       image: "assets/icons/Icon-room-service.png",
                       title: "Services",
-                      // onTap: () { Get.offAndToNamed(AppRoutes.SERVICE); },
+                      onTap: () {Get.offAndToNamed(AppRoutes.HOMEPAGE); },
                     ),
                     MenuItem(
                       image: "assets/icons/Icon-product-hunt.png",
@@ -84,12 +84,12 @@ class NavigationDrawer extends StatelessWidget {
                     MenuItem(
                       image: "assets/icons/Icon-profile.png",
                       title: "Profil",
-                      onTap: () {},
+                      onTap: () {Get.offAndToNamed(AppRoutes.PROFILENTREPRENEUR);},
                     ),
                     MenuItem(
                       image: "assets/icons/Icon-account-box.png",
                       title: "Créer un compte",
-                      onTap: () {},
+                      onTap: () {Get.offAndToNamed(AppRoutes.COMPTEENTREPRISE);},
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -113,13 +113,13 @@ class NavigationDrawer extends StatelessWidget {
                     MenuItem(
                       image: "assets/icons/Icon-account-logout.png",
                       title: "Se déconnecter",
-                      onTap: () {},
+                      onTap: () {Get.offAllNamed(AppRoutes.CONNEXION);},
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

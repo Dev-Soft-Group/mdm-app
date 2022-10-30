@@ -11,6 +11,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
 
   @override
   Widget build(BuildContext context) {
+    
     return SafeArea(
       child: GetBuilder<SecteurDetailsController>(
         builder: (controller) => Scaffold(
@@ -24,7 +25,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const AppBanner(),
+                AppBanner(open: (){}),
                 Expanded(
                   child: Padding(
                     padding:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
+import 'package:mdmscoops/components/app_menu.dart';
 import 'package:mdmscoops/components/card_item.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
@@ -12,9 +13,16 @@ class ProduitsView extends GetView<ProduitController> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    void openDrawer() {
+      _scaffoldKey.currentState!.openDrawer();
+    }
+
     return SafeArea(
       child: GetBuilder<ProduitController>(
         builder: (controller) => Scaffold(
+          key: _scaffoldKey,
+          drawer: const NavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -25,20 +33,21 @@ class ProduitsView extends GetView<ProduitController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const AppBanner(),
+                AppBanner(open: openDrawer),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const Padding(
-                        padding: EdgeInsets.symmetric( horizontal: 20.0),
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
                         child: TextTitle(text: "Catégories"),
                       ),
                       const SizedBox(height: kDefaultPadding - 2),
                       Container(
                         height: 30,
-                        padding: const EdgeInsets.symmetric( horizontal: kDefaultPadding),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: kDefaultPadding),
                         decoration: const BoxDecoration(),
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -56,8 +65,7 @@ class ProduitsView extends GetView<ProduitController> {
                                       controller.menus[index],
                                       style: TextStyle(
                                         fontSize: 16,
-                                        color: controller.selectedTabs ==
-                                                index
+                                        color: controller.selectedTabs == index
                                             ? kBlackColor
                                             : kBlackColor.withOpacity(0.4),
                                         fontWeight:
@@ -73,23 +81,25 @@ class ProduitsView extends GetView<ProduitController> {
                       Expanded(
                         child: SingleChildScrollView(
                           child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: kDefaultPadding),
                             child: Wrap(
                               runSpacing: 0,
                               spacing: kDefaultPadding / 2,
-                              children: [...List.generate(
-                                  10,
-                                  (index) => CardItem(
-                                        width: Get.width / 2 - 25,
-                                        left: 0,
-                                        bottom: 0,
-                                        bottomLeft: kDefaultPadding -4,
-                                        containerHeight: 212,
-                                        imageHeight: 100,
-                                        logoTop: 85,
-                                      )),
-                                      const SizedBox(height: kDefaultPadding),
-                                      ],
+                              children: [
+                                ...List.generate(
+                                    10,
+                                    (index) => CardItem(
+                                          width: Get.width / 2 - 25,
+                                          left: 0,
+                                          bottom: 0,
+                                          bottomLeft: kDefaultPadding - 4,
+                                          containerHeight: 212,
+                                          imageHeight: 100,
+                                          logoTop: 85,
+                                        )),
+                                const SizedBox(height: kDefaultPadding),
+                              ],
                             ),
                           ),
                         ),

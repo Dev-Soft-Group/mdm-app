@@ -11,13 +11,18 @@ import 'package:mdmscoops/screens/products/controllers/product_controller.dart';
 class ProductView extends GetView<ProductController> {
   const ProductView({Key? key}) : super(key: key);
 
- 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    void openDrawer() {
+      _scaffoldKey.currentState!.openDrawer();
+    }
+
     return SafeArea(
       child: GetBuilder<ProductController>(
         builder: (controller) => Scaffold(
-          key: controller.scaffoldKey,
+          key: _scaffoldKey,
           drawer: const NavigationDrawer(),
           body: Container(
             height: Get.height,
@@ -30,7 +35,7 @@ class ProductView extends GetView<ProductController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  AppBanner(controller: controller),
+                  AppBanner(open: openDrawer),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +92,4 @@ class ProductView extends GetView<ProductController> {
       ),
     );
   }
-
 }
-
-

@@ -24,7 +24,7 @@ class SecteursView extends GetView<SecteursController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const AppBanner(),
+                AppBanner(open: (){}),
                 Expanded(
                   child: Padding(
                     padding:

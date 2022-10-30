@@ -6,6 +6,7 @@ import 'package:mdmscoops/components/custom_action_button.dart';
 import 'package:mdmscoops/components/custom_outline_action_button.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/connexion/controllers/connexion_controller.dart';
 
 class ConnexionView extends GetView<ConnexionController> {
@@ -101,13 +102,13 @@ class ConnexionView extends GetView<ConnexionController> {
                                   ),
                                   const SizedBox(height: 90),
                                   CustomActionButton(
-                                    title: "Enregistrer",
-                                    onTap: () {},
+                                    title: "Se connecter",
+                                    onTap: () {Get.offAllNamed(AppRoutes.PRODUCTS);},
                                   ),
                                   const SizedBox(height: 20),
                                   CustomOutlineActionButton(
-                                    title: "Se connecter",
-                                    onTap: () {},
+                                    title: "S'inscrire",
+                                    onTap: () { Get.toNamed(AppRoutes.INSCRIPTION); },
                                   ),
                                   const SizedBox(height: 40),
                                 ]),

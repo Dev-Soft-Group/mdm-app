@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
+import 'package:mdmscoops/components/app_menu.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
@@ -11,9 +12,16 @@ class EntreprisesView extends GetView<EntrepriseController> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    void openDrawer() {
+      _scaffoldKey.currentState!.openDrawer();
+    }
     return SafeArea(
       child: GetBuilder<EntrepriseController>(
         builder: (controller) => Scaffold(
+          key: _scaffoldKey,
+          drawer: const NavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -24,7 +32,7 @@ class EntreprisesView extends GetView<EntrepriseController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const AppBanner(),
+                AppBanner(open: openDrawer),
                 Expanded(
                   child: Padding(
                     padding:

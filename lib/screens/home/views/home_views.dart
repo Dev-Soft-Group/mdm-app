@@ -29,7 +29,7 @@ class HomeView extends GetView<HomeController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBanner(controller: controller),
+                AppBanner(open: (){}),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(

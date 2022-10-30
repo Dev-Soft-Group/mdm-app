@@ -6,6 +6,7 @@ import 'package:mdmscoops/components/custom_action_button.dart';
 import 'package:mdmscoops/components/custom_outline_action_button.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/inscription/controllers/inscription_controller.dart';
 
 class InscriptionView extends GetView<InscriptionController> {
@@ -108,12 +109,12 @@ class InscriptionView extends GetView<InscriptionController> {
                                   const SizedBox(height: 50),
                                   CustomActionButton(
                                     title: "Enregistrer",
-                                    onTap: () {},
+                                    onTap: () { Get.toNamed(AppRoutes.CONNEXION ); },
                                   ),
                                   const SizedBox(height: 20),
                                    CustomOutlineActionButton(
                                     title: "Se connecter",
-                                    onTap: () {},
+                                    onTap: () { Get.toNamed(AppRoutes.CONNEXION ); },
                                   ),
                                   const SizedBox(height: 40),
                                 ]),
