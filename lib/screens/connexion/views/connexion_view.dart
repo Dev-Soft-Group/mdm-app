@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
@@ -51,7 +51,7 @@ class ConnexionView extends GetView<ConnexionController> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
-                                      onTap: () {},
+                                      onTap: () { Get.back();},
                                       child: const Icon(
                                         Icons.arrow_back,
                                         size: 26,

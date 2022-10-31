@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
+import 'package:mdmscoops/components/app_menu.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
@@ -11,10 +12,16 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
 
   @override
   Widget build(BuildContext context) {
-    
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    void openDrawer() {
+      _scaffoldKey.currentState!.openDrawer();
+    }
     return SafeArea(
       child: GetBuilder<SecteurDetailsController>(
         builder: (controller) => Scaffold(
+          key: _scaffoldKey,
+          drawer: const NavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -25,7 +32,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBanner(open: (){}),
+                AppBanner(open: openDrawer),
                 Expanded(
                   child: Padding(
                     padding:
@@ -44,13 +51,13 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                               borderRadius:
                                   BorderRadius.circular(kDefaultRadius)),
                           child: Container(
-                            height: 90,
+                            height: 80,
                             decoration: const BoxDecoration(
                               color: kWhiteColor,
                             ),
                             child: Row(children: [
                               Image.asset("assets/images/sectors.png",
-                                  height: 90, width: 100, fit: BoxFit.fill),
+                                  height: 80, width: 90, fit: BoxFit.fill),
                               const SizedBox(
                                 width: 20,
                               ),
@@ -64,14 +71,14 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                       "Secteur d'activité",
                                       style: TextStyle(
                                           color: kBlackColor.withOpacity(0.5),
-                                          fontSize: 23),
+                                          fontSize: 20),
                                     ),
                                     const SizedBox(height: 3),
                                     const Text(
                                       "Banque",
                                       style: TextStyle(
                                         color: kPrimaryColor,
-                                        fontSize: 27,
+                                        fontSize: 22,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),

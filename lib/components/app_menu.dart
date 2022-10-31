@@ -67,18 +67,24 @@ class NavigationDrawer extends StatelessWidget {
                       title: "Entreprises",
                       onTap: () {
                         Get.offAndToNamed(AppRoutes.ENTREPRISES);
+                      
                       },
                     ),
                     MenuItem(
                       image: "assets/icons/Icon-room-service.png",
-                      title: "Services",
-                      onTap: () {Get.offAndToNamed(AppRoutes.HOMEPAGE); },
+                      title: "Publications",
+                      onTap: () {Get.offAndToNamed(AppRoutes.PRODUITS); },
+                    ),
+                    MenuItem(
+                      image: "assets/icons/Icon-room-service.png",
+                      title: "Secteurs d'activités",
+                      onTap: () {Get.offAndToNamed(AppRoutes.SECTEURS); },
                     ),
                     MenuItem(
                       image: "assets/icons/Icon-product-hunt.png",
                       title: "Produits",
                       onTap: () {
-                        Get.offAndToNamed(AppRoutes.PRODUITS);
+                        Get.offAndToNamed(AppRoutes.HOMEPAGE);
                       },
                     ),
                     MenuItem(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
+import 'package:mdmscoops/components/app_menu.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/secteurs/controllers/secteurs_controller.dart';
 
 class SecteursView extends GetView<SecteursController> {
@@ -11,9 +13,16 @@ class SecteursView extends GetView<SecteursController> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    void openDrawer() {
+      _scaffoldKey.currentState!.openDrawer();
+    }
     return SafeArea(
       child: GetBuilder<SecteursController>(
         builder: (controller) => Scaffold(
+          key: _scaffoldKey,
+          drawer: const NavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -24,7 +33,7 @@ class SecteursView extends GetView<SecteursController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBanner(open: (){}),
+                AppBanner(open: openDrawer),
                 Expanded(
                   child: Padding(
                     padding:
@@ -102,47 +111,50 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      child: Container(
-          alignment: Alignment.center,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            color: kWhiteColor,
-            borderRadius: BorderRadius.circular(kDefaultRadius),
-            boxShadow: [
-              BoxShadow(
-                offset: const Offset(0, 1),
-                blurRadius: 3,
-                color: kBlackColor.withOpacity(0.3),
-              )
-            ],
-          ),
-          child: Stack(
-            children: [
-              Image.asset("assets/images/shoes.jpg",
-                  width: double.infinity, fit: BoxFit.cover),
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: kBlackColor.withOpacity(0.7),
-                  ),
-                  child: Text("$item",
-                    style: const TextStyle(
-                      color: kWhiteColor,
-                      fontSize: 16,
+    return InkWell(
+      onTap: (){ Get.toNamed(AppRoutes.DETAILSSECTEURS); },
+      child: Card(
+        elevation: 0,
+        child: Container(
+            alignment: Alignment.center,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: kWhiteColor,
+              borderRadius: BorderRadius.circular(kDefaultRadius),
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(0, 1),
+                  blurRadius: 3,
+                  color: kBlackColor.withOpacity(0.3),
+                )
+              ],
+            ),
+            child: Stack(
+              children: [
+                Image.asset("assets/images/shoes.jpg",
+                    width: double.infinity, fit: BoxFit.cover),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: kBlackColor.withOpacity(0.7),
                     ),
-                  ),
-                ), 
-              ),
-            ],
-          )),
+                    child: Text("$item",
+                      style: const TextStyle(
+                        color: kWhiteColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ), 
+                ),
+              ],
+            )),
+      ),
     );
   }
 }

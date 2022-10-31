@@ -14,10 +14,15 @@ class HomeView extends GetView<HomeController> {
 
    @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    void openDrawer() {
+      _scaffoldKey.currentState!.openDrawer();
+    }
     return SafeArea(
       child: GetBuilder<HomeController>(
         builder: (controller) => Scaffold(
-          key: controller.scaffoldKey,
+          key: _scaffoldKey,
           drawer: const NavigationDrawer(),
           body: Container(
             height: Get.height,
@@ -29,7 +34,7 @@ class HomeView extends GetView<HomeController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBanner(open: (){}),
+                AppBanner(open: openDrawer),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(

@@ -48,7 +48,7 @@ class CompteView extends GetView<CompteController> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () { Get.back();},
                                       child: const Icon(Icons.arrow_back, size: 26, color: kWhiteColor,)),
                                     Image.asset("assets/images/D-SoftTechWhite.png", height: 30, width: 30, fit: BoxFit.fill,),
                                   ],

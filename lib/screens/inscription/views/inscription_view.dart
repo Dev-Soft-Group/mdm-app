@@ -51,7 +51,7 @@ class InscriptionView extends GetView<InscriptionController> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
-                                      onTap: () {},
+                                     onTap: () { Get.back();},
                                       child: const Icon(
                                         Icons.arrow_back,
                                         size: 26,
