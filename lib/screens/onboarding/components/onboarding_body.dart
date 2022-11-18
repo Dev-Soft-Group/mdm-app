@@ -42,7 +42,7 @@ class OnboardingBody extends StatelessWidget {
                 decoration: const BoxDecoration(),
                 child: Image.asset("assets/images/D-SoftTechWhite.png",
                     fit: BoxFit.fill)),
-            const SizedBox(height: kDefaultPadding * 2),
+            const SizedBox(height: kDefaultPadding * 6),
             Expanded(
               child: Container(
                   padding:

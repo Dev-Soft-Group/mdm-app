@@ -7,13 +7,11 @@ import 'package:flutter/foundation.dart';
 class ApiRequest {
   final String? url;
   final String? token;
-  final String? entreprise;
   final dynamic data;
 
   ApiRequest({
     @required this.url,
     this.token = "...",
-    this.entreprise = "",
     this.data,
   });
 
@@ -24,7 +22,6 @@ class ApiRequest {
         responseType: ResponseType.json,
         headers: {
           'Authorization': 'Bearer $token',
-          'X-Maisonier-Selected-Enterprise': '$entreprise'
         }));
     (dioR.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (HttpClient client) {
@@ -63,7 +60,7 @@ class ApiRequest {
       if (onError != null) onError(error);
     });
   }
-
+  
   void put({
     Function()? beforeSend,
     Function(dynamic data)? onSuccess,

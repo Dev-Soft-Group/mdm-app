@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
+import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({
@@ -119,7 +120,11 @@ class NavigationDrawer extends StatelessWidget {
                     MenuItem(
                       image: "assets/icons/Icon-account-logout.png",
                       title: "Se déconnecter",
-                      onTap: () {Get.offAllNamed(AppRoutes.CONNEXION);},
+                      onTap: () async {
+                        final LocalAuthService _localAuth = LocalAuthServiceImpl();
+                        await _localAuth.deleteToken();
+                        Get.offAllNamed(AppRoutes.CONNEXION);
+                      },
                     ),
                   ],
                 ),

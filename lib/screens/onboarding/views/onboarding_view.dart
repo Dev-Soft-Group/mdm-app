@@ -26,7 +26,7 @@ class OnboardingView extends GetView<OnboardingController> {
                       children: [
                         controller.pages[index],
                         Positioned(
-                          top: Get.height * 0.33,
+                          bottom: 340,
                           left: 0,
                           right: 0,
                           child: Row(

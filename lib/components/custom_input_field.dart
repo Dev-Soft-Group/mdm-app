@@ -13,6 +13,9 @@ class FormFieldInput extends StatelessWidget {
     this.radius,
     this.maxLines,
     this.keyboardType,
+    this.textController,
+    this.height,
+    this.contentPadding,
   }) : super(key: key);
 
   final Function(String data)? onChanged;
@@ -20,11 +23,15 @@ class FormFieldInput extends StatelessWidget {
   final Widget? suffixIcon;
   final double? radius;
   final int? maxLines;
+  final TextEditingController? textController;
   final TextInputType? keyboardType;
+  final double? height;
+  final EdgeInsetsGeometry? contentPadding;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: height ?? 45,
       padding: const EdgeInsets.only(
           left: kDefaultPadding / 2, right: kDefaultPadding / 5),
       decoration: BoxDecoration(
@@ -35,13 +42,15 @@ class FormFieldInput extends StatelessWidget {
         ),
       ),
       child: TextFormField(
+        controller: textController,
         onChanged: onChanged,
-        maxLines: maxLines,
+        maxLines: maxLines ?? 1,
         keyboardType: keyboardType,
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           border: InputBorder.none,
           hintText: hintText,
+          contentPadding: contentPadding ?? const EdgeInsets.only(top:-3, right:0, bottom:3, left:0),
         ),
       ),
     );

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
@@ -6,6 +5,7 @@ import 'package:mdmscoops/components/custom_action_button.dart';
 import 'package:mdmscoops/components/custom_outline_action_button.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/connexion/controllers/connexion_controller.dart';
 
@@ -51,7 +51,9 @@ class ConnexionView extends GetView<ConnexionController> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
-                                      onTap: () { Get.back();},
+                                      onTap: () {
+                                        Get.back();
+                                      },
                                       child: const Icon(
                                         Icons.arrow_back,
                                         size: 26,
@@ -89,41 +91,59 @@ class ConnexionView extends GetView<ConnexionController> {
                                   ),
                                   const SizedBox(height: 60),
                                   FormFieldInput(
-                                    onChanged: (string) {},
+                                    textController: controller.textEditingNom,
                                     hintText: "Entrez votre email",
                                     keyboardType: TextInputType.emailAddress,
                                     radius: kDefaultRadius * 3,
                                   ),
                                   const SizedBox(height: 30),
                                   FormFieldInput(
-                                    onChanged: (string) {},
+                                    textController:
+                                        controller.textEditingPassword,
                                     hintText: "Entrez votre mot de passe",
                                     radius: kDefaultRadius * 3,
                                   ),
                                   const SizedBox(height: 90),
-                                  CustomActionButton(
-                                    title: "Se connecter",
-                                    onTap: () {Get.offAllNamed(AppRoutes.PRODUCTS);},
-                                  ),
-                                  const SizedBox(height: 20),
-                                  CustomOutlineActionButton(
-                                    title: "S'inscrire",
-                                    onTap: () { Get.toNamed(AppRoutes.INSCRIPTION); },
-                                  ),
+                                  controller.loginStatus == AppStatus.appLoading
+                                      ? Container(
+                                          height: 40,
+                                          alignment: Alignment.center,
+                                          child:
+                                              const CircularProgressIndicator(
+                                                  color: kPrimaryColor),
+                                        )
+                                      : Column(
+                                          children: [
+                                            CustomActionButton(
+                                              title: "Se connecter",
+                                              onTap: () async {
+                                                await controller.login();
+                                              },
+                                            ),
+                                            const SizedBox(height: 20),
+                                            CustomOutlineActionButton(
+                                              title: "S'inscrire",
+                                              onTap: () {
+                                                Get.toNamed(
+                                                    AppRoutes.INSCRIPTION);
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                   const SizedBox(height: 40),
                                 ]),
                           ),
-                          Container(
-                            height: 80,
-                            decoration: const BoxDecoration(
-                              color: kWhiteColor,
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                    "assets/images/Composant 4 – 3.png"),
-                              ),
-                            ),
-                          ),
+                          // Container(
+                          //   height: 80,
+                          //   decoration: const BoxDecoration(
+                          //     color: kWhiteColor,
+                          //     image: DecorationImage(
+                          //       fit: BoxFit.fill,
+                          //       image: AssetImage(
+                          //           "assets/images/Composant 4 – 3.png"),
+                          //     ),
+                          //   ),
+                          // ),
                         ]),
                   ),
                 ),
