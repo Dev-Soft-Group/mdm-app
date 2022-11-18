@@ -30,62 +30,64 @@ class ProductView extends GetView<ProductController> {
             decoration: const BoxDecoration(
               color: kWhiteColor,
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  AppBanner(open: openDrawer),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: kDefaultPadding),
-                        child: TextTitle(text: "Coach Sportif"),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...List.generate(10, (index) => const CardItem())
-                          ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                AppBanner(open: openDrawer),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: kDefaultPadding),
+                          child: TextTitle(text: "Coach Sportif"),
                         ),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      const Padding(
-                        padding: EdgeInsets.only(left: kDefaultPadding),
-                        child: TextTitle(text: "Bureaux d'étude"),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...List.generate(10, (index) => const CardItem())
-                          ],
+                        const SizedBox(height: kDefaultPadding),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              ...List.generate(10, (index) => const CardItem())
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      const Padding(
-                        padding: EdgeInsets.only(left: kDefaultPadding),
-                        child: TextTitle(text: "Immobilier"),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...List.generate(10, (index) => const CardItem())
-                          ],
+                        const SizedBox(height: kDefaultPadding),
+                        const Padding(
+                          padding: EdgeInsets.only(left: kDefaultPadding),
+                          child: TextTitle(text: "Bureaux d'étude"),
                         ),
-                      ),
-                      const SizedBox(height: kDefaultPadding * 2),
-                    ],
+                        const SizedBox(height: kDefaultPadding),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              ...List.generate(10, (index) => const CardItem())
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: kDefaultPadding),
+                        const Padding(
+                          padding: EdgeInsets.only(left: kDefaultPadding),
+                          child: TextTitle(text: "Immobilier"),
+                        ),
+                        const SizedBox(height: kDefaultPadding),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              ...List.generate(10, (index) => const CardItem())
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: kDefaultPadding * 2),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
