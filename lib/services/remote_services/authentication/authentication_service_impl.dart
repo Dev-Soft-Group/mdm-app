@@ -34,17 +34,17 @@ class RemoteAuthServiceImpl implements RemoteAuthService {
   @override
   Future<void> register({
     RegisterRequestModel? registerReqModel,
-    Function(dynamic data)? onRegisterSuccess,
-    Function(dynamic error)? onRegisterError}) async {
+    Function(dynamic data)? onSuccess,
+    Function(dynamic error)? onError}) async {
     ApiRequest(
-      url: "${Constantes.API_URL}/utilisateur/",
+      url: "${Constantes.API_URL}/utilisateurs",
       data: registerReqModel!.toMap(),
     ).post(
        onSuccess: (data){
-          onRegisterSuccess!(data);
+          onSuccess!(data);
         },
         onError: (error){
-          if (error != null) { onRegisterError!(error);}
+          if (error != null) { onError!(error);}
         }
     );
   } 

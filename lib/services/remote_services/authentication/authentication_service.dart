@@ -13,7 +13,7 @@ abstract class RemoteAuthService {
 
   Future<void> register({
     RegisterRequestModel? registerReqModel,
-    Function(dynamic data)? onRegisterSuccess,
-    Function(dynamic error)? onRegisterError,
+    Function(dynamic data)? onSuccess,
+    Function(dynamic error)? onError,
   });
 }

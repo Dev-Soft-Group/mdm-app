@@ -6,6 +6,7 @@ import 'package:mdmscoops/components/custom_action_button.dart';
 import 'package:mdmscoops/components/custom_outline_action_button.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/inscription/controllers/inscription_controller.dart';
 
@@ -51,7 +52,9 @@ class InscriptionView extends GetView<InscriptionController> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
-                                     onTap: () { Get.back();},
+                                      onTap: () {
+                                        Get.back();
+                                      },
                                       child: const Icon(
                                         Icons.arrow_back,
                                         size: 26,
@@ -89,46 +92,56 @@ class InscriptionView extends GetView<InscriptionController> {
                                   ),
                                   const SizedBox(height: 40),
                                   FormFieldInput(
-                                    onChanged: (string) {},
+                                    textController: controller.textEditingNom,
                                     hintText: "Entrez votre nom",
-                                    radius: kDefaultRadius *3 ,
+                                    radius: kDefaultRadius * 3,
                                   ),
                                   const SizedBox(height: 20),
                                   FormFieldInput(
-                                    onChanged: (string) {},
+                                    textController: controller.textEditingEmail,
                                     hintText: "Entrez votre email",
                                     keyboardType: TextInputType.emailAddress,
-                                    radius: kDefaultRadius *3 ,
-                                  ),
-                                   const SizedBox(height: 20),
-                                  FormFieldInput(
-                                    onChanged: (string) {},
-                                    hintText: "Entrez votre mot de passe",
-                                    radius: kDefaultRadius *3 ,
-                                  ),
-                                  const SizedBox(height: 50),
-                                  CustomActionButton(
-                                    title: "Enregistrer",
-                                    onTap: () { Get.toNamed(AppRoutes.CONNEXION ); },
+                                    radius: kDefaultRadius * 3,
                                   ),
                                   const SizedBox(height: 20),
-                                   CustomOutlineActionButton(
-                                    title: "Se connecter",
-                                    onTap: () { Get.toNamed(AppRoutes.CONNEXION ); },
+                                  FormFieldInput(
+                                    textController:
+                                        controller.textEditingPassword,
+                                    hintText: "Entrez votre mot de passe",
+                                    radius: kDefaultRadius * 3,
                                   ),
+                                  const SizedBox(height: 50),
+                                  controller.registerStatus ==
+                                          AppStatus.appLoading
+                                      ? Container(
+                                          height: 40,
+                                          alignment: Alignment.center,
+                                          child:
+                                              const CircularProgressIndicator(
+                                                  color: kPrimaryColor),
+                                        )
+                                      : Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            CustomActionButton(
+                                              title: "Enregistrer",
+                                              onTap: () async {
+                                                await controller.register();
+                                              },
+                                            ),
+                                            const SizedBox(height: 20),
+                                            CustomOutlineActionButton(
+                                              title: "Se connecter",
+                                              onTap: () {
+                                                Get.toNamed(
+                                                    AppRoutes.CONNEXION);
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                   const SizedBox(height: 40),
                                 ]),
-                          ),
-                          Container(
-                            height: 80,
-                            decoration: const BoxDecoration(
-                              color: kWhiteColor,
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                    "assets/images/Composant 4 – 3.png"),
-                              ),
-                            ),
                           ),
                         ]),
                   ),

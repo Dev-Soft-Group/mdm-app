@@ -18,7 +18,6 @@ class NavigationDrawer extends StatelessWidget {
       child: Container(
         height: Get.height,
         color: kWhiteColor,
-        // padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,85 +50,97 @@ class NavigationDrawer extends StatelessWidget {
                     const Spacer(),
                   ],
                 )),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: kDefaultPadding),
-                    MenuItem(
-                      image: "assets/icons/Icon-home.png",
-                      title: "Accueil",
-                      onTap: () { Get.offAndToNamed(AppRoutes.PRODUCTS);},
-                    ),
-                    MenuItem(
-                      image: "assets/icons/Icon-building.png",
-                      title: "Entreprises",
-                      onTap: () {
-                        Get.offAndToNamed(AppRoutes.ENTREPRISES);
-                      
-                      },
-                    ),
-                    MenuItem(
-                      image: "assets/icons/Icon-room-service.png",
-                      title: "Publications",
-                      onTap: () {Get.offAndToNamed(AppRoutes.PRODUITS); },
-                    ),
-                    MenuItem(
-                      image: "assets/icons/Icon-room-service.png",
-                      title: "Secteurs d'activités",
-                      onTap: () {Get.offAndToNamed(AppRoutes.SECTEURS); },
-                    ),
-                    MenuItem(
-                      image: "assets/icons/Icon-product-hunt.png",
-                      title: "Produits",
-                      onTap: () {
-                        Get.offAndToNamed(AppRoutes.HOMEPAGE);
-                      },
-                    ),
-                    MenuItem(
-                      image: "assets/icons/Icon-profile.png",
-                      title: "Profil",
-                      onTap: () {Get.offAndToNamed(AppRoutes.PROFILENTREPRENEUR);},
-                    ),
-                    MenuItem(
-                      image: "assets/icons/Icon-account-box.png",
-                      title: "Créer un compte",
-                      onTap: () {Get.offAndToNamed(AppRoutes.COMPTEENTREPRISE);},
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Divider(),
-                    ),
-                    MenuItem(
-                      image: "assets/icons/Icon-share.png",
-                      title: "Partager",
-                      onTap: () {},
-                    ),
-                    MenuItem(
-                      image: "assets/icons/Icon-contacts.png",
-                      title: "Aide et contact",
-                      onTap: () {},
-                    ),
-                    MenuItem(
-                      image: "assets/icons/Icon-information-circle-outline.png",
-                      title: "A propos",
-                      onTap: () {},
-                    ),
-                    MenuItem(
-                      image: "assets/icons/Icon-account-logout.png",
-                      title: "Se déconnecter",
-                      onTap: () async {
-                        final LocalAuthService _localAuth = LocalAuthServiceImpl();
-                        await _localAuth.deleteToken();
-                        Get.offAllNamed(AppRoutes.CONNEXION);
-                      },
-                    ),
-                  ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: kDefaultPadding),
+                      MenuItem(
+                        image: "assets/icons/Icon-home.png",
+                        title: "Accueil",
+                        onTap: () { Get.offAndToNamed(AppRoutes.PRODUCTS);},
+                      ),
+                      MenuItem(
+                        image: "assets/icons/Icon-building.png",
+                        title: "Entreprises",
+                        onTap: () {
+                          Get.offAndToNamed(AppRoutes.ENTREPRISES);
+                        
+                        },
+                      ),
+                      MenuItem(
+                        image: "assets/icons/Icon-room-service.png",
+                        title: "Publications",
+                        onTap: () {Get.offAndToNamed(AppRoutes.PRODUITS); },
+                      ),
+                      MenuItem(
+                        image: "assets/icons/Icon-room-service.png",
+                        title: "Secteurs d'activités",
+                        onTap: () {Get.offAndToNamed(AppRoutes.SECTEURS); },
+                      ),
+                      MenuItem(
+                        image: "assets/icons/Icon-product-hunt.png",
+                        title: "Produits",
+                        onTap: () {
+                          Get.offAndToNamed(AppRoutes.HOMEPAGE);
+                        },
+                      ),
+                      MenuItem(
+                        image: "assets/icons/Icon-profile.png",
+                        title: "Profil",
+                        onTap: () {Get.offAndToNamed(AppRoutes.PROFILENTREPRENEUR);},
+                      ),
+                      MenuItem(
+                        image: "assets/icons/Icon-account-box.png",
+                        title: "Créer un compte",
+                        onTap: () {Get.offAndToNamed(AppRoutes.COMPTEENTREPRISE);},
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Divider(),
+                      ),
+                      MenuItem(
+                        image: "assets/icons/Icon-share.png",
+                        title: "Partager",
+                        onTap: () {},
+                      ),
+                      MenuItem(
+                        image: "assets/icons/Icon-contacts.png",
+                        title: "Aide et contact",
+                        onTap: () {},
+                      ),
+                      MenuItem(
+                        image: "assets/icons/Icon-information-circle-outline.png",
+                        title: "A propos",
+                        onTap: () {},
+                      ),
+                      MenuItem(
+                        image: "assets/icons/Icon-account-logout.png",
+                        title: "Se déconnecter",
+                        onTap: () async {
+                          final LocalAuthService _localAuth = LocalAuthServiceImpl();
+                          await _localAuth.deleteToken();
+                          Get.offAllNamed(AppRoutes.CONNEXION);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            )
+            ),
+            Container(
+              height: 25,
+              alignment: Alignment.center,
+              child: Text("(c) All right reserved. by DouxSoftTech",
+                style: TextStyle(
+                  color: Colors.black.withOpacity(0.4),
+                  fontSize: 11,
+                ),
+              )
+            ),
           ],
         ),
       ),

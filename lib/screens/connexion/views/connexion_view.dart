@@ -92,7 +92,7 @@ class ConnexionView extends GetView<ConnexionController> {
                                   const SizedBox(height: 60),
                                   FormFieldInput(
                                     textController: controller.textEditingNom,
-                                    hintText: "Entrez votre email",
+                                    hintText: "Entrez votre nom d'utilisateur",
                                     keyboardType: TextInputType.emailAddress,
                                     radius: kDefaultRadius * 3,
                                   ),
@@ -133,17 +133,7 @@ class ConnexionView extends GetView<ConnexionController> {
                                   const SizedBox(height: 40),
                                 ]),
                           ),
-                          // Container(
-                          //   height: 80,
-                          //   decoration: const BoxDecoration(
-                          //     color: kWhiteColor,
-                          //     image: DecorationImage(
-                          //       fit: BoxFit.fill,
-                          //       image: AssetImage(
-                          //           "assets/images/Composant 4 – 3.png"),
-                          //     ),
-                          //   ),
-                          // ),
+                        
                         ]),
                   ),
                 ),
