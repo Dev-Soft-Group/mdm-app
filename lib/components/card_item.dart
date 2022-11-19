@@ -95,7 +95,7 @@ class CardItem extends StatelessWidget {
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: () {},
+                      onTap: (){ Get.toNamed(AppRoutes.CREATE_PRODUCTS); },
                       child: Icon(Icons.more_vert_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                 ],

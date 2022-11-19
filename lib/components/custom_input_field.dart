@@ -31,14 +31,14 @@ class FormFieldInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height ?? 45,
+      height: maxLines != null ? null : (height ?? 45),
       padding: const EdgeInsets.only(
           left: kDefaultPadding / 2, right: kDefaultPadding / 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius ?? kDefaultRadius),
         border: Border.all(
           width: 1.2,
-          color: kBlackColor.withOpacity(0.6),
+          color: kBlackColor.withOpacity(0.15),
         ),
       ),
       child: TextFormField(
@@ -47,6 +47,10 @@ class FormFieldInput extends StatelessWidget {
         maxLines: maxLines ?? 1,
         keyboardType: keyboardType,
         decoration: InputDecoration(
+          labelText: maxLines != null ? null : hintText,
+          labelStyle: const TextStyle(
+            color: kBlackColor,
+          ),
           suffixIcon: suffixIcon,
           border: InputBorder.none,
           hintText: hintText,

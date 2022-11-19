@@ -13,8 +13,7 @@ class LocalAuthServiceImpl implements LocalAuthService {
   @override
   Future<String?> getToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    // return pref.getString(Constants.ACCESSTOKEN);
-    return "";
+    return pref.getString(Constantes.ACCESSTOKEN);
   }
 
   @override

@@ -1,0 +1,100 @@
+// ignore_for_file: avoid_print
+
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:mdmscoops/components/app_snackbar.dart';
+import 'package:mdmscoops/core/app_colors.dart';
+import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/services/remote_services/categorie/categorie.dart';
+import 'package:mdmscoops/services/remote_services/produits/produits.dart';
+
+class ProduitFormController extends GetxController {
+  final CategorieService _categorieService = CategorieServiceImpl();
+  final ProduitService _produitService = ProduitServiceImpl();
+
+  AppStatus produitFormStatus = AppStatus.appDefault;
+
+  TextEditingController textEditingNomProduit = TextEditingController();
+  TextEditingController textEditingDescriptionProduit = TextEditingController();
+  TextEditingController textEditingPrixProduit = TextEditingController();
+  TextEditingController textEditingCategorieProduit = TextEditingController();
+
+  String selectedCategory = "Aucun";
+
+  @override
+  void onInit() async {
+    await getCategories();
+    super.onInit();
+  }
+
+  List<Map<String, dynamic>> categories = [
+    {'id': "-1", 'libelle': "Aucun"},
+  ];
+
+  Future getCategories() async {
+    await _categorieService.getAllCategories(onSuccess: (data) {
+      for (Map map in data["results"]) {
+        categories.add({"id": map["id"], "libelle": map["nom"]});
+      }
+      if (categories.length > 1) {
+        selectedCategory = categories[1]['libelle'];
+        categories.removeAt(0);
+        categories.sort((a, b) => a['libelle'].compareTo(b['libelle']));
+      }
+      update();
+    }, onError: (error) {
+      print(error);
+      update();
+    });
+  }
+
+  void onChangeCategory(data) {
+    selectedCategory = data;
+    update();
+  }
+
+  Future save() async {
+    if (textEditingNomProduit.text.isEmpty) {
+      AppSnackBar.show(
+          title: "Erreur", message: "Entrez le nom du produit svp !");
+      return;
+    }
+
+    if (!GetUtils.isNumericOnly(textEditingPrixProduit.text)) {
+      AppSnackBar.show(
+          title: "Erreur", message: "Veuillez entrer le prix du produit.");
+      return;
+    }
+    if (textEditingDescriptionProduit.text.isEmpty) {
+      AppSnackBar.show(
+          title: "Erreur", message: "Donnez une petite description de votre produit svp !");
+      return;
+    }
+    produitFormStatus = AppStatus.appLoading;
+    update();
+    var data = {
+      "nom": textEditingNomProduit.text.trim(),
+      "description": textEditingNomProduit.text.trim(),
+      "prix": int.parse(textEditingPrixProduit.text.trim()),
+      "categorie": categories.firstWhere(
+          (element) => element['libelle'] == selectedCategory)['id'],
+    };
+    await _produitService.addProduit(
+        data: data,
+        onSuccess: (data) {
+          print(data);
+          AppSnackBar.show(
+              title: "Succès",
+              message: data["message"].toString(),
+              backColor: kBlackColor);
+          produitFormStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Erreur", message: e.response!.data["message"].toString());
+          produitFormStatus = AppStatus.appFailure;
+          update();
+        });
+  }
+}

@@ -21,6 +21,7 @@ import 'package:mdmscoops/screens/onboarding/views/onboarding.dart';
 import 'package:mdmscoops/screens/products/bindings/product_bindings.dart';
 import 'package:mdmscoops/screens/products/views/product_views.dart';
 import 'package:mdmscoops/screens/produits/bindings/produits_bindings.dart';
+import 'package:mdmscoops/screens/produits/views/produit_form_view.dart';
 import 'package:mdmscoops/screens/produits/views/produit_view.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/bindings/profil_entrepreneur_binding.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/views/profil_entrepreneur_view.dart';
@@ -75,6 +76,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.PRODUITS,
       page: () => const ProduitsView(),
+      binding: ProduitBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.CREATE_PRODUCTS,
+      page: () => const ProduitFormView(),
       binding: ProduitBinding(),
     ),
     GetPage(
