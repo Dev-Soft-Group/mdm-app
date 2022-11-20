@@ -12,6 +12,8 @@ class AppRoutes {
   static const String PRODUCTS = "/products";
   static const String CREATE_PRODUCTS = "/create_products";
   static const String CREATE_SERVICE = "/create_service";
+  static const String CREATE_CORPS_METIER = "/create_coprs_metier";
+  static const String CREATE_SECTEUR_ACTIVITE = "/create_secteur_activite";
   static const String PRODUITS = "/produits";
   static const String ENTREPRISES = "/entreprises";
   static const String SECTEURS = "/secteurs";

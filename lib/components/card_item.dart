@@ -80,12 +80,12 @@ class CardItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                      onTap: () {},
+                      onTap: (){ Get.toNamed(AppRoutes.CREATE_SECTEUR_ACTIVITE); },
                       child: Icon(CupertinoIcons.heart,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: () {},
+                      onTap: (){ Get.toNamed(AppRoutes.CREATE_CORPS_METIER); },
                       child: Icon(Icons.comment_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),

@@ -4,6 +4,8 @@ import 'package:mdmscoops/screens/compte/bindings/compte_binding.dart';
 import 'package:mdmscoops/screens/compte/views/compte_view.dart';
 import 'package:mdmscoops/screens/connexion/bindings/connexion_binding.dart';
 import 'package:mdmscoops/screens/connexion/views/connexion_view.dart';
+import 'package:mdmscoops/screens/corps_metier/bindings/coprs_metier_bindings.dart';
+import 'package:mdmscoops/screens/corps_metier/views/corps_metier_form_views.dart';
 import 'package:mdmscoops/screens/detail_entreprise/bindings/detail_entreprise_binding.dart';
 import 'package:mdmscoops/screens/detail_entreprise/views/detail_entreprise_view.dart';
 import 'package:mdmscoops/screens/detail_produit/bindings/produit_detal_binding.dart';
@@ -26,6 +28,7 @@ import 'package:mdmscoops/screens/produits/views/produit_view.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/bindings/profil_entrepreneur_binding.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/views/profil_entrepreneur_view.dart';
 import 'package:mdmscoops/screens/secteurs/bindings/secteurs_binding.dart';
+import 'package:mdmscoops/screens/secteurs/views/secteur_activite_form_views.dart';
 import 'package:mdmscoops/screens/secteurs/views/secteurs_view.dart';
 import 'package:mdmscoops/screens/services/bindings/services_bindings.dart';
 import 'package:mdmscoops/screens/services/views/service_form_views.dart';
@@ -90,6 +93,18 @@ class AppPages {
       page: () => const ProduitFormView(),
       binding: ProduitBinding(),
     ),
+    GetPage(
+      name: AppRoutes.CREATE_CORPS_METIER,
+      page: () => const CorpsMetierFormView(),
+      binding: CorpsMetierFormBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.CREATE_SECTEUR_ACTIVITE,
+      page: () => const SecteurActiviteFormView(),
+      binding: SecteursBinding(),
+    ),
+
     GetPage(
       name: AppRoutes.ENTREPRISEDETAILS,
       page: () => const EntrepriseDetailView(),
