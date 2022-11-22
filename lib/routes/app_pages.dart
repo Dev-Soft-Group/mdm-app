@@ -28,6 +28,8 @@ import 'package:mdmscoops/screens/produits/views/produit_form_view.dart';
 import 'package:mdmscoops/screens/produits/views/produit_view.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/bindings/profil_entrepreneur_binding.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/views/profil_entrepreneur_view.dart';
+import 'package:mdmscoops/screens/publications/bindings/publications_bindings.dart';
+import 'package:mdmscoops/screens/publications/views/publications_form_view.dart';
 import 'package:mdmscoops/screens/secteurs/bindings/secteurs_binding.dart';
 import 'package:mdmscoops/screens/secteurs/views/secteur_activite_form_views.dart';
 import 'package:mdmscoops/screens/secteurs/views/secteurs_view.dart';
@@ -104,6 +106,12 @@ class AppPages {
       name: AppRoutes.CREATE_SECTEUR_ACTIVITE,
       page: () => const SecteurActiviteFormView(),
       binding: SecteursBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.CREATE_PUBLICAION,
+      page: () => const PublicationFormView(),
+      binding: PublicationFormBinding(),
     ),
 
     GetPage(

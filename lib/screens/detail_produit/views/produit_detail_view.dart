@@ -174,7 +174,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                         color: kPrimaryColor.withOpacity(0.8))),
                                 const SizedBox(width: 8),
                                 InkWell(
-                                    onTap: () {},
+                                    onTap: () {Get.toNamed(AppRoutes.CREATE_PUBLICAION);},
                                     child: Icon(Icons.share,
                                         size: 26,
                                         color: kPrimaryColor.withOpacity(0.8))),
