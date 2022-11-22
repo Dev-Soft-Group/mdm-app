@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/detail_produit/controllers/produit_detail_controller.dart';
 
 class DetailProduitView extends GetView<ProduitDetailController> {
@@ -179,7 +180,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                         color: kPrimaryColor.withOpacity(0.8))),
                                 const SizedBox(width: 8),
                                 InkWell(
-                                    onTap: () {},
+                                    onTap: () {Get.toNamed(AppRoutes.ENTREPRISE_SUCCURSALE);},
                                     child: Icon(Icons.more_vert_outlined,
                                         size: 26,
                                         color: kPrimaryColor.withOpacity(0.8))),

@@ -42,8 +42,9 @@ class ProduitFormController extends GetxController {
         categories.sort((a, b) => a['libelle'].compareTo(b['libelle']));
       }
       update();
-    }, onError: (error) {
-      print(error);
+    }, onError: (e) {
+      AppSnackBar.show(
+          title: "Erreur", message: e.response!.data["message"].toString());
       update();
     });
   }
@@ -67,7 +68,8 @@ class ProduitFormController extends GetxController {
     }
     if (textEditingDescriptionProduit.text.isEmpty) {
       AppSnackBar.show(
-          title: "Erreur", message: "Donnez une petite description de votre produit svp !");
+          title: "Erreur",
+          message: "Donnez une petite description de votre produit svp !");
       return;
     }
     produitFormStatus = AppStatus.appLoading;

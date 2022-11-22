@@ -47,13 +47,18 @@ class FormFieldInput extends StatelessWidget {
         maxLines: maxLines ?? 1,
         keyboardType: keyboardType,
         decoration: InputDecoration(
-          labelText: maxLines != null ? null : hintText,
-          labelStyle: const TextStyle(
-            color: kBlackColor,
+          labelText: maxLines != null ? null : " $hintText ",
+          labelStyle: TextStyle(
+            color: kBlackColor.withOpacity(0.6),
+            fontSize: 13,
+            backgroundColor: kWhiteColor,
           ),
           suffixIcon: suffixIcon,
           border: InputBorder.none,
           hintText: hintText,
+          hintStyle: const TextStyle(
+            fontSize: 13,
+          ),
           contentPadding: contentPadding ?? const EdgeInsets.only(top:-3, right:0, bottom:3, left:0),
         ),
       ),

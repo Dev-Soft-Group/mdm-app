@@ -2,6 +2,7 @@ import 'package:get/route_manager.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/compte/bindings/compte_binding.dart';
 import 'package:mdmscoops/screens/compte/views/compte_view.dart';
+import 'package:mdmscoops/screens/compte/views/succursale_form_view.dart';
 import 'package:mdmscoops/screens/connexion/bindings/connexion_binding.dart';
 import 'package:mdmscoops/screens/connexion/views/connexion_view.dart';
 import 'package:mdmscoops/screens/corps_metier/bindings/coprs_metier_bindings.dart';
@@ -113,6 +114,12 @@ class AppPages {
     GetPage(
       name: AppRoutes.COMPTEENTREPRISE,
       page: () => const CompteView(),
+      binding: CompteBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.ENTREPRISE_SUCCURSALE,
+      page: () => const SuccursaleFormView(),
       binding: CompteBinding(),
     ),
     GetPage(
