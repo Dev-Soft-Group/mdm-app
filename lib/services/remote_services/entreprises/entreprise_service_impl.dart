@@ -22,7 +22,7 @@ class EntrepriseServiceImpl implements EntrepriseService {
     });
   }
 
-   @override
+  @override
   Future<void> getAllEntreprisesForUser(
       {Function(dynamic data)? onSuccess,
       Function(dynamic error)? onError}) async {
@@ -55,6 +55,7 @@ class EntrepriseServiceImpl implements EntrepriseService {
       }
     });
   }
+
   @override
   Future<void> addSuccursale(
       {dynamic data,
