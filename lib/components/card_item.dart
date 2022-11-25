@@ -20,7 +20,7 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){ Get.toNamed(AppRoutes.PRODUITSDETAILS); },
+      onTap: (){ Get.toNamed(AppRoutes.PRODUITSDETAILS, arguments: null); },
       child: Stack(
         children: [
           Container(
