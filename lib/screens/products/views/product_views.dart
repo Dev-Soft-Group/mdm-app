@@ -39,7 +39,7 @@ class ProductView extends GetView<ProductController> {
                   child: RefreshIndicator(
                     color: kPrimaryColor,
                     backgroundColor: kWhiteColor,
-                    onRefresh: () async { await controller.doing();},
+                    onRefresh: () async { await controller.getProductsCategories();},
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
