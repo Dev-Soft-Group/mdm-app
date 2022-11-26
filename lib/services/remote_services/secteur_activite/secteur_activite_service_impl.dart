@@ -1,5 +1,6 @@
 import 'package:mdmscoops/core/app_constantes.dart';
 import 'package:mdmscoops/core/app_library.dart';
+import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/secteur_activite/secteur_activite.dart';
 
@@ -8,13 +9,13 @@ class SecteurActiviteServiceImpl implements SecteurActiviteService {
 
   @override
   Future<void> getAllSecteurActivite(
-      {Function(dynamic data)? onSuccess,
+      {Function(SecteurActiviteResponseModel data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(
       url: "${Constantes.API_URL}/secteur-activite/",
       token: await _localAuth.getToken(),
     ).get(onSuccess: (data) {
-      onSuccess!(data);
+      onSuccess!(SecteurActiviteResponseModel.fromMap(data));
     }, onError: (error) {
       if (error != null) {
         onError!(error);

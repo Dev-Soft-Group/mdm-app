@@ -11,14 +11,14 @@ import 'package:mdmscoops/screens/home/controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
 
-
-   @override
+  @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     void openDrawer() {
       _scaffoldKey.currentState!.openDrawer();
     }
+
     return SafeArea(
       child: GetBuilder<HomeController>(
         builder: (controller) => Scaffold(
@@ -36,28 +36,33 @@ class HomeView extends GetView<HomeController> {
               children: [
                 AppBanner(open: openDrawer),
                 Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: kDefaultPadding),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const TextTitle(text: "Rechercher un produit"),
-                          const SizedBox(height: kDefaultPadding),
-                          const LineItem(title: "Baskets"),
-                          const SizedBox(height: kDefaultPadding),
-                          const LineItem(title: "Accessoires informatiques"),
-                          const SizedBox(height: kDefaultPadding),
-                          const LineItem(title: "Services"),
-                          const SizedBox(height: kDefaultPadding),
-                          const LineItem(title: "Auto école"),
-                          const SizedBox(height: kDefaultPadding),
-                          const LineItem(title: "Immobiliers"),
-                          const SizedBox(height: kDefaultPadding * 2),
-                          Container(),
-                        ],
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      await controller.getProductsCategories();
+                    },
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: kDefaultPadding),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const TextTitle(text: "Rechercher un produit"),
+                            const SizedBox(height: kDefaultPadding),
+                            const LineItem(title: "Baskets"),
+                            const SizedBox(height: kDefaultPadding),
+                            const LineItem(title: "Accessoires informatiques"),
+                            const SizedBox(height: kDefaultPadding),
+                            const LineItem(title: "Services"),
+                            const SizedBox(height: kDefaultPadding),
+                            const LineItem(title: "Auto école"),
+                            const SizedBox(height: kDefaultPadding),
+                            const LineItem(title: "Immobiliers"),
+                            const SizedBox(height: kDefaultPadding * 2),
+                            Container(),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -70,4 +75,3 @@ class HomeView extends GetView<HomeController> {
     );
   }
 }
-

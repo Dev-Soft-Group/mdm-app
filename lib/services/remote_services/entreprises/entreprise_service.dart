@@ -1,24 +1,27 @@
 
+import 'package:dio/dio.dart';
+import 'package:mdmscoops/models/response_model/entreprise_model.dart';
+
 abstract class EntrepriseService {
   Future<void> getAllEntreprises({
-    Function(dynamic data)? onSuccess,
-    Function(dynamic error)? onError,
+    Function(EntrepriseResponseModel data)? onSuccess,
+    Function(DioError error)? onError,
   });
 
   Future<void> getAllEntreprisesForUser({
     Function(dynamic data)? onSuccess,
-    Function(dynamic error)? onError,
+    Function(DioError error)? onError,
   });
 
   Future<void> addEntreprise({
     dynamic data,
     Function(dynamic data)? onSuccess,
-    Function(dynamic error)? onError,
+    Function(DioError error)? onError,
   });
   
   Future<void> addSuccursale({
     dynamic data,
     Function(dynamic data)? onSuccess,
-    Function(dynamic error)? onError,
+    Function(DioError error)? onError,
   });
 }

@@ -35,60 +35,63 @@ class SecteursView extends GetView<SecteursController> {
               children: [
                 AppBanner(open: openDrawer),
                 Expanded(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const TextTitle(text: "Catégories"),
-                        const SizedBox(height: kDefaultPadding),
-                        Container(
-                          height: 30,
-                          decoration: const BoxDecoration(),
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: controller.menus.length,
-                              itemBuilder: (context, index) => InkWell(
-                                    onTap: () {
-                                      controller.onTabChange(index);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: kDefaultPadding * 1.2,
-                                          top: kDefaultPadding / 3,
-                                          bottom: kDefaultPadding / 3),
-                                      child: Text(
-                                        controller.menus[index],
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: controller.selectedTabs ==
-                                                  index
-                                              ? kBlackColor
-                                              : kBlackColor.withOpacity(0.4),
-                                          fontWeight:
-                                              controller.selectedTabs == index
-                                                  ? FontWeight.w600
-                                                  : FontWeight.w400,
+                  child: RefreshIndicator(
+                    onRefresh: () async { await controller.getAllSecteurActivite();},
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const TextTitle(text: "Catégories"),
+                          const SizedBox(height: kDefaultPadding),
+                          Container(
+                            height: 30,
+                            decoration: const BoxDecoration(),
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller.menus.length,
+                                itemBuilder: (context, index) => InkWell(
+                                      onTap: () {
+                                        controller.onTabChange(index);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: kDefaultPadding * 1.2,
+                                            top: kDefaultPadding / 3,
+                                            bottom: kDefaultPadding / 3),
+                                        child: Text(
+                                          controller.menus[index],
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: controller.selectedTabs ==
+                                                    index
+                                                ? kBlackColor
+                                                : kBlackColor.withOpacity(0.4),
+                                            fontWeight:
+                                                controller.selectedTabs == index
+                                                    ? FontWeight.w600
+                                                    : FontWeight.w400,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  )),
-                        ),
-                        const SizedBox(height: kDefaultPadding - 4),
-                        Expanded(
-                          child: GridView.count(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            shrinkWrap: true,
-                            children: List.generate(
-                                controller.categories.length, (index) => CustomCard(item: controller.categories[index])),
+                                    )),
                           ),
-                        ),
-                        const SizedBox(height: kDefaultPadding*1.5)
-                      ],
+                          const SizedBox(height: kDefaultPadding - 4),
+                          Expanded(
+                            child: GridView.count(
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              shrinkWrap: true,
+                              children: List.generate(
+                                  controller.categories.length, (index) => CustomCard(item: controller.categories[index])),
+                            ),
+                          ),
+                          const SizedBox(height: kDefaultPadding*1.5)
+                        ],
+                      ),
                     ),
                   ),
                 ),

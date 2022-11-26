@@ -29,7 +29,7 @@ class EntrepriseResponseModel {
         "status": status,
         "success": success,
         "message": message,
-        "entreprises": entreprises
+        "entreprises": List<Map<String, dynamic>>.from(entreprises!.map((x) => x.toMap()))
       };
 
   String toJson() => json.encode(toMap());

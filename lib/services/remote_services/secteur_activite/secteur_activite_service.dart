@@ -1,7 +1,9 @@
 
+import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
+
 abstract class SecteurActiviteService {
   Future<void> getAllSecteurActivite({
-    Function(dynamic data)? onSuccess,
+    Function(SecteurActiviteResponseModel data)? onSuccess,
     Function(dynamic error)? onError,
   });
 

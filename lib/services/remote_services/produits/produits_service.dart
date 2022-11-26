@@ -2,7 +2,7 @@ import 'package:mdmscoops/models/response_model/produit_model.dart';
 
 abstract class ProduitService {
   Future<void> getAllProduits({
-    Function(dynamic data)? onSuccess,
+    Function(ProduitResponseModel data)? onSuccess,
     Function(dynamic error)? onError,
   });
 

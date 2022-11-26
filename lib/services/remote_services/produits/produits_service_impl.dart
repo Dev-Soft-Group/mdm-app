@@ -9,13 +9,13 @@ class ProduitServiceImpl implements ProduitService {
 
   @override
   Future<void> getAllProduits(
-      {Function(dynamic data)? onSuccess,
+      {Function(ProduitResponseModel data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(
       url: "${Constantes.API_URL}/produit/",
       token: await _localAuth.getToken(),
     ).get(onSuccess: (data) {
-      onSuccess!(data);
+      onSuccess!(ProduitResponseModel.fromMap(data));
     }, onError: (error) {
       if (error != null) {
         onError!(error);

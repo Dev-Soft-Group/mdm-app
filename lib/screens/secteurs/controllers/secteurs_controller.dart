@@ -1,8 +1,15 @@
 
 
 import 'package:get/get.dart';
+import 'package:mdmscoops/components/app_snackbar.dart';
+import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/services/remote_services/secteur_activite/secteur_activite.dart';
 
 class SecteursController extends GetxController{
+
+
+  final SecteurActiviteService _secteurActiviteService = SecteurActiviteServiceImpl();
+   AppStatus secteursStatus = AppStatus.appLoading;
 
   int selectedTabs = 0;
 
@@ -23,8 +30,35 @@ class SecteursController extends GetxController{
     "Infrastructure & Construction",
   ];
 
+  @override
+  void onInit() async {
+    await getAllSecteurActivite();
+    super.onInit();
+  }
+
   void onTabChange(int index) {
     selectedTabs = index;
     update();
+  }
+
+
+  
+  Future getAllSecteurActivite() async {
+
+    secteursStatus = AppStatus.appLoading;
+    update();
+
+    await _secteurActiviteService.getAllSecteurActivite(
+      onSuccess: (data) {
+        print(data.toMap());
+        secteursStatus = AppStatus.appSuccess;
+        update();
+      },
+      onError: (e) {
+        AppSnackBar.show(title:"Erreur", message:e.toString());
+        secteursStatus = AppStatus.appFailure;
+        update();
+      }
+    );
   }
 }

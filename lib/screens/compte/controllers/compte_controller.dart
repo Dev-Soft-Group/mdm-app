@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
 import 'package:path/path.dart' as p;
 import 'package:dio/dio.dart' as client;
 import 'package:image_picker/image_picker.dart';
@@ -88,8 +89,8 @@ class CompteController extends GetxController {
 
   Future getAllSecteurs() async {
     await _secteurActiviteService.getAllSecteurActivite(onSuccess: (data) {
-      for (Map map in data["results"]) {
-        secteurs.add({"id": map["id"], "libelle": map["nom"]});
+      for (SecteurActivite map in data.secteurActivites!) {
+        secteurs.add({"id": map.id!, "libelle": map.nom!});
       }
       if (secteurs.length > 1) {
         selectedSecteur = secteurs[1]['libelle'];

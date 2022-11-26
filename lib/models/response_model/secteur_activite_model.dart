@@ -6,9 +6,9 @@ class SecteurActiviteResponseModel {
   final int? status;
   final bool? success;
   final String? message;
-  final List<SecteurActivite>? secteurActivite;
+  final List<SecteurActivite>? secteurActivites;
 
-  SecteurActiviteResponseModel({this.status, this.success, this.message, this.secteurActivite});
+  SecteurActiviteResponseModel({this.status, this.success, this.message, this.secteurActivites});
 
   factory SecteurActiviteResponseModel.fromJson(String string) => SecteurActiviteResponseModel.fromMap(json.decode(string));
 
@@ -16,7 +16,7 @@ class SecteurActiviteResponseModel {
     status: map["status"] as int?,
     success: map["success"] as bool?,
     message: map["message"] as String?,
-    secteurActivite: map["results"] == null ? null : List<SecteurActivite>.from(map["results"].map((x) => SecteurActivite.fromMap(x)))
+    secteurActivites: map["results"] == null ? null : List<SecteurActivite>.from(map["results"].map((x) => SecteurActivite.fromMap(x)))
   );
 
 
@@ -24,7 +24,7 @@ class SecteurActiviteResponseModel {
     "status": status,
     "success": success,
     "message": message,
-    "secteurActivite": SecteurActivite
+    "secteurActivites": List<Map<String, dynamic>>.from(secteurActivites!.map((x) => x.toMap()))
   };
 
   String toJson() => json.encode(toMap());

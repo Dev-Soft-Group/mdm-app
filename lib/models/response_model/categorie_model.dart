@@ -24,7 +24,7 @@ class CategorieResponseModel {
     "status": status,
     "success": success,
     "message": message,
-    "categories": categories
+    "categories": List<Map<String, dynamic>>.from(categories!.map((x) => x.toMap()))
   };
 
   String toJson() => json.encode(toMap());
