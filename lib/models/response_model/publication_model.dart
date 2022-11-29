@@ -28,7 +28,7 @@ class PublicationResponseModel {
         "status": status,
         "success": success,
         "message": message,
-        "publications": publications
+        "publications": List<Map<String, dynamic>>.from(publications!.map((x) => x.toMap()))
       };
 
   String toJson() => json.encode(toMap());
@@ -39,7 +39,7 @@ class Publication {
   final String? titre;
   final String? description;
   final String? imageUrl;
-  final String? auteur;
+  final int? auteur;
   final String? entreprise;
   final int? type;
   final DateTime? created_at;
@@ -64,7 +64,7 @@ class Publication {
       titre: map['titre'] as String?,
       description: map["description"] as String?,
       imageUrl: map["imageUrl"] as String?,
-      auteur: map["auteur"] as String?,
+      auteur: map["auteur"] as int?,
       entreprise: map["entreprise"] as String?,
       type: map["type"] as int?,
       created_at:

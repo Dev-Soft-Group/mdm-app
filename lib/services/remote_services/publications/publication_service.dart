@@ -1,7 +1,9 @@
 
+import 'package:mdmscoops/models/response_model/publication_model.dart';
+
 abstract class PublicationService {
   Future<void> getAllPublications({
-    Function(dynamic data)? onSuccess,
+    Function(PublicationResponseModel data)? onSuccess,
     Function(dynamic error)? onError,
   });
 

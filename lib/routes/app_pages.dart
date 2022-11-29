@@ -101,19 +101,16 @@ class AppPages {
       page: () => const CorpsMetierFormView(),
       binding: CorpsMetierFormBinding(),
     ),
-
     GetPage(
       name: AppRoutes.CREATE_SECTEUR_ACTIVITE,
       page: () => const SecteurActiviteFormView(),
       binding: SecteursBinding(),
     ),
-
     GetPage(
       name: AppRoutes.CREATE_PUBLICAION,
       page: () => const PublicationFormView(),
       binding: PublicationFormBinding(),
     ),
-
     GetPage(
       name: AppRoutes.ENTREPRISEDETAILS,
       page: () => const EntrepriseDetailView(),
@@ -124,7 +121,6 @@ class AppPages {
       page: () => const CompteView(),
       binding: CompteBinding(),
     ),
-
     GetPage(
       name: AppRoutes.ENTREPRISE_SUCCURSALE,
       page: () => const SuccursaleFormView(),

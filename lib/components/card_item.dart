@@ -7,7 +7,15 @@ import 'package:mdmscoops/routes/app_routes.dart';
 
 class CardItem extends StatelessWidget {
   const CardItem(
-      {Key? key, this.width, this.left, this.bottom, this.bottomLeft, this.containerHeight, this.imageHeight, this.logoTop})
+      {Key? key,
+      this.item, 
+      this.width,
+      this.left,
+      this.bottom,
+      this.bottomLeft,
+      this.containerHeight,
+      this.imageHeight,
+      this.logoTop})
       : super(key: key);
   final double? width;
   final double? left;
@@ -16,15 +24,18 @@ class CardItem extends StatelessWidget {
   final double? containerHeight;
   final double? imageHeight;
   final double? logoTop;
+  final dynamic item;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){ Get.toNamed(AppRoutes.PRODUITSDETAILS, arguments: null); },
+      onTap: () {
+        Get.toNamed(AppRoutes.PRODUITSDETAILS, arguments: null);
+      },
       child: Stack(
         children: [
           Container(
-            height: containerHeight ??  240,
+            height: containerHeight ?? 240,
             width: width ?? Get.width / 2,
             clipBehavior: Clip.antiAlias,
             margin: EdgeInsets.only(
@@ -53,19 +64,17 @@ class CardItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(kDefaultRadius),
                   ),
                   child:
-                      Image.asset("assets/images/photo.jpg", fit: BoxFit.fill)),
+                      Image.network(item!.imageUrl!, fit: BoxFit.fill)),
               const SizedBox(height: 8),
-              const Text(
-                "Chapeau Manequin",
-                style: TextStyle(
+              Text(item!.nom!.toString().capitalizeFirst!,
+                style: const TextStyle(
                   color: kBlackColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
               ),
               const SizedBox(height: 3),
-              Text(
-                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no.",
+              Text( item!.description!.toString().capitalizeFirst!,
                 maxLines: 3,
                 textAlign: TextAlign.justify,
                 overflow: TextOverflow.ellipsis,
@@ -80,22 +89,30 @@ class CardItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                      onTap: (){ Get.toNamed(AppRoutes.CREATE_SECTEUR_ACTIVITE); },
+                      onTap: () {
+                        Get.toNamed(AppRoutes.CREATE_SECTEUR_ACTIVITE);
+                      },
                       child: Icon(CupertinoIcons.heart,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: (){ Get.toNamed(AppRoutes.CREATE_CORPS_METIER); },
+                      onTap: () {
+                        Get.toNamed(AppRoutes.CREATE_CORPS_METIER);
+                      },
                       child: Icon(Icons.comment_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: (){ Get.toNamed(AppRoutes.CREATE_SERVICE); },
+                      onTap: () {
+                        Get.toNamed(AppRoutes.CREATE_SERVICE);
+                      },
                       child: Icon(Icons.share,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: (){ Get.toNamed(AppRoutes.CREATE_PRODUCTS); },
+                      onTap: () {
+                        Get.toNamed(AppRoutes.CREATE_PRODUCTS);
+                      },
                       child: Icon(Icons.more_vert_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                 ],

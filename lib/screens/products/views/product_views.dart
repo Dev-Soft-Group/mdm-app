@@ -6,6 +6,7 @@ import 'package:mdmscoops/components/card_item.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/screens/products/controllers/product_controller.dart';
 
 class ProductView extends GetView<ProductController> {
@@ -39,57 +40,53 @@ class ProductView extends GetView<ProductController> {
                   child: RefreshIndicator(
                     color: kPrimaryColor,
                     backgroundColor: kWhiteColor,
-                    onRefresh: () async { await controller.getProductsCategories();},
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: kDefaultPadding),
-                            child: TextTitle(text: "Coach Sportif"),
-                          ),
-                          const SizedBox(height: kDefaultPadding),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
+                    onRefresh: () async {
+                      await controller.getProductsCategories();
+                    },
+                    child: controller.productStatus == AppStatus.appLoading
+                        ? Container(
+                            color: kWhiteColor,
+                            alignment: Alignment.center,
+                            child: const CircularProgressIndicator(
+                                color: kPrimaryColor))
+                        : SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                ...List.generate(10, (index) => const CardItem())
+                                ...List.generate(
+                                    controller.categoriesList.length,
+                                    (i) => Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: kDefaultPadding),
+                                                child: TextTitle(
+                                                    text: controller.categoriesList[i].nom!.toString().capitalizeFirst!),
+                                              ),
+                                              const SizedBox(
+                                                  height: kDefaultPadding/2),
+                                              SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Row(
+                                                  children: [
+                                                    ...List.generate(
+                                                       controller.categoriesList[i].produits!.length,
+                                                        (j) =>
+                                                          CardItem(item: controller.categoriesList[i].produits![j]))
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(height: kDefaultPadding / 2),
+                                            ])),
+                                const SizedBox(height: kDefaultPadding * 2),
                               ],
                             ),
                           ),
-                          const SizedBox(height: kDefaultPadding),
-                          const Padding(
-                            padding: EdgeInsets.only(left: kDefaultPadding),
-                            child: TextTitle(text: "Bureaux d'étude"),
-                          ),
-                          const SizedBox(height: kDefaultPadding),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                ...List.generate(10, (index) => const CardItem())
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: kDefaultPadding),
-                          const Padding(
-                            padding: EdgeInsets.only(left: kDefaultPadding),
-                            child: TextTitle(text: "Immobilier"),
-                          ),
-                          const SizedBox(height: kDefaultPadding),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                ...List.generate(10, (index) => const CardItem())
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: kDefaultPadding * 2),
-                        ],
-                      ),
-                    ),
                   ),
                 ),
               ],

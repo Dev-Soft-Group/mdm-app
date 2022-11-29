@@ -36,7 +36,7 @@ class ProduitsView extends GetView<ProduitController> {
                 AppBanner(open: openDrawer),
                 Expanded(
                   child: RefreshIndicator(
-                    onRefresh: ()async{  await controller.getAllProduits();},
+                    onRefresh: ()async{  await controller.getAllPublications();},
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,

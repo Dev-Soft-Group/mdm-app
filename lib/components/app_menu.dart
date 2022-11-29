@@ -126,6 +126,7 @@ class NavigationDrawer extends StatelessWidget {
                           Get.offAllNamed(AppRoutes.CONNEXION);
                         },
                       ),
+                      
                     ],
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'package:mdmscoops/core/app_constantes.dart';
 import 'package:mdmscoops/core/app_library.dart';
+import 'package:mdmscoops/models/response_model/publication_model.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/publications/publication_service.dart';
 
@@ -8,13 +9,13 @@ class PublicationServiceImpl implements PublicationService {
 
   @override
   Future<void> getAllPublications(
-      {Function(dynamic data)? onSuccess,
+      {Function(PublicationResponseModel data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(
       url: "${Constantes.API_URL}/publication/",
       token: await _localAuth.getToken(),
     ).get(onSuccess: (data) {
-      onSuccess!(data);
+      onSuccess!(PublicationResponseModel.fromMap(data));
     }, onError: (error) {
       if (error != null) {
         onError!(error);
