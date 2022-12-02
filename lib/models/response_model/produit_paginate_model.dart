@@ -4,12 +4,13 @@ import 'package:mdmscoops/models/response_model/produit_model.dart';
 
 class ProduitPaginateResponseModel {
   final int? count;
-  final dynamic next;
-  final dynamic previous;
-  final List<Produit>? produits;
+  dynamic next;
+  dynamic previous;
+  bool? isSearching;
+  List<Produit>? produits;
 
   ProduitPaginateResponseModel(
-      {this.count, this.next, this.previous, this.produits});
+      {this.count, this.next, this.previous, this.produits, this.isSearching});
 
   factory ProduitPaginateResponseModel.fromJson(String string) =>
       ProduitPaginateResponseModel.fromMap(json.decode(string));
@@ -19,6 +20,7 @@ class ProduitPaginateResponseModel {
           count: map["count"] as int?,
           next: map["next"],
           previous: map["previous"],
+          isSearching: false,
           produits: map["results"] == null
               ? null
               : List<Produit>.from(
@@ -28,6 +30,7 @@ class ProduitPaginateResponseModel {
         "count": count,
         "next": next,
         "previous": previous,
+        "isSearching": isSearching,
         "produits": List<Map<String, dynamic>>.from(produits!.map((x) => x.toMap()))
       };
 

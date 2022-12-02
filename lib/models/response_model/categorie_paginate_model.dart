@@ -23,7 +23,8 @@ class CategoriePaginateResponseModel {
           categories: map["results"] == null
               ? null
               : List<Categorie>.from(
-                  map["results"].map((x) => Categorie.fromMap(x))));
+                  map["results"].map((x) => Categorie.fromMap(x)))
+          );
 
   Map<String, dynamic> toMap() => {
         "count": count,

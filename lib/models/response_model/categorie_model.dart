@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:mdmscoops/models/response_model/produit_model.dart';
+import 'package:mdmscoops/models/response_model/produit_paginate_model.dart';
 
 class CategorieResponseModel {
   final int? status;
@@ -36,10 +37,10 @@ class Categorie {
   final String? nom;
   final DateTime? created_at;
   final DateTime? updated_at;
-  final List<Produit>? produits;
+  final ProduitPaginateResponseModel? produitModel;
 
   Categorie(
-      {this.id, this.nom, this.created_at, this.updated_at, this.produits});
+      {this.id, this.nom, this.created_at, this.updated_at, this.produitModel});
 
 
   factory Categorie.fromJson(String string) => Categorie.fromMap(json.decode(string));
@@ -49,7 +50,7 @@ class Categorie {
     nom: map['nom'] as String?,
     created_at: map['created_at'] == null ? null : DateTime.parse(map['created_at']),
     updated_at: map['updated_at'] == null ? null : DateTime.parse(map['updated_at']),
-    produits: map['produits'] == null ? null : List<Produit>.from(map['produits'].map((x)=>Produit.fromMap(x))),
+    produitModel: ProduitPaginateResponseModel.fromMap(map["produits"])
   );
 
   Map<String, dynamic> toMap() => {
@@ -57,7 +58,7 @@ class Categorie {
     "nom": nom,
     "created_at": created_at!.toIso8601String(),
     "updated_at": updated_at!.toIso8601String(),
-    "produits": produits
+    "produitModel": produitModel!.toMap()
   };
 
   String toJson() => json.encode(toMap());

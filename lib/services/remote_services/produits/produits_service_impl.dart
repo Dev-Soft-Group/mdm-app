@@ -1,6 +1,7 @@
 import 'package:mdmscoops/core/app_constantes.dart';
 import 'package:mdmscoops/core/app_library.dart';
 import 'package:mdmscoops/models/response_model/produit_model.dart';
+import 'package:mdmscoops/models/response_model/produit_paginate_model.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits_service.dart';
 
@@ -16,6 +17,25 @@ class ProduitServiceImpl implements ProduitService {
       token: await _localAuth.getToken(),
     ).get(onSuccess: (data) {
       onSuccess!(ProduitResponseModel.fromMap(data));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+  @override
+  Future<void> getPaginateProduits(
+      {dynamic next,
+      String? categoryId,
+      String? page,
+      Function(ProduitPaginateResponseModel data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: next ?? "${Constantes.API_URL}/produit/pagine/$categoryId/prod_page=1",
+      token: await _localAuth.getToken(),
+    ).get(onSuccess: (data) {
+      onSuccess!(ProduitPaginateResponseModel.fromMap(data));
     }, onError: (error) {
       if (error != null) {
         onError!(error);
