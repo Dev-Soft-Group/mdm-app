@@ -110,7 +110,6 @@ class RowWidget extends StatelessWidget {
   final dynamic controller;
   final int? index;
   const RowWidget({super.key, this.controller, this.index});
-
   @override
   Widget build(BuildContext context) {
     dynamic next;
