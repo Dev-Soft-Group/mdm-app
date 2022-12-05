@@ -59,6 +59,7 @@ class ProductController extends GetxController {
       is_searching = false;
       update();
     }, onError: (e) {
+      
       AppSnackBar.show(title: "Error", message: e.toString());
       productStatus = AppStatus.appFailure;
       update();
@@ -71,11 +72,9 @@ class ProductController extends GetxController {
       onSuccess: (data) {
         update();
         categoriesList[index].produitModel!.next = data.next;
-        categoriesList[index].produitModel!.previous = data.previous;
         categoriesList[index].produitModel!.produits!.addAll(data.produits!);
         update();
         return true;
-
       }, onError: (e) {
         update();
         return false;

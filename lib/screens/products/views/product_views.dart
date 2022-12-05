@@ -42,6 +42,7 @@ class ProductView extends GetView<ProductController> {
                     backgroundColor: kWhiteColor,
                     onRefresh: () async {
                       controller.categoriesList.clear();
+                      controller.next = null;
                       controller.update();
                       await controller.getProductsCategories();
                     },
@@ -139,9 +140,7 @@ class RowWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: kDefaultPadding,),
             child: TextTitle(
-                text: controller.categoriesList[index].nom!
-                    .toString()
-                    .capitalizeFirst!),
+                text: "${controller.categoriesList[index].nom!.toString().capitalizeFirst!} (${controller.categoriesList[index].produitModel!.produits.length})"),
           ),
           const SizedBox(height: kDefaultPadding / 2),
           SingleChildScrollView(

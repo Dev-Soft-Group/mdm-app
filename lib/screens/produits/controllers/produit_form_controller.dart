@@ -76,7 +76,7 @@ class ProduitFormController extends GetxController {
     update();
     var data = {
       "nom": textEditingNomProduit.text.trim(),
-      "description": textEditingNomProduit.text.trim(),
+      "description": textEditingDescriptionProduit.text.trim(),
       "prix": int.parse(textEditingPrixProduit.text.trim()),
       "categorie": categories.firstWhere(
           (element) => element['libelle'] == selectedCategory)['id'],
