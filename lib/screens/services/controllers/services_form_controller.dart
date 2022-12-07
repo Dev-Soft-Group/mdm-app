@@ -32,7 +32,7 @@ final CategorieService _categorieService = CategorieServiceImpl();
   ];
 
   Future getCategories() async {
-    await _categorieService.getAllCategories(onSuccess: (data) {
+    await _categorieService.getCategories(onSuccess: (data) {
       for (Map map in data["results"]) {
         categories.add({"id": map["id"], "libelle": map["nom"]});
       }
@@ -42,8 +42,9 @@ final CategorieService _categorieService = CategorieServiceImpl();
         categories.sort((a, b) => a['libelle'].compareTo(b['libelle']));
       }
       update();
-    }, onError: (error) {
-      print(error);
+    }, onError: (e) {
+      AppSnackBar.show(
+          title: "Erreur", message: e.response.data["message"]);
       update();
     });
   }

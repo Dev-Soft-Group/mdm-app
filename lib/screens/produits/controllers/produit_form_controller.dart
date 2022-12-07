@@ -1,12 +1,18 @@
 // ignore_for_file: avoid_print
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart' as client;
+import 'package:image_picker/image_picker.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/services/remote_services/categorie/categorie.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits.dart';
+import 'package:path/path.dart';
 
 class ProduitFormController extends GetxController {
   final CategorieService _categorieService = CategorieServiceImpl();
@@ -20,6 +26,10 @@ class ProduitFormController extends GetxController {
   TextEditingController textEditingCategorieProduit = TextEditingController();
 
   String selectedCategory = "Aucun";
+
+  var picker = ImagePicker();
+  var photo;
+  var imageFile;
 
   @override
   void onInit() async {
@@ -54,6 +64,20 @@ class ProduitFormController extends GetxController {
     update();
   }
 
+   Future choseImage(ImageSource source) async {
+    XFile? pickedFile = await picker.pickImage(
+      source: source,
+      imageQuality: 50,
+    );
+    if (pickedFile != null) {
+      imageFile = File(pickedFile.path);
+      var imageBytes = imageFile.readAsBytesSync();
+      var encoded = base64Encode(imageBytes);
+      photo = "data:image/png;base64, $encoded";
+      update();
+    }
+  }
+
   Future save() async {
     if (textEditingNomProduit.text.isEmpty) {
       AppSnackBar.show(
@@ -72,19 +96,26 @@ class ProduitFormController extends GetxController {
           message: "Donnez une petite description de votre produit svp !");
       return;
     }
+    if (imageFile ==  null) {
+      AppSnackBar.show(
+          title: "Erreur",
+          message: "Veuillez fournir une image pour votre produit !");
+      return;
+    }
     produitFormStatus = AppStatus.appLoading;
     update();
-    var data = {
+    client.FormData formData = client.FormData.fromMap({
       "nom": textEditingNomProduit.text.trim(),
       "description": textEditingDescriptionProduit.text.trim(),
       "prix": int.parse(textEditingPrixProduit.text.trim()),
       "categorie": categories.firstWhere(
           (element) => element['libelle'] == selectedCategory)['id'],
-    };
+      "image": await client.MultipartFile.fromFile(imageFile!.path!, filename: basename(imageFile!.path!)),
+    });
+   
     await _produitService.addProduit(
-        data: data,
+        data: formData,
         onSuccess: (data) {
-          print(data);
           AppSnackBar.show(
               title: "Succès",
               message: data["message"].toString(),

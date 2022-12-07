@@ -52,7 +52,7 @@ class ProduitServiceImpl implements ProduitService {
       url: "${Constantes.API_URL}/produit/$productId/",
       token: await _localAuth.getToken(),
     ).get(onSuccess: (data) {
-      onSuccess!(Produit.fromMap(data));
+      onSuccess!(Produit.fromMap(data["results"]));
     }, onError: (error) {
       if (error != null) {
         onError!(error);

@@ -10,6 +10,7 @@ class CardItem extends StatelessWidget {
       {Key? key,
       this.item, 
       this.width,
+      this.onTap,
       this.left,
       this.bottom,
       this.bottomLeft,
@@ -18,6 +19,7 @@ class CardItem extends StatelessWidget {
       this.logoTop})
       : super(key: key);
   final double? width;
+  final Function()? onTap;
   final double? left;
   final double? bottom;
   final double? bottomLeft;
@@ -29,9 +31,7 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Get.toNamed(AppRoutes.PRODUITSDETAILS, arguments: null);
-      },
+      onTap: onTap,
       child: Stack(
         children: [
           Container(
@@ -58,7 +58,7 @@ class CardItem extends StatelessWidget {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
                   height: imageHeight ?? 120,
-                  width: Get.width / 2,
+                  width: double.infinity,
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(kDefaultRadius),
