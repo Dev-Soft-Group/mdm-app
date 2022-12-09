@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
 import 'package:mdmscoops/components/app_menu.dart';
-import 'package:mdmscoops/components/card_item.dart';
+import 'package:mdmscoops/components/card_pub_item.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
@@ -90,8 +90,9 @@ class ProduitsView extends GetView<ProduitController> {
                                 spacing: kDefaultPadding / 2,
                                 children: [
                                   ...List.generate(
-                                      10,
-                                      (index) => CardItem(
+                                      controller.publicationsList.length,
+                                      (index) => CardPubItem(
+                                        item: controller.publicationsList[index],
                                             width: Get.width / 2 - 25,
                                             left: 0,
                                             bottom: 0,

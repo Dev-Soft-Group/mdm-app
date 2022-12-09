@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
@@ -5,6 +7,9 @@ import 'package:mdmscoops/components/app_menu.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/models/response_model/entreprise_model.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/entreprise/controllers/entreprise_controller.dart';
 
 class EntreprisesView extends GetView<EntrepriseController> {
@@ -34,71 +39,83 @@ class EntreprisesView extends GetView<EntrepriseController> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 AppBanner(open: openDrawer),
-                Expanded(
-                  child: RefreshIndicator(
-                    onRefresh: () async {
-                      await controller.getAllEntreprises();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: kDefaultPadding),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const TextTitle(text: "Catégories"),
-                          const SizedBox(height: kDefaultPadding),
-                          Container(
-                            height: 30,
-                            decoration: const BoxDecoration(),
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: controller.menus.length,
-                                itemBuilder: (context, index) => InkWell(
-                                      onTap: () {
-                                        controller.onTabChange(index);
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: kDefaultPadding * 1.2,
-                                            top: kDefaultPadding / 3,
-                                            bottom: kDefaultPadding / 3),
-                                        child: Text(
-                                          controller.menus[index],
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: controller.selectedTabs ==
-                                                    index
-                                                ? kBlackColor
-                                                : kBlackColor.withOpacity(0.4),
-                                            fontWeight:
-                                                controller.selectedTabs == index
-                                                    ? FontWeight.w600
-                                                    : FontWeight.w400,
-                                          ),
-                                        ),
-                                      ),
-                                    )),
-                          ),
-                          const SizedBox(height: kDefaultPadding - 4),
-                          Expanded(
-                            child: GridView.count(
-                              crossAxisCount: 3,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              shrinkWrap: true,
-                              children: List.generate(
-                                  controller.categories.length,
-                                  (index) => CustomCard(
-                                      item: controller.categories[index])),
+                controller.entrepriseStatus == AppStatus.appLoading
+                    ? Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator(
+                              color: kPrimaryColor.withOpacity(0.4)),
+                        ),
+                      )
+                    : Expanded(
+                        child: RefreshIndicator(
+                          onRefresh: () async {
+                            await controller.getAllEntreprises();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: kDefaultPadding),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextTitle(text: "Catégories"),
+                                const SizedBox(height: kDefaultPadding),
+                                Container(
+                                  height: 30,
+                                  decoration: const BoxDecoration(),
+                                  child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: controller.menus.length,
+                                      itemBuilder: (context, index) => InkWell(
+                                            onTap: () {
+                                              controller.onTabChange(index);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: kDefaultPadding * 1.2,
+                                                  top: kDefaultPadding / 3,
+                                                  bottom: kDefaultPadding / 3),
+                                              child: Text(
+                                                controller.menus[index],
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color:
+                                                      controller.selectedTabs ==
+                                                              index
+                                                          ? kBlackColor
+                                                          : kBlackColor
+                                                              .withOpacity(0.4),
+                                                  fontWeight:
+                                                      controller.selectedTabs ==
+                                                              index
+                                                          ? FontWeight.w600
+                                                          : FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
+                                          )),
+                                ),
+                                const SizedBox(height: kDefaultPadding - 4),
+                                Expanded(
+                                  child: GridView.count(
+                                    crossAxisCount: 3,
+                                    mainAxisSpacing: 10,
+                                    crossAxisSpacing: 10,
+                                    shrinkWrap: true,
+                                    children: List.generate(
+                                        controller.entreprisesList.length,
+                                        (index) => CustomCard(
+                                            item:
+                                                controller.entreprisesList[index])),
+                                  ),
+                                ),
+                                const SizedBox(height: kDefaultPadding * 1.5)
+                              ],
                             ),
                           ),
-                          const SizedBox(height: kDefaultPadding * 1.5)
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
@@ -114,52 +131,59 @@ class CustomCard extends StatelessWidget {
     required this.item,
   }) : super(key: key);
 
-  final String? item;
+  final Entreprise item;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      child: Container(
-          alignment: Alignment.center,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            color: kWhiteColor,
-            borderRadius: BorderRadius.circular(kDefaultRadius),
-            boxShadow: [
-              BoxShadow(
-                offset: const Offset(0, 1),
-                blurRadius: 3,
-                color: kBlackColor.withOpacity(0.3),
-              )
-            ],
-          ),
-          child: Stack(
-            children: [
-              Image.asset("assets/images/shoes.jpg",
-                  width: double.infinity, fit: BoxFit.cover),
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: kBlackColor.withOpacity(0.7),
-                  ),
-                  child: Text(
-                    "$item",
-                    style: const TextStyle(
-                      color: kWhiteColor,
-                      fontSize: 16,
+    return InkWell(
+      onTap: (){ Get.toNamed(AppRoutes.ENTREPRISEDETAILS, arguments: {"idEntreprise": item.id});},
+      child: Card(
+        elevation: 0,
+        child: Container(
+            alignment: Alignment.center,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: kWhiteColor,
+              borderRadius: BorderRadius.circular(kDefaultRadius),
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(0, 1),
+                  blurRadius: 3,
+                  color: kBlackColor.withOpacity(0.3),
+                )
+              ],
+            ),
+            child: Stack(
+              children: [
+                item != null?
+                Image.network(item.logoUrl!,
+                    height: double.maxFinite,
+                    width: double.infinity, fit: BoxFit.fill)
+                :Image.asset("assets/images/shoes.jpg",
+                    width: double.infinity, fit: BoxFit.cover),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: kBlackColor.withOpacity(0.7),
+                    ),
+                    child: Text(item.nom!.toString().capitalizeFirst!,
+                      style: const TextStyle(
+                        color: kWhiteColor,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          )),
+                
+              ],
+            )),
+      ),
     );
   }
 }

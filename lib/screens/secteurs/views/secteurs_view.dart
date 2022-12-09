@@ -5,6 +5,8 @@ import 'package:mdmscoops/components/app_menu.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/secteurs/controllers/secteurs_controller.dart';
 
@@ -79,6 +81,13 @@ class SecteursView extends GetView<SecteursController> {
                                     )),
                           ),
                           const SizedBox(height: kDefaultPadding - 4),
+                          controller.secteursStatus == AppStatus.appLoading ?
+                          Expanded(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(color: kPrimaryColor.withOpacity(0.4)),
+                            ),
+                          ):
                           Expanded(
                             child: GridView.count(
                               crossAxisCount: 3,
@@ -86,7 +95,7 @@ class SecteursView extends GetView<SecteursController> {
                               crossAxisSpacing: 10,
                               shrinkWrap: true,
                               children: List.generate(
-                                  controller.categories.length, (index) => CustomCard(item: controller.categories[index])),
+                                  controller.secteurActivitesList.length, (index) => CustomCard(item: controller.secteurActivitesList[index])),
                             ),
                           ),
                           const SizedBox(height: kDefaultPadding*1.5)
@@ -110,7 +119,7 @@ class CustomCard extends StatelessWidget {
     required this.item,
   }) : super(key: key);
 
-  final String? item;
+  final SecteurActivite? item;
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +156,7 @@ class CustomCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: kBlackColor.withOpacity(0.7),
                     ),
-                    child: Text("$item",
+                    child: Text(item!.nom!.toString().capitalizeFirst!,
                       style: const TextStyle(
                         color: kWhiteColor,
                         fontSize: 16,

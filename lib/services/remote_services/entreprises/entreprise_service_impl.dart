@@ -24,6 +24,25 @@ class EntrepriseServiceImpl implements EntrepriseService {
     });
   }
 
+
+   @override
+  Future<void> getEntrepriseById(
+      {
+      String? idEntreprise,
+      Function(Entreprise data)? onSuccess,
+      Function(DioError error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/entreprise/$idEntreprise/",
+      token: await _localAuth.getToken(),
+    ).get(onSuccess: (data) {
+      onSuccess!(Entreprise.fromMap(data["results"]));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
   @override
   Future<void> getAllEntreprisesForUser(
       {Function(dynamic data)? onSuccess,

@@ -164,7 +164,7 @@ class CompteController extends GetxController {
     succursaleStatus = AppStatus.appLoading;
     update();
 
-    client.FormData _formData = client.FormData.fromMap({
+    client.FormData formData = client.FormData.fromMap({
       "nom": textEditingNom.text.trim(),
       "localisation": textEditingLocalisation.text.trim(),
       "telephone": textEditingTelephone.text.trim(),
@@ -173,7 +173,7 @@ class CompteController extends GetxController {
     });
 
     await _entrepriseService.addSuccursale(
-        data: _formData,
+        data: formData,
         onSuccess: (data) {
           Get.back();
           AppSnackBar.show(
@@ -224,24 +224,24 @@ class CompteController extends GetxController {
 
     String sites = "";
     for (String string in webSites) {
-      sites += ", $string";
+      sites += sites.isEmpty ? string : ", $string";
     }
 
-    client.FormData _formData = client.FormData.fromMap({
+    client.FormData formData = client.FormData.fromMap({
       "nom": textEditingNom.text.trim(),
       "siegeSocial": textEditingSiegeSocial.text.trim(),
       "telephone": textEditingTelephone.text.trim(),
       "email": textEditingEmail.text.trim(),
       "logo": imageFile != null
-          ? await client.MultipartFile.fromFile(imageFile.path,
-              filename: p.basename(imageFile.path))
+          ? await client.MultipartFile.fromFile(imageFile!.path!,
+              filename: p.basename(imageFile!.path!))
           : "",
       "sites": sites,
       "description": textEditingDescription.text.trim(),
     });
 
     await _entrepriseService.addEntreprise(
-        data: _formData,
+        data: formData,
         onSuccess: (data) {
           Get.back();
           AppSnackBar.show(
@@ -272,4 +272,6 @@ class CompteController extends GetxController {
       update();
     }
   }
+
+  
 }

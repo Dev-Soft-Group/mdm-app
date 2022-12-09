@@ -3,6 +3,7 @@
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
 import 'package:mdmscoops/services/remote_services/secteur_activite/secteur_activite.dart';
 
 class SecteursController extends GetxController{
@@ -12,6 +13,8 @@ class SecteursController extends GetxController{
    AppStatus secteursStatus = AppStatus.appLoading;
 
   int selectedTabs = 0;
+
+  List<SecteurActivite> secteurActivitesList = [];
 
   List menus = [
     "Tous",
@@ -50,7 +53,7 @@ class SecteursController extends GetxController{
 
     await _secteurActiviteService.getAllSecteurActivite(
       onSuccess: (data) {
-        print(data.toMap());
+        secteurActivitesList.addAll(data.secteurActivites!);
         secteursStatus = AppStatus.appSuccess;
         update();
       },

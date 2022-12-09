@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mdmscoops/components/custom_dropdown.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
 import 'package:mdmscoops/components/custom_action_button.dart';
@@ -389,6 +390,62 @@ class CompteView extends GetView<CompteController> {
                                       hintText:
                                           "Entrez la description de votre entreprise ici ...",
                                       maxLines: 3),
+                                  const SizedBox(height: 20),
+                                  Text(
+                                    "Logo de l'entreprise",
+                                    style: TextStyle(
+                                      color: kBlackColor.withOpacity(0.8),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(height: kDefaultPadding /2),
+                                  InkWell(
+                                    onTap: () async {
+                                      await controller
+                                          .choseImage(ImageSource.gallery);
+                                    },
+                                    child: Container(
+                                      height: 90,
+                                      width: 90,
+                                      decoration:
+                                      /*controller.imageFile == null
+                                          ? BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              border: Border.all(
+                                                width: 1,
+                                                color: kBlackColor
+                                                    .withOpacity(0.3),
+                                              ),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      controller.photo!.image!),
+                                                  fit: BoxFit.cover),
+                                            )
+                                          : */
+                                          BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              border: Border.all(
+                                                width: 1,
+                                                color: kBlackColor
+                                                    .withOpacity(0.3),
+                                              ),
+                                              image: controller.imageFile !=
+                                                      null
+                                                  ? DecorationImage(
+                                                      image: FileImage(
+                                                          controller.imageFile),
+                                                      fit: BoxFit.cover)
+                                                  : null,
+                                            ),
+                                      child: Center(
+                                        child: Icon(CupertinoIcons.camera,
+                                            color: kBlackColor.withOpacity(0.4),
+                                            size: 30),
+                                      ),
+                                    ),
+                                  ),
                                   const SizedBox(height: 30),
                                   controller.entrepriseStatus == AppStatus.appLoading ?
                                   Container(

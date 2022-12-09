@@ -43,6 +43,7 @@ class Entreprise {
   final String? email;
   final String? logoUrl;
   final String? sites;
+  final String? description;
   final int? utilisateur;
   final List<Succursale>? succursales;
   final List<CorpsMetier>? entrepriseCorps;
@@ -59,6 +60,7 @@ class Entreprise {
       this.sites,
       this.utilisateur,
       this.succursales,
+      this.description,
       this.entrepriseCorps,
       this.created_at,
       this.updated_at});
@@ -69,11 +71,12 @@ class Entreprise {
   factory Entreprise.fromMap(Map<String, dynamic> map) => Entreprise(
       id: map['id'] as String?,
       nom: map['nom'] as String?,
-      siegeSocial: map["localisation"] as String?,
+      siegeSocial: map["siegeSocial"] as String?,
       telephone: map["telephone"] as String?,
       email: map["email"] as String?,
       logoUrl: map["logoUrl"] as String?,
       sites: map["sites"] as String?,
+      description: map["description"] as String?,
       succursales: map["succursales"] == null ? [] : List<Succursale>.from(map['succursales'].map((x) => Succursale.fromMap(x))),
       entrepriseCorps: map["entrepriseCorps"] == null ? [] : List<CorpsMetier>.from(map['entrepriseCorps'].map((x) => CorpsMetier.fromMap(x))),
       created_at:
@@ -90,6 +93,7 @@ class Entreprise {
         "logoUrl": logoUrl,
         "sites": sites,
         "succursales": succursales,
+        "description": description,
         "entrepriseCorps": entrepriseCorps,
         "utilisateur": utilisateur,
         "created_at": created_at!.toIso8601String(),
