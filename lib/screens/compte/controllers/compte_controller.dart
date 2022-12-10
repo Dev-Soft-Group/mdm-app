@@ -273,5 +273,4 @@ class CompteController extends GetxController {
     }
   }
 
-  
 }
