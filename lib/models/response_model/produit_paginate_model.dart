@@ -5,6 +5,7 @@ import 'package:mdmscoops/models/response_model/produit_model.dart';
 class ProduitPaginateResponseModel {
   final int? count;
   dynamic next;
+  int? start;
   dynamic previous;
   bool? isSearching;
   List<Produit>? produits;

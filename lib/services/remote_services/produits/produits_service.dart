@@ -11,6 +11,7 @@ abstract class ProduitService {
     dynamic next,
     String? categoryId,
     String? page,
+    String? pageSize,
     Function(ProduitPaginateResponseModel data)? onSuccess,
     Function(dynamic error)? onError,
   });

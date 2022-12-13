@@ -43,6 +43,7 @@ class CategorieServiceImpl implements CategorieService {
   @override
   Future<void> getAllProductsCategories(
       {dynamic url,
+      String? pageSize,
       Function(CategoriePaginateResponseModel data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(

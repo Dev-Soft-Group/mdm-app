@@ -29,6 +29,7 @@ class ProduitServiceImpl implements ProduitService {
       {dynamic next,
       String? categoryId,
       String? page,
+      String? pageSize,
       Function(ProduitPaginateResponseModel data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:mdmscoops/models/response_model/categorie_model.dart';
-import 'package:mdmscoops/models/response_model/produit_model.dart';
 
 class CategoriePaginateResponseModel {
   final int? count;

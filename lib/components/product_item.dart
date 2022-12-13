@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
-import 'package:mdmscoops/routes/app_routes.dart';
+import 'package:mdmscoops/models/response_model/produit_model.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
     Key? key,
+    this.onTap,
+    this.item,
   }) : super(key: key);
+
+  final Function()? onTap;
+  final Produit? item;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () { Get.toNamed(AppRoutes.PRODUITSDETAILS); },
+      onTap: onTap,
       child: Container(
         width: 80,
         margin: const EdgeInsets.only(
@@ -26,6 +30,7 @@ class ProductItem extends StatelessWidget {
             Container(
                 height: 80,
                 width: 80,
+                clipBehavior: Clip.antiAlias,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: kWhiteColor,
@@ -38,12 +43,12 @@ class ProductItem extends StatelessWidget {
                     )
                   ],
                 ),
-                child: Image.asset("assets/images/shoes.jpg",
+                child: item!.imageUrl != null ? Image.network(item!.imageUrl!.toString(),
+                    width: double.infinity, fit: BoxFit.fill) : Image.asset("assets/images/shoes.jpg",
                     width: double.infinity, fit: BoxFit.cover)),
             const SizedBox(height: 5,),
-            Text(
-              "Chaussure de sport",
-              maxLines: 2,
+            Text(item!.nom!.toString(),
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: kBlackColor.withOpacity(0.6),

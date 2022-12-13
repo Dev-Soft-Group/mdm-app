@@ -14,6 +14,7 @@ abstract class CategorieService {
 
   Future<void> getAllProductsCategories({
     dynamic url,
+    String? pageSize,
     Function(CategoriePaginateResponseModel data)? onSuccess,
     Function(dynamic error)? onError,
   });

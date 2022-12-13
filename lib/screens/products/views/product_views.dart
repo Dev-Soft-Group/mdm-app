@@ -15,16 +15,16 @@ class ProductView extends GetView<ProductController> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     void openDrawer() {
-      _scaffoldKey.currentState!.openDrawer();
+      scaffoldKey.currentState!.openDrawer();
     }
 
     return SafeArea(
       child: GetBuilder<ProductController>(
         builder: (controller) => Scaffold(
-          key: _scaffoldKey,
+          key: scaffoldKey,
           drawer: const NavigationDrawer(),
           body: Container(
             height: Get.height,

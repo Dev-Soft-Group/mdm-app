@@ -50,6 +50,7 @@ class ProductController extends GetxController {
     update();
     await _categorieService.getAllProductsCategories(
       url: next,
+      pageSize: 3.toString(),
       onSuccess: (data) {
       _count = data.count!;
       next = data.next;
