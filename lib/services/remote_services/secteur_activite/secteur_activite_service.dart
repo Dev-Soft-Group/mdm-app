@@ -1,4 +1,6 @@
 
+import 'package:dio/dio.dart';
+import 'package:mdmscoops/models/response_model/entreprise_model.dart';
 import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
 
 abstract class SecteurActiviteService {
@@ -11,5 +13,11 @@ abstract class SecteurActiviteService {
     dynamic data,
     Function(dynamic data)? onSuccess,
     Function(dynamic error)? onError,
+  });
+
+   Future<void> getEntreprisesForSector({
+    String? idSecteur,
+    Function(EntrepriseResponseModel data)? onSuccess,
+    Function(DioError error)? onError,
   });
 }

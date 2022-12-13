@@ -219,6 +219,12 @@ class CompteController extends GetxController {
       return;
     }
 
+    if (textEditingDescription.text.trim().isEmpty) {
+      AppSnackBar.show(
+          title: "Erreur", message: "Veuillez saisir uyne petite description de votre entreprise.");
+      return;
+    }
+
     entrepriseStatus = AppStatus.appLoading;
     update();
 

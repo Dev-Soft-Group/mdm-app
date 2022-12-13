@@ -8,6 +8,7 @@ abstract class EntrepriseService {
     Function(DioError error)? onError,
   });
 
+
   Future<void> getEntrepriseById({
     String? idEntreprise,
     Function(Entreprise data)? onSuccess,

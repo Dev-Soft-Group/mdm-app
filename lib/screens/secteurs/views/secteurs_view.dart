@@ -124,7 +124,7 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){ Get.toNamed(AppRoutes.DETAILSSECTEURS); },
+      onTap: (){ Get.toNamed(AppRoutes.DETAILSSECTEURS, arguments: { "secteur": item! }); },
       child: Card(
         elevation: 0,
         child: Container(
@@ -136,7 +136,7 @@ class CustomCard extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   offset: const Offset(0, 1),
-                  blurRadius: 3,
+                  blurRadius: 3, 
                   color: kBlackColor.withOpacity(0.3),
                 )
               ],

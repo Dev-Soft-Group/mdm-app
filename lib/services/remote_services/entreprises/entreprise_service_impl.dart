@@ -24,11 +24,9 @@ class EntrepriseServiceImpl implements EntrepriseService {
     });
   }
 
-
-   @override
+  @override
   Future<void> getEntrepriseById(
-      {
-      String? idEntreprise,
+      {String? idEntreprise,
       Function(Entreprise data)? onSuccess,
       Function(DioError error)? onError}) async {
     ApiRequest(
