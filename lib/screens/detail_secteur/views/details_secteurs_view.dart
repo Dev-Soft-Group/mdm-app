@@ -14,16 +14,9 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
-    void openDrawer() {
-      scaffoldKey.currentState!.openDrawer();
-    }
-
     return SafeArea(
       child: GetBuilder<SecteurDetailsController>(
         builder: (controller) => Scaffold(
-          key: scaffoldKey,
           drawer: const NavigationDrawer(),
           body: Container(
             height: Get.height,
@@ -35,7 +28,11 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBanner(open: openDrawer),
+                AppBanner(
+                    open: () {
+                      Get.back();
+                    },
+                    iconData: Icons.arrow_back),
                 Expanded(
                   child: Padding(
                     padding:
@@ -68,7 +65,6 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    
                                     Text(
                                       "Secteur d'activité",
                                       style: TextStyle(
@@ -78,7 +74,11 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                     const SizedBox(height: 3),
                                     Flexible(
                                       child: Text(
-                                        controller.secteur != null ? controller.secteur!.nom!.toString().capitalizeFirst! : "Banque",
+                                        controller.secteur != null
+                                            ? controller.secteur!.nom!
+                                                .toString()
+                                                .capitalizeFirst!
+                                            : "Banque",
                                         style: const TextStyle(
                                           color: kPrimaryColor,
                                           fontSize: 16,
@@ -101,19 +101,35 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                       color: kPrimaryColor.withOpacity(0.4)),
                                 ),
                               )
-                            : Expanded(
-                                child: GridView.count(
-                                  crossAxisCount: 3,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10,
-                                  shrinkWrap: true,
-                                  children: List.generate(
-                                      controller.entreprisesList.length,
-                                      (index) => CustomCard(
-                                          item: controller
-                                              .entreprisesList[index])),
-                                ),
-                              ),
+                            : controller.entreprisesList.isNotEmpty
+                                ? Expanded(
+                                    child: GridView.count(
+                                      crossAxisCount: 3,
+                                      mainAxisSpacing: 10,
+                                      crossAxisSpacing: 10,
+                                      shrinkWrap: true,
+                                      children: List.generate(
+                                          controller.entreprisesList.length,
+                                          (index) => CustomCard(
+                                              item: controller
+                                                  .entreprisesList[index])),
+                                    ),
+                                  )
+                                : Expanded(
+                                    child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: kDefaultPadding * 1.5),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Aucune entreprise trouvée dont le secteur d'activité est ${controller.secteur!.nom!.toString().capitalizeFirst!}.",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: kBlackColor.withOpacity(0.5),
+                                            height: 1.5,
+                                            fontSize: 16,
+                                          ),
+                                        )),
+                                  ),
                         const SizedBox(height: kDefaultPadding * 1.5)
                       ],
                     ),

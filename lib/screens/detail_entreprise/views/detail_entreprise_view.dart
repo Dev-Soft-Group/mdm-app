@@ -5,6 +5,7 @@ import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/screens/detail_entreprise/controllers/detail_entreprise_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
   const EntrepriseDetailView({Key? key}) : super(key: key);
@@ -34,7 +35,6 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                // height: 180,
                                 decoration: const BoxDecoration(
                                   color: kPrimaryColor,
                                 ),
@@ -56,7 +56,7 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                   Get.back();
                                                 },
                                                 child: const Icon(
-                                                    CupertinoIcons.chevron_left,
+                                                    Icons.arrow_back,
                                                     size: 26,
                                                     color: kWhiteColor)),
                                             const Spacer(),
@@ -104,6 +104,12 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                   alignment: Alignment.center,
                                                   height: 75,
                                                   width: 75,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
                                                   child: Image.network(
                                                       controller
                                                           .entreprise!.logoUrl!
@@ -196,8 +202,10 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                     ),
                                     const SizedBox(height: kDefaultPadding / 2),
                                     Text(
-                                      controller.entreprise!.description ??
-                                          "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.",
+                                      controller.entreprise!.description!
+                                              .isNotEmpty
+                                          ? controller.entreprise!.description!
+                                          : "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.",
                                       textAlign: TextAlign.justify,
                                       style: TextStyle(
                                         color: kBlackColor.withOpacity(0.6),
@@ -305,7 +313,7 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                     const SizedBox(height: kDefaultPadding - 4),
                                     controller.siteWeb.isNotEmpty
                                         ? Text(
-                                            "Site web",
+                                            "Sites web",
                                             style: TextStyle(
                                               color:
                                                   kBlackColor.withOpacity(0.8),
@@ -317,21 +325,52 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                     const SizedBox(height: kDefaultPadding / 2),
                                     ...List.generate(
                                       controller.siteWeb.length,
-                                      (i) => Row(children: [
-                                        Image.asset(
-                                            "assets/icons/Icon-sitemap.png",
-                                            height: 30,
-                                            width: 30),
-                                        const SizedBox(height: kDefaultPadding),
-                                        Text(controller.siteWeb[i],
-                                          style: TextStyle(
-                                            color: kBlackColor.withOpacity(0.6),
-                                            fontSize: 15,
-                                            height: 1.5,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        )
-                                      ]),
+                                      (i) => controller.siteWeb[i].isNotEmpty
+                                          ? Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 4.0),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  String url = (controller
+                                                          .siteWeb[i]
+                                                          .startsWith(
+                                                              "http://") || controller
+                                                          .siteWeb[i]
+                                                          .startsWith(
+                                                              "https://"))
+                                                      ? controller.siteWeb[i]
+                                                      : "http://${controller.siteWeb[i]}";
+
+                                                  if (!await launchUrl(
+                                                      Uri.parse(url),
+                                                      mode: LaunchMode
+                                                          .externalApplication)) {
+                                                    throw 'Could not launch $url';
+                                                  }
+                                                },
+                                                child: Row(children: [
+                                                  Image.asset(
+                                                      "assets/icons/Icon-sitemap.png",
+                                                      height: 30,
+                                                      width: 30),
+                                                  const SizedBox(
+                                                      height: kDefaultPadding),
+                                                  Text(
+                                                    controller.siteWeb[i],
+                                                    style: TextStyle(
+                                                      color: kBlackColor
+                                                          .withOpacity(0.6),
+                                                      fontSize: 15,
+                                                      height: 1.5,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  )
+                                                ]),
+                                              ),
+                                            )
+                                          : Container(),
                                     ),
                                     const SizedBox(
                                         height: kDefaultPadding * 1.5),
@@ -345,10 +384,13 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                               width: 40),
                                           const SizedBox(
                                               width: kDefaultPadding),
-                                          Image.asset(
-                                              "assets/icons/Iconlogo-whatsapp.png",
-                                              height: 40,
-                                              width: 40),
+                                          InkWell(
+                                            onTap: () async { controller.sendWhatsAppMessenger();},
+                                            child: Image.asset(
+                                                "assets/icons/Iconlogo-whatsapp.png",
+                                                height: 40,
+                                                width: 40),
+                                          ),
                                           const SizedBox(
                                               width: kDefaultPadding),
                                           Image.asset(

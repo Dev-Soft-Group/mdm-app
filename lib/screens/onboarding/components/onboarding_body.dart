@@ -36,8 +36,8 @@ class OnboardingBody extends StatelessWidget {
           children: [
             const SizedBox(height: kDefaultPadding * 2),
             Container(
-                height: 100,
-                width: 100,
+                height: 90,
+                width: 90,
                 clipBehavior: Clip.antiAlias,
                 decoration: const BoxDecoration(),
                 child: Image.asset("assets/images/D-SoftTechWhite.png",
@@ -60,7 +60,7 @@ class OnboardingBody extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: kPrimaryColor,
-                          fontSize: 36,
+                          fontSize: 24,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

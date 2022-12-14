@@ -9,9 +9,11 @@ class AppBanner extends StatelessWidget {
   const AppBanner({
     Key? key,
     required this.open,
+    this.iconData,
   }) : super(key: key);
 
   final Function() open;
+  final IconData? iconData;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class AppBanner extends StatelessWidget {
             Row(children: [
               InkWell(
                 onTap: open,
-                child: const Icon(Icons.menu, size: 36, color: kWhiteColor)),
+                child: Icon(iconData ?? Icons.menu, size: 36, color: kWhiteColor)),
               const SizedBox(width: 10),
               Expanded(
                 child: Container(

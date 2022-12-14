@@ -50,15 +50,15 @@ class ConnexionView extends GetView<ConnexionController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  InkWell(
-                                      onTap: () {
-                                        Get.back();
-                                      },
-                                      child: const Icon(
-                                        Icons.arrow_back,
-                                        size: 26,
-                                        color: kWhiteColor,
-                                      )),
+                                  // InkWell(
+                                  //     onTap: () {
+                                  //       Get.back();
+                                  //     },
+                                  //     child: const Icon(
+                                  //       Icons.arrow_back,
+                                  //       size: 26,
+                                  //       color: kWhiteColor,
+                                  //     )),
                                   Image.asset(
                                     "assets/images/D-SoftTechWhite.png",
                                     height: 30,

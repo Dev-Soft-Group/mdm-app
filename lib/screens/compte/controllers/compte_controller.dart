@@ -66,7 +66,19 @@ class CompteController extends GetxController {
   }
 
   void addWebSite() {
-    webSites = [textEditingSiteWeb.text.trim(), ...webSites];
+    if (!GetUtils.isURL(textEditingSiteWeb.text)) {
+      AppSnackBar.show(
+          title: "Erreur",
+          message: "Veuillez entrer un lien au format correct !");
+      return;
+    }
+    webSites = [
+      (textEditingSiteWeb.text.trim().startsWith("http://") ||
+              textEditingSiteWeb.text.trim().startsWith("https://"))
+          ? textEditingSiteWeb.text.trim()
+          : "https://${textEditingSiteWeb.text.trim()}",
+      ...webSites
+    ];
     textEditingSiteWeb.clear();
     update();
   }
@@ -77,7 +89,20 @@ class CompteController extends GetxController {
   }
 
   void addPageSociale() {
-    pagesSociales = [textEditingPageSociale.text.trim(), ...pagesSociales];
+    if (!GetUtils.isURL(textEditingSiteWeb.text)) {
+      AppSnackBar.show(
+          title: "Erreur",
+          message: "Veuillez entrer un lien au format correct !");
+      return;
+    }
+
+    pagesSociales = [
+      (textEditingPageSociale.text.trim().startsWith("http://") ||
+              textEditingPageSociale.text.trim().startsWith("https://"))
+          ? textEditingPageSociale.text.trim()
+          : "https://${textEditingPageSociale.text.trim()}",
+      
+      ...pagesSociales];
     textEditingPageSociale.clear();
     update();
   }
@@ -169,7 +194,8 @@ class CompteController extends GetxController {
       "localisation": textEditingLocalisation.text.trim(),
       "telephone": textEditingTelephone.text.trim(),
       "email": textEditingEmail.text.trim(),
-      "entreprise": entreprises.firstWhere((element) => element['libelle'] == selectedEntreprise)['id']
+      "entreprise": entreprises.firstWhere(
+          (element) => element['libelle'] == selectedEntreprise)['id']
     });
 
     await _entrepriseService.addSuccursale(
@@ -221,7 +247,9 @@ class CompteController extends GetxController {
 
     if (textEditingDescription.text.trim().isEmpty) {
       AppSnackBar.show(
-          title: "Erreur", message: "Veuillez saisir uyne petite description de votre entreprise.");
+          title: "Erreur",
+          message:
+              "Veuillez saisir uyne petite description de votre entreprise.");
       return;
     }
 
@@ -278,5 +306,4 @@ class CompteController extends GetxController {
       update();
     }
   }
-
 }

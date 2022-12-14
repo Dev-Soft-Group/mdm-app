@@ -285,7 +285,7 @@ class CompteView extends GetView<CompteController> {
                                   FormFieldInput(
                                     textController:
                                         controller.textEditingSiteWeb,
-                                    hintText: "Ex: www.info.com",
+                                    hintText: "Ex: http://www.info.com",
                                     keyboardType: TextInputType.url,
                                     suffixIcon: InkWell(
                                         onTap: () {
@@ -367,7 +367,7 @@ class CompteView extends GetView<CompteController> {
                                   FormFieldInput(
                                     textController:
                                         controller.textEditingPageSociale,
-                                    hintText: "Ex: www.facebook.com",
+                                    hintText: "Ex: http://www.facebook.com",
                                     suffixIcon: InkWell(
                                         onTap: () { controller.addPageSociale();},
                                         child: Icon(CupertinoIcons.add_circled,
