@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mdmscoops/components/app_country_code.dart';
 import 'package:mdmscoops/components/custom_dropdown.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
 import 'package:mdmscoops/components/custom_action_button.dart';
@@ -146,7 +147,8 @@ class CompteView extends GetView<CompteController> {
                                             ),
                                             const SizedBox(height: 5),
                                             FormFieldInput(
-                                              keyboardType: TextInputType.emailAddress,
+                                              keyboardType:
+                                                  TextInputType.emailAddress,
                                               textController:
                                                   controller.textEditingEmail,
                                               onChanged: (string) {},
@@ -158,62 +160,35 @@ class CompteView extends GetView<CompteController> {
                                     ],
                                   ),
                                   const SizedBox(height: 16),
-                                  Row(
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Siège social",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: kBlackColor
-                                                      .withOpacity(0.4),
-                                                  fontSize: 14),
-                                            ),
-                                            const SizedBox(height: 5),
-                                            FormFieldInput(
-                                              textController: controller
-                                                  .textEditingSiegeSocial,
-                                              onChanged: (string) {},
-                                              hintText: "Ex: Yaoundé",
-                                            ),
-                                          ],
-                                        ),
+                                      Text(
+                                        "Siège social",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: kBlackColor.withOpacity(0.4),
+                                            fontSize: 14),
                                       ),
-                                      const SizedBox(width: 16),
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Téléphone",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: kBlackColor
-                                                      .withOpacity(0.4),
-                                                  fontSize: 14),
-                                            ),
-                                            const SizedBox(height: 5),
-                                            FormFieldInput(
-                                              textController: controller
-                                                  .textEditingTelephone,
-                                              onChanged: (string) {},
-                                              hintText: "Ex: +237 670 000 000",
-                                              keyboardType: TextInputType.phone,
-                                            ),
-                                          ],
-                                        ),
+                                      const SizedBox(height: 5),
+                                      FormFieldInput(
+                                        textController:
+                                            controller.textEditingSiegeSocial,
+                                        onChanged: (string) {},
+                                        hintText: "Ex: Yaoundé",
                                       ),
                                     ],
                                   ),
+                                  const SizedBox(height: 16),
+                                  SelectCountryCode(
+                                      controller: controller,
+                                      onChanged: (value) {
+                                        controller.textEditingTelephone.text =
+                                            value;
+                                        controller.update();
+                                      }),
                                   const SizedBox(height: 16),
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -225,7 +200,8 @@ class CompteView extends GetView<CompteController> {
                                                     const EdgeInsets.symmetric(
                                                         horizontal: 10,
                                                         vertical: 4),
-                                                margin: const EdgeInsets.only(right: 8),
+                                                margin: const EdgeInsets.only(
+                                                    right: 8),
                                                 decoration: BoxDecoration(
                                                   color: kBlackColor
                                                       .withOpacity(0.04),
@@ -246,7 +222,11 @@ class CompteView extends GetView<CompteController> {
                                                     ),
                                                     const SizedBox(width: 5),
                                                     InkWell(
-                                                        onTap: () { controller.removeWebSiteByIndex(i);},
+                                                        onTap: () {
+                                                          controller
+                                                              .removeWebSiteByIndex(
+                                                                  i);
+                                                        },
                                                         child: Container(
                                                             height: 20,
                                                             width: 20,
@@ -266,8 +246,9 @@ class CompteView extends GetView<CompteController> {
                                                             child: Icon(
                                                                 Icons.close,
                                                                 size: 16,
-                                                                color:
-                                                                    kBlackColor.withOpacity(0.6)))),
+                                                                color: kBlackColor
+                                                                    .withOpacity(
+                                                                        0.6)))),
                                                   ],
                                                 ),
                                               )),
@@ -297,7 +278,7 @@ class CompteView extends GetView<CompteController> {
                                                 .withOpacity(0.8))),
                                   ),
                                   const SizedBox(height: 16),
-                                   SingleChildScrollView(
+                                  SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
                                       children: List.generate(
@@ -307,7 +288,8 @@ class CompteView extends GetView<CompteController> {
                                                     const EdgeInsets.symmetric(
                                                         horizontal: 10,
                                                         vertical: 4),
-                                                margin: const EdgeInsets.only(right: 8),
+                                                margin: const EdgeInsets.only(
+                                                    right: 8),
                                                 decoration: BoxDecoration(
                                                   color: kBlackColor
                                                       .withOpacity(0.04),
@@ -318,7 +300,8 @@ class CompteView extends GetView<CompteController> {
                                                 child: Row(
                                                   children: [
                                                     Text(
-                                                      controller.pagesSociales[i]
+                                                      controller
+                                                          .pagesSociales[i]
                                                           .toString(),
                                                       style: TextStyle(
                                                         color: kBlackColor
@@ -328,7 +311,11 @@ class CompteView extends GetView<CompteController> {
                                                     ),
                                                     const SizedBox(width: 5),
                                                     InkWell(
-                                                        onTap: () { controller.removePageSocialeByIndex(i);},
+                                                        onTap: () {
+                                                          controller
+                                                              .removePageSocialeByIndex(
+                                                                  i);
+                                                        },
                                                         child: Container(
                                                             height: 20,
                                                             width: 20,
@@ -348,8 +335,9 @@ class CompteView extends GetView<CompteController> {
                                                             child: Icon(
                                                                 Icons.close,
                                                                 size: 16,
-                                                                color:
-                                                                    kBlackColor.withOpacity(0.6)))),
+                                                                color: kBlackColor
+                                                                    .withOpacity(
+                                                                        0.6)))),
                                                   ],
                                                 ),
                                               )),
@@ -369,7 +357,9 @@ class CompteView extends GetView<CompteController> {
                                         controller.textEditingPageSociale,
                                     hintText: "Ex: http://www.facebook.com",
                                     suffixIcon: InkWell(
-                                        onTap: () { controller.addPageSociale();},
+                                        onTap: () {
+                                          controller.addPageSociale();
+                                        },
                                         child: Icon(CupertinoIcons.add_circled,
                                             size: 26,
                                             color: kPrimaryColor
@@ -385,7 +375,8 @@ class CompteView extends GetView<CompteController> {
                                   ),
                                   const SizedBox(height: 5),
                                   FormFieldInput(
-                                    textController: controller.textEditingDescription,
+                                      textController:
+                                          controller.textEditingDescription,
                                       onChanged: (string) {},
                                       hintText:
                                           "Entrez la description de votre entreprise ici ...",
@@ -398,7 +389,7 @@ class CompteView extends GetView<CompteController> {
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                                  const SizedBox(height: kDefaultPadding /2),
+                                  const SizedBox(height: kDefaultPadding / 2),
                                   InkWell(
                                     onTap: () async {
                                       await controller
@@ -408,7 +399,7 @@ class CompteView extends GetView<CompteController> {
                                       height: 90,
                                       width: 90,
                                       decoration:
-                                      /*controller.imageFile == null
+                                          /*controller.imageFile == null
                                           ? BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(8),
@@ -424,21 +415,18 @@ class CompteView extends GetView<CompteController> {
                                             )
                                           : */
                                           BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                width: 1,
-                                                color: kBlackColor
-                                                    .withOpacity(0.3),
-                                              ),
-                                              image: controller.imageFile !=
-                                                      null
-                                                  ? DecorationImage(
-                                                      image: FileImage(
-                                                          controller.imageFile),
-                                                      fit: BoxFit.cover)
-                                                  : null,
-                                            ),
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: kBlackColor.withOpacity(0.3),
+                                        ),
+                                        image: controller.imageFile != null
+                                            ? DecorationImage(
+                                                image: FileImage(
+                                                    controller.imageFile),
+                                                fit: BoxFit.cover)
+                                            : null,
+                                      ),
                                       child: Center(
                                         child: Icon(CupertinoIcons.camera,
                                             color: kBlackColor.withOpacity(0.4),
@@ -447,16 +435,21 @@ class CompteView extends GetView<CompteController> {
                                     ),
                                   ),
                                   const SizedBox(height: 30),
-                                  controller.entrepriseStatus == AppStatus.appLoading ?
-                                  Container(
-                                    height: 50,
-                                    alignment: Alignment.center,
-                                    child: const CircularProgressIndicator(color: kPrimaryColor),
-                                  )
-                                  : CustomActionButton(
-                                    title: "Enregistrer",
-                                    onTap: () async { await controller.saveEntreprise();},
-                                  ),
+                                  controller.entrepriseStatus ==
+                                          AppStatus.appLoading
+                                      ? Container(
+                                          height: 50,
+                                          alignment: Alignment.center,
+                                          child:
+                                              const CircularProgressIndicator(
+                                                  color: kPrimaryColor),
+                                        )
+                                      : CustomActionButton(
+                                          title: "Enregistrer",
+                                          onTap: () async {
+                                            await controller.saveEntreprise();
+                                          },
+                                        ),
                                   const SizedBox(height: 40),
                                 ]),
                           ),

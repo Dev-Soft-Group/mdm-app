@@ -48,6 +48,8 @@ class CompteController extends GetxController {
   List<String> webSites = [];
   List<String> pagesSociales = [];
 
+   var countryCode;
+
   @override
   void onInit() async {
     await getAllSecteurs();
@@ -228,14 +230,15 @@ class CompteController extends GetxController {
     if (!GetUtils.isEmail(textEditingEmail.text.trim())) {
       AppSnackBar.show(
           title: "Erreur",
-          message: "Veuillez entrer un numéro de téléphone valide !");
+          message: "Veuillez entrer une adresse email valide !");
+          
       return;
     }
 
     if (!GetUtils.isPhoneNumber(textEditingTelephone.text.trim())) {
       AppSnackBar.show(
           title: "Erreur",
-          message: "Veuillez entrer une adresse email valide !");
+          message: "Veuillez entrer un numéro de téléphone valide !");
       return;
     }
 
@@ -249,7 +252,7 @@ class CompteController extends GetxController {
       AppSnackBar.show(
           title: "Erreur",
           message:
-              "Veuillez saisir uyne petite description de votre entreprise.");
+              "Veuillez saisir une petite description de votre entreprise.");
       return;
     }
 
@@ -262,9 +265,10 @@ class CompteController extends GetxController {
     }
 
     client.FormData formData = client.FormData.fromMap({
+      "idSecteur": secteurs.firstWhere((element) => element["libelle"] == selectedSecteur)['id'],
       "nom": textEditingNom.text.trim(),
       "siegeSocial": textEditingSiegeSocial.text.trim(),
-      "telephone": textEditingTelephone.text.trim(),
+      "telephone": countryCode == null ? "+237${textEditingTelephone.text.trim()}" : "${countryCode!.dialCode!}${textEditingTelephone.text.trim()}",
       "email": textEditingEmail.text.trim(),
       "logo": imageFile != null
           ? await client.MultipartFile.fromFile(imageFile!.path!,
