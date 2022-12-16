@@ -92,7 +92,8 @@ class ProduitsView extends GetView<ProduitController> {
                                   ...List.generate(
                                       controller.publicationsList.length,
                                       (index) => CardPubItem(
-                                        item: controller.publicationsList[index],
+                                        onMessage: () async { await controller.sendWhatsAppMessenger(controller.publicationsList[index]);},
+                                            item: controller.publicationsList[index],
                                             width: Get.width / 2 - 25,
                                             left: 0,
                                             bottom: 0,

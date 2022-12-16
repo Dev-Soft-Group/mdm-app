@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mdmscoops/components/card_item.dart';
+import 'package:mdmscoops/components/card_pub_item.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/controllers/profil_entrepreneur_controller.dart';
 
 class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
@@ -216,9 +216,8 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                const Text(
-                                                  "10",
-                                                  style: TextStyle(
+                                                Text(controller.publicationsList.length.toString().padLeft(2, "0"),
+                                                  style: const TextStyle(
                                                     color: kPrimaryColor,
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w600,
@@ -277,17 +276,47 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                 ),
                                 const SizedBox(height: kDefaultPadding - 4),
                                 const TextTitle(text: "Publications récentes"),
-                               
-                                const SizedBox(height: kDefaultPadding),
+                                const SizedBox(height: kDefaultPadding/2),
+                                controller.publicationStatus == AppStatus.appLoading ?
                                 Container(
                                   height: 270,
-                                  decoration: const BoxDecoration(),
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) => const Padding(
-                                      padding: EdgeInsets.only(right: kDefaultPadding-5),
-                                      child: CardItem(left: 0),
-                                    ))),
+                                  alignment: Alignment.center,
+                                  child: CircularProgressIndicator( color: kPrimaryColor.withOpacity(0.4))
+                                ):
+                                controller.publicationsList.isNotEmpty ? Container(
+                                    height: 228,
+                                    decoration: const BoxDecoration(),
+                                    child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(children:
+                                          List.generate(controller.publicationsList.length, 
+                                          (index)=>Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: kDefaultPadding - 5),
+                                                child: CardPubItem(
+                                                  onMessage: () async { await controller.sendWhatsAppMessenger(controller.publicationsList[index]);},
+                                                  item: controller
+                                                      .publicationsList[index],
+                                                  width: Get.width / 1.85 - 25,
+                                                  left: 0,
+                                                  bottom: 0,
+                                                  bottomLeft:
+                                                      kDefaultPadding - 4,
+                                                  containerHeight: 212,
+                                                  imageHeight: 100,
+                                                )))
+                                        )
+                                            )):  Container(
+                                  height: 270,
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding*1.5),
+                                  child: Text("Vous n'avez encore aucune publication pour le moment",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: kBlackColor.withOpacity(0.6)
+                                    ),
+                                  )
+                                ),
                                 const SizedBox(height: kDefaultPadding * 2),
                               ],
                             ),

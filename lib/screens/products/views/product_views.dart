@@ -163,6 +163,7 @@ class RowWidget extends StatelessWidget {
                     controller
                         .categoriesList[index].produitModel!.produits!.length,
                     (j) => CardItem(
+                        onMessage: () async { await controller.sendWhatsAppMessenger(controller.categoriesList[index].produitModel!.produits![j]);},
                         onTap: () {
                           Get.toNamed(AppRoutes.PRODUITSDETAILS,
                               arguments: {'idProduit': controller.categoriesList[index].produitModel!.produits![j].id!});

@@ -11,6 +11,7 @@ class CardItem extends StatelessWidget {
       this.item, 
       this.width,
       this.onTap,
+      this.onMessage,
       this.left,
       this.bottom,
       this.bottomLeft,
@@ -20,6 +21,7 @@ class CardItem extends StatelessWidget {
       : super(key: key);
   final double? width;
   final Function()? onTap;
+  final Function()? onMessage;
   final double? left;
   final double? bottom;
   final double? bottomLeft;
@@ -96,7 +98,7 @@ class CardItem extends StatelessWidget {
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: () {
+                      onTap: onMessage ?? () {
                         Get.toNamed(AppRoutes.CREATE_CORPS_METIER);
                       },
                       child: Icon(Icons.comment_outlined,
