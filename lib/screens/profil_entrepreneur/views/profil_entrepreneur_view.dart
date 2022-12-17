@@ -105,7 +105,7 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                                 child: Text("Ajouter succursale"),
                                               ),
                                               PopupMenuItem(
-                                                value: 5,
+                                                value: 6,
                                                 child: Text("Ajouter une publication"),
                                               ),
                                             ],
