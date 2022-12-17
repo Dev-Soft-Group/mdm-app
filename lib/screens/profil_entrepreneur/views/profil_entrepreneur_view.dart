@@ -123,6 +123,7 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                       Container(
                                           height: 60,
                                           width: 60,
+                                          clipBehavior: Clip.antiAlias,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: kWhiteColor,
@@ -135,7 +136,13 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                               )
                                             ],
                                           ),
-                                          child: Icon(Icons.person,
+                                          child: controller.entreprise != null ?
+                                          Container(
+                                            height: 40,
+                                            width: 40,
+                                            alignment: Alignment.center,
+                                            child: Image.network(controller.entreprise!.logoUrl!, fit: BoxFit.fill))
+                                          : Icon(Icons.person,
                                               size: 50,
                                               color: kBlackColor
                                                   .withOpacity(0.5))),

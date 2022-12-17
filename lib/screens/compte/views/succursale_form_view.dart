@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mdmscoops/components/app_country_code.dart';
 import 'package:mdmscoops/components/custom_dropdown.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
 import 'package:mdmscoops/components/custom_action_button.dart';
@@ -126,38 +126,6 @@ class SuccursaleFormView extends GetView<CompteController> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "E-mail",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: kBlackColor
-                                                      .withOpacity(0.4),
-                                                  fontSize: 14),
-                                            ),
-                                            const SizedBox(height: 5),
-                                            FormFieldInput(
-                                              keyboardType:
-                                                  TextInputType.emailAddress,
-                                              textController:
-                                                  controller.textEditingEmail,
-                                              onChanged: (string) {},
-                                              hintText: "Ex: info@gmail.com",
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
                                               "Localisation",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
@@ -175,59 +143,49 @@ class SuccursaleFormView extends GetView<CompteController> {
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(width: 16),
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Téléphone",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: kBlackColor
-                                                      .withOpacity(0.4),
-                                                  fontSize: 14),
-                                            ),
-                                            const SizedBox(height: 5),
-                                            FormFieldInput(
-                                              textController: controller
-                                                  .textEditingTelephone,
-                                              onChanged: (string) {},
-                                              hintText: "Ex: +237 670 000 000",
-                                              keyboardType: TextInputType.phone,
-                                            ),
-                                          ],
-                                        ),
+                                    ],
+                                  ),
+                                  
+                                  const SizedBox(height: 16),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "E-mail",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: kBlackColor.withOpacity(0.4),
+                                            fontSize: 14),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      FormFieldInput(
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        textController:
+                                            controller.textEditingEmail,
+                                        onChanged: (string) {},
+                                        hintText: "Ex: info@gmail.com",
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: kDefaultPadding),
-                                  controller.succursaleStatus == AppStatus.appLoading ?
-                                    Container(
-                                      height: 60,
-                                      alignment: Alignment.center,
-                                      child: const CircularProgressIndicator(color: kPrimaryColor)
-                                    ) :
-                                   CustomDropDown(
-                                    controller: controller,
-                                    liste: controller.entreprises,
-                                    selectedItem: controller.selectedEntreprise,
-                                    onChanged: (data) {
-                                      controller.onChangeEntreprise(data);
-                                    },
-                                    helpText: "Selectionner l'entreprise",
-                                  ),
+                                  const SizedBox(height: 20),
+                                  SelectCountryCode(
+                                      controller: controller,
+                                      onChanged: (value) {
+                                        controller.textEditingTelephone.text =
+                                            value;
+                                        controller.update();
+                                      }),
                                   const SizedBox(height: kDefaultPadding * 4),
-                                  controller.succursaleStatus == AppStatus.appLoading
+                                  controller.succursaleStatus ==
+                                          AppStatus.appLoading
                                       ? Container(
                                           height: 50,
                                           alignment: Alignment.center,
                                           child:
-                                              const
-                                               CircularProgressIndicator(
+                                              const CircularProgressIndicator(
                                                   color: kPrimaryColor),
                                         )
                                       : CustomActionButton(

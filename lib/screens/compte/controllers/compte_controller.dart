@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
+import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:path/path.dart' as p;
 import 'package:dio/dio.dart' as client;
 import 'package:image_picker/image_picker.dart';
@@ -19,6 +20,7 @@ class CompteController extends GetxController {
   final SecteurActiviteService _secteurActiviteService =
       SecteurActiviteServiceImpl();
   final EntrepriseService _entrepriseService = EntrepriseServiceImpl();
+  final LocalAuthService _localService = LocalAuthServiceImpl();
 
   AppStatus entrepriseStatus = AppStatus.appDefault;
   AppStatus succursaleStatus = AppStatus.appDefault;
@@ -55,7 +57,6 @@ class CompteController extends GetxController {
   @override
   void onInit() async {
     await getAllSecteurs();
-    await getAllEntrepises();
     super.onInit();
   }
 
@@ -134,28 +135,6 @@ class CompteController extends GetxController {
     });
   }
 
-  Future getAllEntrepises() async {
-    entrepriseStatus = AppStatus.appLoading;
-    update();
-    await _entrepriseService.getAllEntreprisesForUser(onSuccess: (data) {
-      for (Map map in data["results"]) {
-        entreprises.add({"id": map["id"], "libelle": map["nom"]});
-      }
-      if (entreprises.length > 1) {
-        selectedEntreprise = entreprises[1]['libelle'];
-        entreprises.removeAt(0);
-        entreprises.sort((a, b) => a['libelle'].compareTo(b['libelle']));
-      }
-      entrepriseStatus = AppStatus.appSuccess;
-      update();
-    }, onError: (e) {
-      AppSnackBar.show(
-          title: "Erreur", message: e.response!.data["message"].toString());
-      entrepriseStatus = AppStatus.appFailure;
-      update();
-    });
-  }
-
   Future saveSuccursale() async {
     if (textEditingNom.text.trim().isEmpty) {
       AppSnackBar.show(
@@ -183,12 +162,6 @@ class CompteController extends GetxController {
           message: "Veuillez entrer une adresse email valide !");
       return;
     }
-    if (entreprises[0]['id'] == '-1') {
-      AppSnackBar.show(
-          title: "Erreur",
-          message: "Vous ne possedez aucune entreprise. Créez en une avant");
-      return;
-    }
 
     succursaleStatus = AppStatus.appLoading;
     update();
@@ -196,10 +169,9 @@ class CompteController extends GetxController {
     client.FormData formData = client.FormData.fromMap({
       "nom": textEditingNom.text.trim(),
       "localisation": textEditingLocalisation.text.trim(),
-      "telephone": textEditingTelephone.text.trim(),
+      "telephone": countryCode == null ? "+237${textEditingTelephone.text.trim()}" : "${countryCode!.dialCode!}${textEditingTelephone.text.trim()}",
       "email": textEditingEmail.text.trim(),
-      "entreprise": entreprises.firstWhere(
-          (element) => element['libelle'] == selectedEntreprise)['id']
+      "entreprise": await _localService.getEntrepriseId()
     });
 
     await _entrepriseService.addSuccursale(

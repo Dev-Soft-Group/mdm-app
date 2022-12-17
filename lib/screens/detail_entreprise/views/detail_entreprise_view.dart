@@ -251,9 +251,9 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                         .succursales![i].nom!
                                                         .toString()
                                                         .capitalizeFirst!,
-                                                    style: const TextStyle(
-                                                      color: kBlackColor,
-                                                      fontSize: 18,
+                                                    style: TextStyle(
+                                                      color: kBlackColor.withOpacity(0.8),
+                                                      fontSize: 16,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),
@@ -266,8 +266,8 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                         .localisation!
                                                         .toString()
                                                         .capitalizeFirst!,
-                                                    style: const TextStyle(
-                                                      color: kBlackColor,
+                                                    style: TextStyle(
+                                                      color: kBlackColor.withOpacity(0.7),
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -284,9 +284,9 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                   const Spacer(),
                                                   Text(
                                                     "Tel: ${controller.entreprise!.succursales![i].telephone!}",
-                                                    style: const TextStyle(
-                                                      color: kBlackColor,
-                                                      fontSize: 14,
+                                                    style: TextStyle(
+                                                      color: kBlackColor.withOpacity(0.6),
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),
@@ -294,9 +294,9 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                   const SizedBox(height: 3),
                                                   Text(
                                                     "Email: ${controller.entreprise!.succursales![i].email!}",
-                                                    style: const TextStyle(
-                                                      color: kBlackColor,
-                                                      fontSize: 14,
+                                                    style: TextStyle(
+                                                      color: kBlackColor.withOpacity(0.6),
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),
