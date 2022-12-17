@@ -124,8 +124,8 @@ class NavigationDrawer extends StatelessWidget {
                         image: "assets/icons/Icon-account-logout.png",
                         title: "Se déconnecter",
                         onTap: () async {
-                          final LocalAuthService _localAuth = LocalAuthServiceImpl();
-                          await _localAuth.deleteToken();
+                          final LocalAuthService localAuth = LocalAuthServiceImpl();
+                          await localAuth.deleteToken();
                           Get.offAllNamed(AppRoutes.CONNEXION);
                         },
                       ),

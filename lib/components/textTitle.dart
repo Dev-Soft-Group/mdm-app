@@ -1,4 +1,4 @@
-
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 

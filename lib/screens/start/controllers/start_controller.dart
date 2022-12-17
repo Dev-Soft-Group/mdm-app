@@ -1,3 +1,5 @@
+// ignore_for_file: must_call_super
+
 import 'package:get/get.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';

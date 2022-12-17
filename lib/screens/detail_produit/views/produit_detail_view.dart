@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/detail_produit/controllers/produit_detail_controller.dart';
 
 class DetailProduitView extends GetView<ProduitDetailController> {
@@ -26,7 +25,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                   onTap: () {
                     Get.back();
                   },
-                  child: const Icon(CupertinoIcons.chevron_left,
+                  child: const Icon(Icons.arrow_back,
                       size: 26, color: kBlackColor),
                 ),
                 title: const Text("Détail",

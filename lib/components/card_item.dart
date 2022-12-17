@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
-import 'package:mdmscoops/routes/app_routes.dart';
 
 class CardItem extends StatelessWidget {
   const CardItem(

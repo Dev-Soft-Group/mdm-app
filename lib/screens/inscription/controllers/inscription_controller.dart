@@ -24,11 +24,6 @@ class InscriptionController extends GetxController{
   final TextEditingController textEditingEmail = TextEditingController();
 
   @override
-  void onReady() async {
-    super.onReady();
-  }
-
-  @override
   void dispose() {
     textEditingNom.dispose();
     textEditingPassword.dispose();

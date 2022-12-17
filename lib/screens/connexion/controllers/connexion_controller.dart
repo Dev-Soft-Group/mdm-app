@@ -22,10 +22,6 @@ class ConnexionController extends GetxController {
   final TextEditingController textEditingNom = TextEditingController();
   final TextEditingController textEditingPassword = TextEditingController();
 
-  @override
-  void onReady() async {
-    super.onReady();
-  }
 
   @override
   void dispose() {
@@ -63,10 +59,6 @@ class ConnexionController extends GetxController {
           if (error.response!.statusCode == 401) {
             AppSnackBar.show(title:"Erreur", message: "Aucun compte actif avec pour nom '${textEditingNom.text}' et mot de passe '${textEditingPassword.text}'");
           }
-          print("============ Login =============");
-          print("Une erreur est survenue $error");
-          print(error.response!.statusCode);
-          print("================================");
           loginStatus = AppStatus.appFailure;
           update();
         });

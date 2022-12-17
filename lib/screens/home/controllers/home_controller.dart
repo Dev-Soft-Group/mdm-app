@@ -1,4 +1,6 @@
 
+// ignore_for_file: non_constant_identifier_names, unused_field, prefer_typing_uninitialized_variables, body_might_complete_normally_nullable
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';

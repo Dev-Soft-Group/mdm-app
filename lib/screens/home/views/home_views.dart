@@ -8,7 +8,6 @@ import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
-import 'package:mdmscoops/screens/home/components/line_item.dart';
 import 'package:mdmscoops/screens/home/controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -16,16 +15,16 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     void openDrawer() {
-      _scaffoldKey.currentState!.openDrawer();
+      scaffoldKey.currentState!.openDrawer();
     }
 
     return SafeArea(
       child: GetBuilder<HomeController>(
         builder: (controller) => Scaffold(
-          key: _scaffoldKey,
+          key: scaffoldKey,
           drawer: const NavigationDrawer(),
           body: Container(
             height: Get.height,

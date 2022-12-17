@@ -15,12 +15,6 @@ class SecteurActiviteFormController extends GetxController{
 
   TextEditingController textEditingNom = TextEditingController();
 
-
-  @override
-  void onInit() async {
-    super.onInit();
-  }
-
   Future save() async {
     if (textEditingNom.text.isEmpty) {
       AppSnackBar.show(
