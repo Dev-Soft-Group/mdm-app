@@ -53,7 +53,7 @@ class AppBanner extends StatelessWidget {
                   child: TextField(
                     keyboardType: TextInputType.text,
                     onChanged: (value) {
-                      print(value);
+                      // print(value);
                     },
                     style: const TextStyle(
                       color: kBlackColor,

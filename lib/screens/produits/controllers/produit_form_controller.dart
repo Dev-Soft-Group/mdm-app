@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/categorie/categorie.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits.dart';
 import 'package:path/path.dart';
@@ -17,6 +18,8 @@ import 'package:path/path.dart';
 class ProduitFormController extends GetxController {
   final CategorieService _categorieService = CategorieServiceImpl();
   final ProduitService _produitService = ProduitServiceImpl();
+
+  final LocalAuthService _localService = LocalAuthServiceImpl();
 
   AppStatus produitFormStatus = AppStatus.appDefault;
 
@@ -105,6 +108,7 @@ class ProduitFormController extends GetxController {
     produitFormStatus = AppStatus.appLoading;
     update();
     client.FormData formData = client.FormData.fromMap({
+      "idEntreprise": await _localService.getEntrepriseId(),
       "nom": textEditingNomProduit.text.trim(),
       "description": textEditingDescriptionProduit.text.trim(),
       "prix": int.parse(textEditingPrixProduit.text.trim()),

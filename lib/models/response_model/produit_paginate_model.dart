@@ -5,7 +5,6 @@ import 'package:mdmscoops/models/response_model/produit_model.dart';
 class ProduitPaginateResponseModel {
   final int? count;
   dynamic next;
-  int? start;
   dynamic previous;
   bool? isSearching;
   List<Produit>? produits;
@@ -25,7 +24,8 @@ class ProduitPaginateResponseModel {
           produits: map["results"] == null
               ? null
               : List<Produit>.from(
-                  map["results"].map((x) => Produit.fromMap(x))));
+                  map["results"].map((x) => Produit.fromMap(x)))
+          );
 
   Map<String, dynamic> toMap() => {
         "count": count,

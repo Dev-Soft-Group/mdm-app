@@ -25,6 +25,23 @@ class ProduitServiceImpl implements ProduitService {
   }
 
   @override
+  Future<void> getAllProduitsForEnterprise(
+      {String? idEntreprise,
+      Function(ProduitResponseModel data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/entreprise/$idEntreprise/produits",
+      token: await _localAuth.getToken(),
+    ).get(onSuccess: (data) {
+      onSuccess!(ProduitResponseModel.fromMap(data));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+  @override
   Future<void> getPaginateProduits(
       {dynamic next,
       String? categoryId,
@@ -33,7 +50,8 @@ class ProduitServiceImpl implements ProduitService {
       Function(ProduitPaginateResponseModel data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(
-      url: next ?? "${Constantes.API_URL}/produit/pagine/$categoryId/prod_page=1",
+      url: next ??
+          "${Constantes.API_URL}/produit/pagine/$categoryId/prod_page=1",
       token: await _localAuth.getToken(),
     ).get(onSuccess: (data) {
       onSuccess!(ProduitPaginateResponseModel.fromMap(data));

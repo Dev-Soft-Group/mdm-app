@@ -92,28 +92,28 @@ class CardItem extends StatelessWidget {
                 children: [
                   InkWell(
                       onTap: () {
-                        Get.toNamed(AppRoutes.CREATE_SECTEUR_ACTIVITE);
+                        
                       },
                       child: Icon(CupertinoIcons.heart,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
                       onTap: onMessage ?? () {
-                        Get.toNamed(AppRoutes.CREATE_CORPS_METIER);
+                       
                       },
                       child: Icon(Icons.comment_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
                       onTap: () {
-                        Get.toNamed(AppRoutes.CREATE_SERVICE);
+                        
                       },
                       child: Icon(Icons.share,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
                       onTap: () {
-                        Get.toNamed(AppRoutes.CREATE_PRODUCTS);
+                        
                       },
                       child: Icon(Icons.more_vert_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),

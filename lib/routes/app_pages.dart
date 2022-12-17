@@ -14,6 +14,7 @@ import 'package:mdmscoops/screens/detail_produit/views/produit_detail_view.dart'
 import 'package:mdmscoops/screens/detail_secteur/bindings/details_secteurs_binding.dart';
 import 'package:mdmscoops/screens/detail_secteur/views/details_secteurs_view.dart';
 import 'package:mdmscoops/screens/entreprise/bindings/entreprise_binding.dart';
+import 'package:mdmscoops/screens/entreprise/views/entreprise_me_view.dart';
 import 'package:mdmscoops/screens/entreprise/views/entreprise_view.dart';
 import 'package:mdmscoops/screens/home/bindings/home_binding.dart';
 import 'package:mdmscoops/screens/home/views/home_views.dart';
@@ -64,6 +65,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.ENTREPRISES,
       page: () => const EntreprisesView(),
+      binding: EntreprisesBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.MYENTREPRISES,
+      page: () => const MyEnterprisesView(),
       binding: EntreprisesBinding(),
     ),
     GetPage(

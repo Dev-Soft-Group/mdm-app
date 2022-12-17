@@ -32,7 +32,7 @@ final CategorieService _categorieService = CategorieServiceImpl();
   ];
 
   Future getCategories() async {
-    await _categorieService.getCategories(onSuccess: (data) {
+    await _categorieService.getAllCategories(onSuccess: (data) {
       for (Map map in data["results"]) {
         categories.add({"id": map["id"], "libelle": map["nom"]});
       }
@@ -44,7 +44,7 @@ final CategorieService _categorieService = CategorieServiceImpl();
       update();
     }, onError: (e) {
       AppSnackBar.show(
-          title: "Erreur", message: e.response.data["message"]);
+          title: "Erreur", message: e.response!.data["message"]);
       update();
     });
   }

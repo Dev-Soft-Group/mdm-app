@@ -7,6 +7,13 @@ abstract class PublicationService {
     Function(dynamic error)? onError,
   });
 
+
+  Future<void> getAllPublicationsForEnterprise({
+    String? idEntreprise,
+    Function(PublicationResponseModel data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
+
   Future<void> addPublication({
     dynamic data,
     Function(dynamic data)? onSuccess,

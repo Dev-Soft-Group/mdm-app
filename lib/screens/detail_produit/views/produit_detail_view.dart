@@ -192,7 +192,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                       .withOpacity(0.8))),
                                           const SizedBox(width: 8),
                                           InkWell(
-                                              onTap: () {},
+                                              onTap: () async {controller.sendWhatsAppMessenger(); },
                                               child: Icon(
                                                   Icons.comment_outlined,
                                                   size: 26,
@@ -201,8 +201,6 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                           const SizedBox(width: 8),
                                           InkWell(
                                               onTap: () {
-                                                Get.toNamed(AppRoutes
-                                                    .CREATE_PUBLICAION);
                                               },
                                               child: Icon(Icons.share,
                                                   size: 26,
@@ -211,8 +209,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                           const SizedBox(width: 8),
                                           InkWell(
                                               onTap: () {
-                                                Get.toNamed(AppRoutes
-                                                    .ENTREPRISE_SUCCURSALE);
+                                                
                                               },
                                               child: Icon(
                                                   Icons.more_vert_outlined,

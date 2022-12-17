@@ -64,8 +64,7 @@ class ProductController extends GetxController {
       is_searching = false;
       update();
     }, onError: (e) {
-      
-      AppSnackBar.show(title: "Error", message: e.toString());
+      AppSnackBar.show(title: "Error", message: e.response!.data["message"].toString());
       productStatus = AppStatus.appFailure;
       update();
     });

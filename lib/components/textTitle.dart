@@ -17,12 +17,12 @@ class TextTitle extends StatelessWidget {
           style: const TextStyle(
             color: kBlackColor,
             fontWeight: FontWeight.bold,
-            fontSize: 22,
+            fontSize: 20,
           ),
         ),
         Container(
           height: 5,
-          width: 50,
+          width: 45,
           decoration: const BoxDecoration(
             color: kPrimaryColor,
           ),

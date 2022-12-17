@@ -8,27 +8,11 @@ class CategorieServiceImpl implements CategorieService {
   final LocalAuthService _localAuth = LocalAuthServiceImpl();
 
   @override
-  Future<void> getCategories(
-      {Function(dynamic data)? onSuccess,
-      Function(dynamic error)? onError}) async {
-    ApiRequest(
-      url: "${Constantes.API_URL}/categorie/all",
-      token: await _localAuth.getToken(),
-    ).get(onSuccess: (data) {
-      onSuccess!(data);
-    }, onError: (error) {
-      if (error != null) {
-        onError!(error);
-      }
-    });
-  }
-
-  @override
   Future<void> getAllCategories(
       {Function(dynamic data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(
-      url: "${Constantes.API_URL}/categories/all",
+      url: "${Constantes.API_URL}/categories/all/",
       token: await _localAuth.getToken(),
     ).get(onSuccess: (data) {
       onSuccess!(data);

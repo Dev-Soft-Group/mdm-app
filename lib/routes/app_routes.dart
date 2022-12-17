@@ -17,6 +17,7 @@ class AppRoutes {
   static const String CREATE_PUBLICAION = "/create_publication";
   static const String PRODUITS = "/produits";
   static const String ENTREPRISES = "/entreprises";
+  static const String MYENTREPRISES = "/_mes_entreprises";
   static const String SECTEURS = "/secteurs";
   static const String DETAILSSECTEURS = "/details_secteurs";
   static const String PRODUITSDETAILS = "/details_produit";

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:mdmscoops/models/response_model/produit_model.dart';
 import 'package:mdmscoops/models/response_model/produit_paginate_model.dart';
 
 class CategorieResponseModel {

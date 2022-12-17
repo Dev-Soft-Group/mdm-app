@@ -58,6 +58,22 @@ class EntrepriseServiceImpl implements EntrepriseService {
   }
 
   @override
+  Future<void> getAllEntreprisesForMe(
+      {Function(EntrepriseResponseModel data)? onSuccess,
+      Function(DioError error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/entreprise/me",
+      token: await _localAuth.getToken(),
+    ).get(onSuccess: (data) {
+      onSuccess!(EntrepriseResponseModel.fromMap(data));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+  @override
   Future<void> addEntreprise(
       {dynamic data,
       Function(dynamic data)? onSuccess,

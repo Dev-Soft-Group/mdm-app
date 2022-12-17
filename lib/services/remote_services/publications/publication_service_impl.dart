@@ -23,6 +23,24 @@ class PublicationServiceImpl implements PublicationService {
     });
   }
 
+   @override
+  Future<void> getAllPublicationsForEnterprise(
+      {
+        String? idEntreprise,
+        Function(PublicationResponseModel data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/entreprise/$idEntreprise/publications",
+      token: await _localAuth.getToken(),
+    ).get(onSuccess: (data) {
+      onSuccess!(PublicationResponseModel.fromMap(data));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
   @override
   Future<void> addPublication(
       {dynamic data,

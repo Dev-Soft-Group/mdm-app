@@ -6,12 +6,7 @@ abstract class CategorieService {
     Function(dynamic data)? onSuccess,
     Function(dynamic error)? onError,
   });
-
-  Future<void> getCategories({
-    Function(dynamic data)? onSuccess,
-    Function(dynamic error)? onError,
-  });
-
+  
   Future<void> getAllProductsCategories({
     dynamic url,
     String? pageSize,

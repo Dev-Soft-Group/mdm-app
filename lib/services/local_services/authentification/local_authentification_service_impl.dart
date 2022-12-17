@@ -17,6 +17,12 @@ class LocalAuthServiceImpl implements LocalAuthService {
   }
 
   @override
+  Future<String?> getEntrepriseId() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getString(Constantes.ENTREPRISE_ID);
+  }
+
+  @override
   Future<bool> hasAuthenticate() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     if (pref.getString(Constantes.ACCESSTOKEN) != null) {
@@ -30,6 +36,13 @@ class LocalAuthServiceImpl implements LocalAuthService {
   Future<bool> saveToken(String token) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString(Constantes.ACCESSTOKEN, token);
+    return true;
+  }
+
+  @override
+  Future<bool> saveEntrepriseId(String idEntreprise) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString(Constantes.ENTREPRISE_ID, idEntreprise);
     return true;
   }
 

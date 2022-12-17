@@ -7,6 +7,12 @@ abstract class ProduitService {
     Function(dynamic error)? onError,
   });
 
+  Future<void> getAllProduitsForEnterprise({
+    String? idEntreprise,
+    Function(ProduitResponseModel data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
+
    Future<void> getPaginateProduits({
     dynamic next,
     String? categoryId,

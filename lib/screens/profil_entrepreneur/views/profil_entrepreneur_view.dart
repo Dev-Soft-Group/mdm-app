@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/card_pub_item.dart';
@@ -15,7 +16,14 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
     return GetBuilder<ProfilEntrepreneurController>(builder: (controller) {
       return SafeArea(
           child: Scaffold(
-              body: Container(
+              body: controller.entrepriseStatus == AppStatus.appLoading ?
+              Container(
+                height: Get.height,
+                width: Get.width,
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(color: kPrimaryColor.withOpacity(0.4)),
+              )
+              : Container(
                   decoration: const BoxDecoration(
                     color: kWhiteColor,
                   ),
@@ -49,8 +57,8 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                               Get.back();
                                             },
                                             child: const Icon(
-                                                Icons.chevron_left,
-                                                size: 36,
+                                                Icons.arrow_back,
+                                                size: 26,
                                                 color: kWhiteColor)),
                                         const SizedBox(width: 15),
                                         const Text(
@@ -62,22 +70,48 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                           ),
                                         ),
                                         const Spacer(),
-                                        InkWell(
-                                          onTap: () {},
-                                          child: Container(
-                                            height: 30,
-                                            width: 30,
-                                            clipBehavior: Clip.antiAlias,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.transparent,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: const Icon(
-                                                Icons.more_vert_outlined,
-                                                size: 26,
-                                                color: kWhiteColor),
+                                        Container(
+                                          clipBehavior: Clip.antiAlias,
+                                          height: 30,
+                                          width: 30,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.transparent,
                                           ),
+                                           child: PopupMenuButton<dynamic>(
+                                            icon: const Icon(CupertinoIcons.ellipsis_vertical, color: Colors.white),
+                                            onSelected: (value) {
+                                              controller.switchList(value);
+                                            },
+                                            itemBuilder: (context) => const [
+                                              PopupMenuItem(
+                                                value: 1,
+                                                child: Text("Ajouter un produit"),
+                                              ),
+                                              PopupMenuItem(
+                                                value: 2,
+                                                child: Text("Ajouter un service"),
+                                              ),
+                                              PopupMenuItem(
+                                                value: 3,
+                                                child: Text("Ajouter un SA"),
+                                              ),
+                                              PopupMenuItem(
+                                                value: 4,
+                                                child: Text("Ajouter un CM"),
+                                              ),
+                                               PopupMenuItem(
+                                                value: 5,
+                                                child: Text("Ajouter succursale"),
+                                              ),
+                                              PopupMenuItem(
+                                                value: 5,
+                                                child: Text("Ajouter une publication"),
+                                              ),
+                                            ],
                                         ),
+                                         ),
+                                      
                                       ]),
                                 ),
                                 const SizedBox(height: kDefaultPadding),
@@ -112,9 +146,8 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text(
-                                            "DouxSoftTech",
-                                            style: TextStyle(
+                                          Text(controller.entreprise!.nom!.toString().capitalizeFirst!,
+                                            style: const TextStyle(
                                               color: kWhiteColor,
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
@@ -122,19 +155,19 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                           ),
                                           const SizedBox(height: 10),
                                           Row(
-                                            children: const [
+                                            children: [
                                               Text(
-                                                "Tel: +237 652 310 829",
-                                                style: TextStyle(
+                                                "Tel: ${controller.entreprise!.telephone!}",
+                                                style: const TextStyle(
                                                   color: kWhiteColor,
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
-                                              SizedBox(width: 8),
+                                              const SizedBox(width: 8),
                                               Text(
-                                                "Email: info@gmail.com",
-                                                style: TextStyle(
+                                                "Email: ${controller.entreprise!.email!}",
+                                                style: const TextStyle(
                                                   color: kWhiteColor,
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w500,
@@ -202,6 +235,7 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                       childAspectRatio: 7 / 3,
                                       mainAxisSpacing: kDefaultPadding - 5,
                                       crossAxisSpacing: kDefaultPadding - 5,
+                                      physics: const NeverScrollableScrollPhysics(),
                                       children: [
                                         Card(
                                           color: kWhiteColor,
@@ -250,9 +284,8 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                const Text(
-                                                  "30",
-                                                  style: TextStyle(
+                                                Text(controller.produitsList.length.toString().padLeft(2, "0"),
+                                                  style: const TextStyle(
                                                     color: kPrimaryColor,
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w600,
@@ -299,6 +332,7 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                                       .publicationsList[index],
                                                   width: Get.width / 1.85 - 25,
                                                   left: 0,
+                                                  logoTop: 82,
                                                   bottom: 0,
                                                   bottomLeft:
                                                       kDefaultPadding - 4,
