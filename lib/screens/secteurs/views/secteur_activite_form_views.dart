@@ -76,10 +76,9 @@ class SecteurActiviteFormView extends GetView<SecteurActiviteFormController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: kDefaultPadding),
-                                  const Text(
-                                    "Ajouter un secteur d'activité",
+                                  Text(controller.secteur != null ? "Modifier le secteur d'activité" : "Ajouter un secteur d'activité",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: kBlackColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 22),
@@ -87,7 +86,7 @@ class SecteurActiviteFormView extends GetView<SecteurActiviteFormController> {
                                   const SizedBox(height: kDefaultPadding * 3.5),
                                   FormFieldInput(
                                     textController:
-                                        controller.textEditingNom,
+                                        controller.textEditingNomSecteur,
                                     hintText: "Nom du secteur d'activité",
                                     radius: kDefaultRadius,
                                   ),
@@ -104,7 +103,7 @@ class SecteurActiviteFormView extends GetView<SecteurActiviteFormController> {
                                                   color: kPrimaryColor),
                                         )
                                       : CustomActionButton(
-                                          title: "Enregistrer",
+                                          title: controller.secteur != null ? "Mettre à jour" : "Enregistrer",
                                           onTap: () async {
                                             await controller.save();
                                           },

@@ -27,8 +27,6 @@ class SecteurDetailsController extends GetxController{
   @override
   void onInit() async {
     secteur = Get.arguments["secteur"];
-    // print("==================================");
-    // print(secteur);
     update(); 
     await getEntreprisesForSector();
     super.onInit();

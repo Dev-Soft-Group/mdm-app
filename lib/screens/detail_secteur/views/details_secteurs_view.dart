@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
@@ -6,6 +7,7 @@ import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/detail_secteur/controllers/details_secteurs_controller.dart';
 import 'package:mdmscoops/screens/entreprise/views/entreprise_view.dart';
 
@@ -55,39 +57,67 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                             decoration: const BoxDecoration(
                               color: kWhiteColor,
                             ),
-                            child: Row(children: [
-                              Image.asset("assets/images/sectors.png",
-                                  height: 80, width: 90, fit: BoxFit.fill),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Secteur d'activité",
-                                      style: TextStyle(
-                                          color: kBlackColor.withOpacity(0.5),
-                                          fontSize: 14),
-                                    ),
-                                    const SizedBox(height: 3),
-                                    Flexible(
-                                      child: Text(
-                                        controller.secteur != null
-                                            ? controller.secteur!.nom!
-                                                .toString()
-                                                .capitalizeFirst!
-                                            : "Banque",
-                                        style: const TextStyle(
-                                          color: kPrimaryColor,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
+                            child: Stack(
+                              children: [
+                                Row(children: [
+                                  Image.asset("assets/images/sectors.png",
+                                      height: 80, width: 90, fit: BoxFit.fill),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Secteur d'activité",
+                                          style: TextStyle(
+                                              color: kBlackColor.withOpacity(0.5),
+                                              fontSize: 14),
                                         ),
+                                        const SizedBox(height: 3),
+                                        Flexible(
+                                          child: Text(
+                                            controller.secteur != null
+                                                ? controller.secteur!.nom!
+                                                    .toString()
+                                                    .capitalizeFirst!
+                                                : "Banque",
+                                            style: const TextStyle(
+                                              color: kPrimaryColor,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                      ]),
+                                ]),
+                                Positioned(
+                                  top: 5,
+                                  right: 5,
+                                  child: InkWell(
+                                    onTap: (){ Get.toNamed(AppRoutes.CREATE_SECTEUR_ACTIVITE, arguments: { "secteur": controller.secteur! } ); },
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: kWhiteColor,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: const Offset(0, 3),
+                                            blurRadius: 10,
+                                            color: kPrimaryColor.withOpacity(0.4),
+                                          ),
+                                        ]
                                       ),
+                                      child: const Icon(Icons.edit, size: 20, color: kPrimaryColor)
                                     ),
-                                  ]),
-                            ]),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         const SizedBox(height: 16),

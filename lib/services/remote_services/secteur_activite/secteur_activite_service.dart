@@ -15,6 +15,13 @@ abstract class SecteurActiviteService {
     Function(dynamic error)? onError,
   });
 
+  Future<void> updateSecteurActivite({
+    dynamic data,
+    String? idSecteur,
+    Function(dynamic data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
+
    Future<void> getEntreprisesForSector({
     String? idSecteur,
     Function(EntrepriseResponseModel data)? onSuccess,

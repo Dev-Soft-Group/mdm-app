@@ -33,7 +33,7 @@ class ServicesView extends GetView<ServiceController> {
                 const SizedBox(
                   width: kDefaultPadding,
                 )
-              ],
+              ],  
             ),
             body: Container(
               height: Get.height,
@@ -45,7 +45,7 @@ class ServicesView extends GetView<ServiceController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: kDefaultPadding * 2,
+                    height: kDefaultPadding * 1.5,
                   ),
                   Container(
                     height: Get.height - 178,

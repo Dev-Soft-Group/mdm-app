@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:dio/dio.dart';
 import 'package:mdmscoops/core/app_constantes.dart';
 import 'package:mdmscoops/core/app_library.dart';
@@ -35,6 +37,26 @@ class SecteurActiviteServiceImpl implements SecteurActiviteService {
       data: data!,
       token: await _localAuth.getToken(),
     ).post(onSuccess: (data) {
+      onSuccess!(data);
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+
+   @override
+  Future<void> updateSecteurActivite(
+      {dynamic data,
+      String? idSecteur,
+      Function(dynamic data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/secteur-activite/$idSecteur/",
+      data: data!,
+      token: await _localAuth.getToken(),
+    ).put(onSuccess: (data) {
       onSuccess!(data);
     }, onError: (error) {
       if (error != null) {
