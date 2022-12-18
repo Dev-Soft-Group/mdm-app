@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -66,8 +67,22 @@ class CardPubItem extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(kDefaultRadius),
                   ),
-                  child:
-                      Image.network(item!.imageUrl!, fit: BoxFit.fill)),
+                  child: CachedNetworkImage(
+                      imageUrl: item!.imageUrl!.toString(),
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                              colorFilter: const ColorFilter.mode(
+                                  Colors.transparent, BlendMode.colorBurn)),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error, size: 36),
+                    ),  
+                      
+                ),
               const SizedBox(height: 8),
               Text(item!.titre!.toString().capitalizeFirst!,
                 style: const TextStyle(

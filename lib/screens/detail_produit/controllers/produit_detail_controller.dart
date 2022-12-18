@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/models/response_model/produit_model.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -40,6 +41,9 @@ class ProduitDetailController extends GetxController {
         });
   }
 
+
+  
+
   Future<void> sendWhatsAppMessenger() async {
     var number = "+237652310829";
     String message =
@@ -64,5 +68,9 @@ class ProduitDetailController extends GetxController {
             message: "WhatsApp n'est pas installé sur votre téléphone !");
       }
     }
+  }
+
+  void updateProduct() {
+    Get.toNamed(AppRoutes.CREATE_PRODUCTS , arguments: { "produit": produit! });
   }
 }

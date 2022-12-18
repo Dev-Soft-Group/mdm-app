@@ -1,22 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mdmscoops/components/custom_dropdown.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
 import 'package:mdmscoops/components/custom_action_button.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/screens/produits/controllers/produit_form_controller.dart';
+import 'package:mdmscoops/screens/publications_form/controllers/publications_controller.dart';
 
-class ProduitFormView extends GetView<ProduitFormController> {
-  const ProduitFormView({Key? key}) : super(key: key);
+class PublicationFormView extends GetView<PublicationFormController> {
+  const PublicationFormView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<ProduitFormController>(builder: (controller) {
+      child: GetBuilder<PublicationFormController>(builder: (controller) {
         return Scaffold(
           body: Container(
             height: Get.height,
@@ -78,7 +76,7 @@ class ProduitFormView extends GetView<ProduitFormController> {
                                 children: [
                                   const SizedBox(height: kDefaultPadding),
                                   const Text(
-                                    "Ajouter un produit",
+                                    "Créer une publication",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: kBlackColor,
@@ -88,97 +86,44 @@ class ProduitFormView extends GetView<ProduitFormController> {
                                   const SizedBox(height: kDefaultPadding * 2),
                                   FormFieldInput(
                                     textController:
-                                        controller.textEditingNomProduit,
-                                    hintText: "Nom du produit",
+                                        controller.textEditingTitrePublication,
+                                    hintText: "Titre",
                                     radius: kDefaultRadius,
                                   ),
-                                  const SizedBox(height: kDefaultPadding),
-                                  FormFieldInput(
-                                    textController:
-                                        controller.textEditingPrixProduit,
-                                    keyboardType: TextInputType.number,
-                                    hintText: "Prix du produit",
-                                    radius: kDefaultRadius,
-                                  ),
-                                  const SizedBox(height: kDefaultPadding / 1.3),
+                                  
+                                  const SizedBox(height: kDefaultPadding/1.3),
                                   CustomDropDown(
                                     controller: controller,
-                                    liste: controller.categories,
-                                    selectedItem: controller.selectedCategory,
+                                    liste: controller.entreprises,
+                                    selectedItem: controller.selectedEntreprise,
                                     onChanged: (data) {
-                                      controller.onChangeCategory(data);
+                                      controller.onChangeEntreprise(data);
                                     },
-                                    helpText: "Catégorie du produit",
+                                    helpText: "Entreprise concernée",
+                                  ),
+                                  
+                                   const SizedBox(height: kDefaultPadding/1.3),
+                                  CustomDropDown(
+                                    controller: controller,
+                                    liste: controller.typePublications,
+                                    selectedItem: controller.selectedType,
+                                    onChanged: (data) {
+                                      controller.onChangeTypePublication(data);
+                                    },
+                                    helpText: "Type de publication",
                                   ),
                                   const SizedBox(height: kDefaultPadding),
                                   FormFieldInput(
                                     textController: controller
-                                        .textEditingDescriptionProduit,
-                                    hintText: "Description du produit",
-                                    contentPadding: const EdgeInsets.only(
-                                        top: 6, right: 0, left: 0),
+                                        .textEditingDescriptionPublication,
+                                    hintText: "Description de la publication",
+                                    contentPadding: const EdgeInsets.only(top:6, right:0, left:0),
                                     keyboardType: TextInputType.emailAddress,
                                     radius: kDefaultRadius,
                                     maxLines: 4,
                                   ),
-                                  const SizedBox(height: 16),
-                                  Text(
-                                    "Ajouter une image du produit",
-                                    style: TextStyle(
-                                      color: kBlackColor.withOpacity(0.8),
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  const SizedBox(height: kDefaultPadding /2),
-                                  InkWell(
-                                    onTap: () async {
-                                      await controller
-                                          .choseImage(ImageSource.gallery);
-                                    },
-                                    child: Container(
-                                      height: 90,
-                                      width: 90,
-                                      decoration:
-                                      /*controller.imageFile == null
-                                          ? BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                width: 1,
-                                                color: kBlackColor
-                                                    .withOpacity(0.3),
-                                              ),
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      controller.photo!.image!),
-                                                  fit: BoxFit.cover),
-                                            )
-                                          : */
-                                          BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                width: 1,
-                                                color: kBlackColor
-                                                    .withOpacity(0.3),
-                                              ),
-                                              image: controller.imageFile !=
-                                                      null
-                                                  ? DecorationImage(
-                                                      image: FileImage(
-                                                          controller.imageFile),
-                                                      fit: BoxFit.cover)
-                                                  : null,
-                                            ),
-                                      child: Center(
-                                        child: Icon(CupertinoIcons.camera,
-                                            color: kBlackColor.withOpacity(0.4),
-                                            size: 30),
-                                      ),
-                                    ),
-                                  ),
                                   const SizedBox(height: kDefaultPadding * 2.5),
-                                  controller.produitFormStatus ==
+                                  controller.publicationFormStatus ==
                                           AppStatus.appLoading
                                       ? Container(
                                           height: 40,

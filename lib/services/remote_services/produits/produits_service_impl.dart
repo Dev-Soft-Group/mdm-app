@@ -96,4 +96,24 @@ class ProduitServiceImpl implements ProduitService {
       }
     });
   }
+
+
+  @override
+  Future<void> updateProduit(
+      {dynamic data,
+      String? idProduit,
+      Function(dynamic data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/produit/$idProduit/",
+      data: data!,
+      token: await _localAuth.getToken(),
+    ).put(onSuccess: (data) {
+      onSuccess!(data);
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
 }

@@ -6,7 +6,7 @@ import 'package:mdmscoops/components/card_pub_item.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
-import 'package:mdmscoops/screens/produits/controllers/produits_controller.dart';
+import 'package:mdmscoops/screens/publications/controllers/produits_controller.dart';
 
 class ProduitsView extends GetView<ProduitController> {
   const ProduitsView({Key? key}) : super(key: key);

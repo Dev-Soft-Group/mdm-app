@@ -1,20 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mdmscoops/components/custom_dropdown.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
 import 'package:mdmscoops/components/custom_action_button.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/screens/publications/controllers/publications_controller.dart';
+import 'package:mdmscoops/screens/publications/controllers/produit_form_controller.dart';
 
-class PublicationFormView extends GetView<PublicationFormController> {
-  const PublicationFormView({Key? key}) : super(key: key);
+class ProduitFormView extends GetView<ProduitFormController> {
+  const ProduitFormView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<PublicationFormController>(builder: (controller) {
+      child: GetBuilder<ProduitFormController>(builder: (controller) {
         return Scaffold(
           body: Container(
             height: Get.height,
@@ -75,10 +77,10 @@ class PublicationFormView extends GetView<PublicationFormController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: kDefaultPadding),
-                                  const Text(
-                                    "Créer une publication",
+                                  Text(controller.produit != null ? "Modifier le produit" :
+                                    "Ajouter un produit",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: kBlackColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 22),
@@ -86,44 +88,98 @@ class PublicationFormView extends GetView<PublicationFormController> {
                                   const SizedBox(height: kDefaultPadding * 2),
                                   FormFieldInput(
                                     textController:
-                                        controller.textEditingTitrePublication,
-                                    hintText: "Titre",
+                                        controller.textEditingNomProduit,
+                                    hintText: "Nom du produit",
                                     radius: kDefaultRadius,
                                   ),
-                                  
-                                  const SizedBox(height: kDefaultPadding/1.3),
-                                  CustomDropDown(
-                                    controller: controller,
-                                    liste: controller.entreprises,
-                                    selectedItem: controller.selectedEntreprise,
-                                    onChanged: (data) {
-                                      controller.onChangeEntreprise(data);
-                                    },
-                                    helpText: "Entreprise concernée",
+                                  const SizedBox(height: kDefaultPadding),
+                                  FormFieldInput(
+                                    textController:
+                                        controller.textEditingPrixProduit,
+                                    keyboardType: TextInputType.number,
+                                    hintText: "Prix du produit",
+                                    radius: kDefaultRadius,
                                   ),
-                                  
-                                   const SizedBox(height: kDefaultPadding/1.3),
+                                  const SizedBox(height: kDefaultPadding / 1.3),
                                   CustomDropDown(
                                     controller: controller,
-                                    liste: controller.typePublications,
-                                    selectedItem: controller.selectedType,
+                                    liste: controller.categories,
+                                    selectedItem: controller.selectedCategory,
                                     onChanged: (data) {
-                                      controller.onChangeTypePublication(data);
+                                      controller.onChangeCategory(data);
                                     },
-                                    helpText: "Type de publication",
+                                    helpText: "Catégorie du produit",
                                   ),
                                   const SizedBox(height: kDefaultPadding),
                                   FormFieldInput(
                                     textController: controller
-                                        .textEditingDescriptionPublication,
-                                    hintText: "Description de la publication",
-                                    contentPadding: const EdgeInsets.only(top:6, right:0, left:0),
+                                        .textEditingDescriptionProduit,
+                                    hintText: "Description du produit",
+                                    contentPadding: const EdgeInsets.only(
+                                        top: 6, right: 0, left: 0),
                                     keyboardType: TextInputType.emailAddress,
                                     radius: kDefaultRadius,
                                     maxLines: 4,
                                   ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    "Ajouter une image du produit",
+                                    style: TextStyle(
+                                      color: kBlackColor.withOpacity(0.8),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(height: kDefaultPadding /2),
+                                  InkWell(
+                                    onTap: () async {
+                                      // if (controller.produit != null ){return;}
+                                      await controller
+                                          .choseImage(ImageSource.gallery);
+                                    },
+                                    child: Container(
+                                      height: 90,
+                                      width: 90,
+                                      decoration:
+                                      controller.produit != null && controller.imageFile == null
+                                          ? BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              border: Border.all(
+                                                width: 1,
+                                                color: kBlackColor
+                                                    .withOpacity(0.3),
+                                              ),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      controller.produit!.imageUrl!),
+                                                  fit: BoxFit.cover),
+                                            )
+                                          : 
+                                          BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              border: Border.all(
+                                                width: 1,
+                                                color: kBlackColor
+                                                    .withOpacity(0.3),
+                                              ),
+                                              image: controller.imageFile !=
+                                                      null
+                                                  ? DecorationImage(
+                                                      image: FileImage(
+                                                          controller.imageFile),
+                                                      fit: BoxFit.cover)
+                                                  : null,
+                                            ),
+                                      child: Center(
+                                        child: Icon(CupertinoIcons.camera,
+                                            color: kBlackColor.withOpacity(0.4),
+                                            size: 30),
+                                      ),
+                                    ),
+                                  ),
                                   const SizedBox(height: kDefaultPadding * 2.5),
-                                  controller.publicationFormStatus ==
+                                  controller.produitFormStatus ==
                                           AppStatus.appLoading
                                       ? Container(
                                           height: 40,
@@ -133,7 +189,7 @@ class PublicationFormView extends GetView<PublicationFormController> {
                                                   color: kPrimaryColor),
                                         )
                                       : CustomActionButton(
-                                          title: "Enregistrer",
+                                          title: controller.produit != null ? "Mettre à jour" : "Enregistrer",
                                           onTap: () async {
                                             await controller.save();
                                           },

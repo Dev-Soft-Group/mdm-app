@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +8,7 @@ import 'package:mdmscoops/core/app_sizes.dart';
 class CardItem extends StatelessWidget {
   const CardItem(
       {Key? key,
-      this.item, 
+      this.item,
       this.width,
       this.onTap,
       this.onMessage,
@@ -58,16 +59,30 @@ class CardItem extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
-                  height: imageHeight ?? 120,
-                  width: double.infinity,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(kDefaultRadius),
+                height: imageHeight ?? 120,
+                width: double.infinity,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(kDefaultRadius),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: item!.imageUrl!.toString(),
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                          colorFilter: const ColorFilter.mode(
+                              Colors.transparent, BlendMode.colorBurn)),
+                    ),
                   ),
-                  child:
-                      Image.network(item!.imageUrl!, fit: BoxFit.fill)),
+                  errorWidget: (context, url, error) =>
+                      const Icon(Icons.error, size: 36),
+                ),
+              ),
               const SizedBox(height: 8),
-              Text(item!.nom!.toString().capitalizeFirst!,
+              Text(
+                item!.nom!.toString().capitalizeFirst!,
                 style: const TextStyle(
                   color: kBlackColor,
                   fontWeight: FontWeight.bold,
@@ -75,7 +90,8 @@ class CardItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 3),
-              Text( item!.description!.toString().capitalizeFirst!,
+              Text(
+                item!.description!.toString().capitalizeFirst!,
                 maxLines: 3,
                 textAlign: TextAlign.justify,
                 overflow: TextOverflow.ellipsis,
@@ -90,30 +106,22 @@ class CardItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                      onTap: () {
-                        
-                      },
+                      onTap: () {},
                       child: Icon(CupertinoIcons.heart,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: onMessage ?? () {
-                       
-                      },
+                      onTap: onMessage ?? () {},
                       child: Icon(Icons.comment_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: () {
-                        
-                      },
+                      onTap: () {},
                       child: Icon(Icons.share,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: () {
-                        
-                      },
+                      onTap: () {},
                       child: Icon(Icons.more_vert_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                 ],

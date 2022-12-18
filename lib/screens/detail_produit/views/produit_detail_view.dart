@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -56,10 +57,21 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                 decoration: const BoxDecoration(),
                                 child: AspectRatio(
                                     aspectRatio: 4 / 3,
-                                    child: controller.produit == null ? Image.asset(
-                                        "assets/images/photo.jpg",
-                                        fit: BoxFit.fill) : Image.network(controller.produit!.imageUrl!, fit: BoxFit.fill)),
-                              ),
+                                    child: CachedNetworkImage(
+                                      imageUrl: controller.produit!.imageUrl!.toString(),
+                                      imageBuilder: (context, imageProvider) => Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                              colorFilter: const ColorFilter.mode(
+                                                  Colors.transparent, BlendMode.colorBurn)),
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error, size: 36),
+                                    ),),
+                                  ),
                               /*Positioned(
                                 top: 20,
                                 right: 20,
@@ -207,9 +219,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                       .withOpacity(0.8))),
                                           const SizedBox(width: 8),
                                           InkWell(
-                                              onTap: () {
-                                                
-                                              },
+                                              onTap: () { controller.updateProduct();},
                                               child: Icon(
                                                   Icons.more_vert_outlined,
                                                   size: 26,

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables, empty_catches
 
 import 'dart:convert';
 import 'dart:io';
@@ -10,6 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/models/response_model/produit_model.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/categorie/categorie.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits.dart';
@@ -34,9 +36,18 @@ class ProduitFormController extends GetxController {
   var photo;
   var imageFile;
 
+  Produit? produit;
+
   @override
   void onInit() async {
     await getCategories();
+    try {
+      produit = Get.arguments["produit"];
+      getArguments();
+    } catch (e) {
+      produit = null;
+    }
+
     super.onInit();
   }
 
@@ -53,6 +64,9 @@ class ProduitFormController extends GetxController {
         selectedCategory = categories[1]['libelle'];
         categories.removeAt(0);
         categories.sort((a, b) => a['libelle'].compareTo(b['libelle']));
+        if (produit != null) {
+          checkedProduit();
+        }
       }
       update();
     }, onError: (e) {
@@ -62,12 +76,19 @@ class ProduitFormController extends GetxController {
     });
   }
 
+  void checkedProduit() {
+    try {
+      selectedCategory = categories.firstWhere(
+          (element) => element['id'] == produit!.categorie!)["libelle"];
+    } catch (e) {}
+  }
+
   void onChangeCategory(data) {
     selectedCategory = data;
     update();
   }
 
-   Future choseImage(ImageSource source) async {
+  Future choseImage(ImageSource source) async {
     XFile? pickedFile = await picker.pickImage(
       source: source,
       imageQuality: 50,
@@ -99,7 +120,7 @@ class ProduitFormController extends GetxController {
           message: "Donnez une petite description de votre produit svp !");
       return;
     }
-    if (imageFile ==  null) {
+    if (imageFile == null && produit == null) {
       AppSnackBar.show(
           title: "Erreur",
           message: "Veuillez fournir une image pour votre produit !");
@@ -107,6 +128,10 @@ class ProduitFormController extends GetxController {
     }
     produitFormStatus = AppStatus.appLoading;
     update();
+    if (produit != null) {
+      await updateProduit();
+      return;
+    }
     client.FormData formData = client.FormData.fromMap({
       "idEntreprise": await _localService.getEntrepriseId(),
       "nom": textEditingNomProduit.text.trim(),
@@ -114,9 +139,12 @@ class ProduitFormController extends GetxController {
       "prix": int.parse(textEditingPrixProduit.text.trim()),
       "categorie": categories.firstWhere(
           (element) => element['libelle'] == selectedCategory)['id'],
-      "image": await client.MultipartFile.fromFile(imageFile!.path!, filename: basename(imageFile!.path!)),
+      "image": imageFile != null
+          ? await client.MultipartFile.fromFile(imageFile!.path!,
+              filename: basename(imageFile!.path!))
+          : null,
     });
-   
+
     await _produitService.addProduit(
         data: formData,
         onSuccess: (data) {
@@ -134,4 +162,47 @@ class ProduitFormController extends GetxController {
           update();
         });
   }
+
+  Future<void> updateProduit() async {
+    client.FormData formData = client.FormData.fromMap({
+      "id": produit!.id!.toString(),
+      "nom": textEditingNomProduit.text.trim(),
+      "description": textEditingDescriptionProduit.text.trim(),
+      "prix": int.parse(textEditingPrixProduit.text.trim()),
+      "categorie": categories.firstWhere(
+          (element) => element['libelle'] == selectedCategory)['id'],
+      "image": imageFile != null
+          ? await client.MultipartFile.fromFile(imageFile!.path!,
+              filename: basename(imageFile!.path!))
+          : null,
+      "utilisateur": produit!.utilisateur!,
+    });
+    await _produitService.updateProduit(
+        data: formData,
+        idProduit: produit!.id!.toString(),
+        onSuccess: (data) {
+          Get.back();
+          AppSnackBar.show(
+              title: "Succès",
+              message: data["message"].toString(),
+              backColor: kBlackColor);
+          produitFormStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Erreur", message: e.response!.data["message"].toString());
+          produitFormStatus = AppStatus.appFailure;
+          update();
+        });
+  }
+
+  void getArguments() {
+    textEditingNomProduit.text = produit!.nom!.toString().capitalizeFirst!;
+    textEditingPrixProduit.text = produit!.prix!.toString();
+    // selectedCategory = produit!.categorie!;
+    textEditingDescriptionProduit.text = produit!.description!.toString();
+  }
+
+  
 }

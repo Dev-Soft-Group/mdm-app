@@ -33,4 +33,11 @@ abstract class ProduitService {
     Function(dynamic data)? onSuccess,
     Function(dynamic error)? onError,
   });
+
+  Future<void> updateProduit({
+    dynamic data,
+    String? idProduit,
+    Function(dynamic data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
 }
