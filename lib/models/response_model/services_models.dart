@@ -54,6 +54,8 @@ class Service {
       this.created_at,
       this.updated_at});
 
+
+
   factory Service.fromJson(String string) =>
       Service.fromMap(json.decode(string));
 

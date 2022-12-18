@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_country_code.dart';
-import 'package:mdmscoops/components/custom_dropdown.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
 import 'package:mdmscoops/components/custom_action_button.dart';
 import 'package:mdmscoops/core/app_colors.dart';

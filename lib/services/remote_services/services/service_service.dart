@@ -10,4 +10,11 @@ abstract class ServicesService {
     Function(dynamic data)? onSuccess,
     Function(dynamic error)? onError,
   });
+
+  Future<void> updateService({
+    dynamic data,
+    String? idService,
+    Function(dynamic data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
 }

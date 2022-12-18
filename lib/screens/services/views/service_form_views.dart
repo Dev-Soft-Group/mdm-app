@@ -76,10 +76,10 @@ class ServiceFormView extends GetView<ServicesFormController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: kDefaultPadding),
-                                  const Text(
+                                  Text(controller.service != null ? "Mettre à jour le service" :
                                     "Ajouter un service",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: kBlackColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 22),
@@ -87,7 +87,7 @@ class ServiceFormView extends GetView<ServicesFormController> {
                                   const SizedBox(height: kDefaultPadding * 2),
                                   FormFieldInput(
                                     textController:
-                                        controller.textEditingNomProduit,
+                                        controller.textEditingNomService,
                                     hintText: "Nom du service",
                                     radius: kDefaultRadius,
                                   ),
@@ -103,7 +103,7 @@ class ServiceFormView extends GetView<ServicesFormController> {
                                   ),
                                   const SizedBox(height: kDefaultPadding),
                                   FormFieldInput(
-                                    textController: controller.textEditingDescriptionProduit,
+                                    textController: controller.textEditingDescriptionService,
                                     hintText: "Description du service",
                                     contentPadding: const EdgeInsets.only(top:6, right:0, left:0),
                                     keyboardType: TextInputType.emailAddress,
@@ -121,7 +121,7 @@ class ServiceFormView extends GetView<ServicesFormController> {
                                                   color: kPrimaryColor),
                                         )
                                       : CustomActionButton(
-                                          title: "Enregistrer",
+                                          title: controller.service != null ? "Mettre à jour" : "Enregistrer",
                                           onTap: () async {
                                             await controller.save();
                                           },

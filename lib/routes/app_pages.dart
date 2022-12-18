@@ -36,6 +36,7 @@ import 'package:mdmscoops/screens/secteurs/views/secteur_activite_form_views.dar
 import 'package:mdmscoops/screens/secteurs/views/secteurs_view.dart';
 import 'package:mdmscoops/screens/services/bindings/services_bindings.dart';
 import 'package:mdmscoops/screens/services/views/service_form_views.dart';
+import 'package:mdmscoops/screens/services/views/services_view.dart';
 import 'package:mdmscoops/screens/start/bindings/start_binding.dart';
 import 'package:mdmscoops/screens/start/views/start_view.dart';
 
@@ -95,6 +96,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.CREATE_SERVICE,
       page: () => const ServiceFormView(),
+      binding: ServicesFormBinding(),
+    ),
+     GetPage(
+      name: AppRoutes.SERVICES,
+      page: () => const ServicesView(),
       binding: ServicesFormBinding(),
     ),
     GetPage(

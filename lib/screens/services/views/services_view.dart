@@ -1,23 +1,27 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
-import 'package:mdmscoops/screens/entreprise/controllers/my_enterprise_controller.dart';
+import 'package:mdmscoops/screens/services/controllers/services_controller.dart';
 
-class MyEnterprisesView extends GetView<MyEnterpriseController> {
-  const MyEnterprisesView({super.key});
+class ServicesView extends GetView<ServiceController> {
+  const ServicesView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<MyEnterpriseController>(builder: (context) {
+      child: GetBuilder<ServiceController>(builder: (context) {
         return Scaffold(
             appBar: AppBar(
               backgroundColor: kPrimaryColor,
-               title: const Text("Mes entreprises"),
+              leading: InkWell(
+                onTap: (){Get.back();},
+                child: const Icon(Icons.arrow_back, size: 26, color: Colors.white)
+              ),
+              title: const Text("Services"),
               actions: [
                 Container(
                     height: 30,
@@ -41,22 +45,13 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: kDefaultPadding,
-                  ),
-                  Text(
-                      "Veuillez sélectionner l'entreprise avec laquelle vous souhaitez mené vos activités aujourd'hui.",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: kBlackColor.withOpacity(0.5))),
-                  const SizedBox(
-                    height: kDefaultPadding,
+                    height: kDefaultPadding * 2,
                   ),
                   Container(
                     height: Get.height - 178,
                     margin: const EdgeInsets.only(bottom: kDefaultPadding),
                     decoration: const BoxDecoration(),
-                    child: controller.entrepriseStatus == AppStatus.appLoading
+                    child: controller.servicesStatus == AppStatus.appLoading
                         ? Container(
                             alignment: Alignment.center,
                             child: CircularProgressIndicator(
@@ -70,10 +65,10 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
                             shrinkWrap: true,
                             children: [
                               ...List.generate(
-                                  controller.entreprisesList.length,
+                                  controller.servicesList.length,
                                   (index) => InkWell(
                                         onTap: () async {
-                                          controller.saveEntreprise(controller.entreprisesList[index].id!.toString());
+                                          Get.toNamed(AppRoutes.CREATE_SERVICE, arguments:  {"service": controller.servicesList[index] });
                                         },
                                         child: Card(
                                           child: Container(
@@ -81,29 +76,38 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
                                                   const EdgeInsets.all(10.0),
                                               child: Column(
                                                 children: [
-                                                  Expanded(
-                                                    child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        height: 70,
-                                                        width: 70,
-                                                        clipBehavior:
-                                                            Clip.antiAlias,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: kBlackColor
-                                                              .withOpacity(
-                                                                  0.08),
-                                                          shape:
-                                                              BoxShape.circle,
+                                                  Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      height: 70,
+                                                      width: 70,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration:
+                                                          BoxDecoration(
+                                                        color: kBlackColor
+                                                            .withOpacity(
+                                                                0.08),
+                                                        shape:
+                                                            BoxShape.circle,
+                                                      ),
+                                                      child: 
+                                                      CachedNetworkImage(
+                                                        imageUrl: controller.servicesList[index].imageUrl!.toString(),
+                                                        imageBuilder: (context, imageProvider) => Container(
+                                                          decoration: BoxDecoration(
+                                                            image: DecorationImage(
+                                                                image: imageProvider,
+                                                                fit: BoxFit.cover,
+                                                                colorFilter: const ColorFilter.mode(
+                                                                    Colors.transparent, BlendMode.colorBurn)),
+                                                          ),
                                                         ),
-                                                        child: Image.network(
-                                                            controller
-                                                                .entreprisesList[
-                                                                    index]
-                                                                .logoUrl!
-                                                                .toString())),
-                                                  ),
+                                                        errorWidget: (context, url, error) =>
+                                                            const Icon(Icons.error, size: 36),
+                                                      ),
+                                                     
+                                                      ),
                                                   const SizedBox(
                                                       height: kDefaultPadding),
                                                   Expanded(
@@ -118,7 +122,7 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
                                                         children: [
                                                           Text(
                                                               controller
-                                                                  .entreprisesList[
+                                                                  .servicesList[
                                                                       index]
                                                                   .nom!
                                                                   .toString()
@@ -132,10 +136,11 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
                                                                         .w500,
                                                                 fontSize: 16,
                                                               )),
-                                                          Text(
-                                                              "Tel: ${controller.entreprisesList[index].telephone!.toString().capitalizeFirst!}",
+                                                          Text(controller.servicesList[index].description.toString().capitalizeFirst!,
                                                               textAlign:
-                                                                  TextAlign.end,
+                                                                  TextAlign.justify,
+                                                                maxLines: 2,
+                                                                overflow: TextOverflow.ellipsis,
                                                               style: TextStyle(
                                                                 color: kBlackColor
                                                                     .withOpacity(
@@ -153,52 +158,6 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
                                               )),
                                         ),
                                       )),
-                              InkWell(
-                                onTap: () {
-                                  Get.offAndToNamed(AppRoutes.COMPTEENTREPRISE);
-                                },
-                                child: Card(
-                                  child: Container(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                              alignment: Alignment.center,
-                                              height: 70,
-                                              width: 70,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
-                                                color: kBlackColor
-                                                    .withOpacity(0.08),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: const Icon(
-                                                  CupertinoIcons.add,
-                                                  size: 36)),
-                                        ),
-                                        const SizedBox(
-                                            height: kDefaultPadding * 1.5),
-                                        Expanded(
-                                          child: Container(
-                                            width: double.infinity,
-                                            decoration: const BoxDecoration(),
-                                            child: Text(
-                                                "Ajouter une entreprise",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: kBlackColor
-                                                      .withOpacity(0.8),
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 16,
-                                                )),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                   ),

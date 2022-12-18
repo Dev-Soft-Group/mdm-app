@@ -88,11 +88,11 @@ class NavigationDrawer extends StatelessWidget {
                           Get.offAndToNamed(AppRoutes.HOMEPAGE);
                         },
                       ),
-                      // MenuItem(
-                      //   image: "assets/icons/Icon-profile.png",
-                      //   title: "Profil",
-                      //   onTap: () {Get.offAndToNamed(AppRoutes.PROFILENTREPRENEUR);},
-                      // ),
+                      MenuItem(
+                        image: "assets/icons/Icon-product-hunt.png",
+                        title: "Services",
+                        onTap: () {Get.offAndToNamed(AppRoutes.SERVICES);},
+                      ),
                       MenuItem(
                         image: "assets/icons/Icon-account-box.png",
                         title: "Mode entrepreneur",

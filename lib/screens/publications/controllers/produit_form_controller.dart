@@ -11,7 +11,6 @@ import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/models/response_model/produit_model.dart';
-import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/categorie/categorie.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits.dart';
@@ -200,7 +199,6 @@ class ProduitFormController extends GetxController {
   void getArguments() {
     textEditingNomProduit.text = produit!.nom!.toString().capitalizeFirst!;
     textEditingPrixProduit.text = produit!.prix!.toString();
-    // selectedCategory = produit!.categorie!;
     textEditingDescriptionProduit.text = produit!.description!.toString();
   }
 
