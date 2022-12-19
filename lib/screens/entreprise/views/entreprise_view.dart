@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
@@ -156,9 +157,20 @@ class CustomCard extends StatelessWidget {
             child: Stack(
               children: [
                 item != null?
-                Image.network(item.logoUrl!,
-                    height: double.maxFinite,
-                    width: double.infinity, fit: BoxFit.fill)
+                CachedNetworkImage(
+                  imageUrl: item.logoUrl!.toString(),
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.fill,
+                          colorFilter: const ColorFilter.mode(
+                              Colors.transparent, BlendMode.colorBurn)),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) =>
+                      const Icon(Icons.error, size: 36),
+                )
                 :Image.asset("assets/images/shoes.jpg",
                     width: double.infinity, fit: BoxFit.cover),
                 Positioned(

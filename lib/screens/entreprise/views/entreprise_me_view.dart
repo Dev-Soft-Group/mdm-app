@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -97,12 +98,22 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
                                                           shape:
                                                               BoxShape.circle,
                                                         ),
-                                                        child: Image.network(
-                                                            controller
-                                                                .entreprisesList[
-                                                                    index]
-                                                                .logoUrl!
-                                                                .toString())),
+                                                        child: CachedNetworkImage(
+                                                          imageUrl: controller.entreprisesList[index].logoUrl!.toString(),
+                                                          imageBuilder: (context, imageProvider) => Container(
+                                                            decoration: BoxDecoration(
+                                                              image: DecorationImage(
+                                                                  image: imageProvider,
+                                                                  fit: BoxFit.fill,
+                                                                  colorFilter: const ColorFilter.mode(
+                                                                      Colors.transparent, BlendMode.colorBurn)),
+                                                            ),
+                                                          ),
+                                                          errorWidget: (context, url, error) =>
+                                                              const Icon(Icons.error, size: 36),
+                                                        ),
+                                        
+                                                      ),
                                                   ),
                                                   const SizedBox(
                                                       height: kDefaultPadding),

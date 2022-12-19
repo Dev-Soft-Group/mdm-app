@@ -78,6 +78,7 @@ class Entreprise {
       email: map["email"] as String?,
       logoUrl: map["logoUrl"] as String?,
       sites: map["sites"] as String?,
+      utilisateur:  map["utilisateur"] as int?,
       description: map["description"] as String?,
       succursales: map["succursales"] == null ? [] : List<Succursale>.from(map['succursales'].map((x) => Succursale.fromMap(x))),
       entrepriseCorps: map["entrepriseCorps"] == null ? [] : List<CorpsMetier>.from(map['entrepriseCorps'].map((x) => CorpsMetier.fromMap(x))),

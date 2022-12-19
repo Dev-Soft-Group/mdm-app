@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, empty_catches
 
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:mdmscoops/models/response_model/entreprise_model.dart';
 import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:path/path.dart' as p;
@@ -54,10 +55,25 @@ class CompteController extends GetxController {
 
    var countryCode;
 
+   Entreprise? entreprise;
+
   @override
   void onInit() async {
+    try {
+      entreprise = Get.arguments["entreprise"];
+      getArguments();
+    } catch (e) {}
     await getAllSecteurs();
     super.onInit();
+  }
+
+  void getArguments(){
+    textEditingNom.text = entreprise!.nom!.toString();
+    textEditingEmail.text = entreprise!.email.toString();
+    textEditingSiegeSocial.text = entreprise!.siegeSocial.toString();
+    textEditingTelephone.text = entreprise!.telephone!.toString();
+    textEditingDescription.text = entreprise!.description!.toString();
+    webSites = entreprise!.sites!.split(", ");
   }
 
   void onChangeSecteur(data) {
@@ -238,6 +254,11 @@ class CompteController extends GetxController {
       sites += sites.isEmpty ? string : ", $string";
     }
 
+    if ( entreprise != null){
+      await updateEntreprise(sites);
+      return;
+    }
+
     client.FormData formData = client.FormData.fromMap({
       "idSecteur": secteurs.firstWhere((element) => element["libelle"] == selectedSecteur)['id'],
       "nom": textEditingNom.text.trim(),
@@ -254,6 +275,42 @@ class CompteController extends GetxController {
 
     await _entrepriseService.addEntreprise(
         data: formData,
+        onSuccess: (data) {
+          Get.back();
+          AppSnackBar.show(
+              title: "Succès",
+              message: data["message"].toString(),
+              backColor: kBlackColor);
+          entrepriseStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Erreur", message: e.response!.data["message"].toString());
+          entrepriseStatus = AppStatus.appSuccess;
+          update();
+        });
+  }
+
+  Future updateEntreprise(String sites) async {
+    client.FormData formData = client.FormData.fromMap({
+      "id": entreprise!.id!.toString(),
+      "nom": textEditingNom.text.trim(),
+      "siegeSocial": textEditingSiegeSocial.text.trim(),
+      "telephone": textEditingTelephone.text.trim(),
+      "email": textEditingEmail.text.trim(),
+      "logo": imageFile != null
+          ? await client.MultipartFile.fromFile(imageFile!.path!,
+              filename: p.basename(imageFile!.path!))
+          : "",
+      "sites": sites,
+      "description": textEditingDescription.text.trim(),
+      "utilisateur": entreprise!.utilisateur!
+    });
+    
+    await _entrepriseService.updateEntreprise(
+        data: formData,
+        idEntreprise: entreprise!.id!.toString(),
         onSuccess: (data) {
           Get.back();
           AppSnackBar.show(

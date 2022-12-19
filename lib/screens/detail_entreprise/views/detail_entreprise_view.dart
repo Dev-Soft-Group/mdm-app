@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/detail_entreprise/controllers/detail_entreprise_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -59,12 +61,20 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                     size: 26,
                                                     color: kWhiteColor)),
                                             const Spacer(),
-                                            Image.asset(
-                                                "assets/images/D-SoftTechWhite.png",
-                                                height: 40,
-                                                width: 40,
-                                                fit: BoxFit.cover),
-                                            const SizedBox(width: 10),
+                                            InkWell(
+                                                      onTap: (){ Get.toNamed(AppRoutes.COMPTEENTREPRISE, arguments: { "entreprise": controller.entreprise! }); },
+                                                      child: Container(
+                                                        height: 30,
+                                                        width: 30,
+                                                        alignment: Alignment.center,
+                                                        decoration: BoxDecoration(
+                                                          color: Colors.grey[300],
+                                                          shape: BoxShape.circle,
+                                                        ),
+                                                        child: const Icon(Icons.edit, size: 20, color: kPrimaryColor)
+                                                      ),
+                                                    ),
+                                            const SizedBox(width: 5,),
                                           ]),
                                     ),
                                     const SizedBox(height: kDefaultPadding),
@@ -109,11 +119,20 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                         BorderRadius.circular(
                                                             8),
                                                   ),
-                                                  child: Image.network(
-                                                      controller
-                                                          .entreprise!.logoUrl!
-                                                          .toString(),
-                                                      fit: BoxFit.cover),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: controller.entreprise!.logoUrl!.toString(),
+                                                  imageBuilder: (context, imageProvider) => Container(
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                          image: imageProvider,
+                                                          fit: BoxFit.cover,
+                                                          colorFilter: const ColorFilter.mode(
+                                                              Colors.transparent, BlendMode.colorBurn)),
+                                                    ),
+                                                  ),
+                                                  errorWidget: (context, url, error) =>
+                                                      const Icon(Icons.error, size: 36),
+                                                ),
                                                 )
                                               : Container(
                                                   height: 75,

@@ -80,11 +80,13 @@ class CompteView extends GetView<CompteController> {
                                   const SizedBox(height: kDefaultPadding),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Text(
-                                        "Compte entrepreneur",
+                                        controller.entreprise != null
+                                            ? "Mettre à jour le compte"
+                                            : "Compte entrepreneur",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: kBlackColor,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20),
@@ -92,15 +94,18 @@ class CompteView extends GetView<CompteController> {
                                     ],
                                   ),
                                   const SizedBox(height: 16),
-                                  CustomDropDown(
-                                    controller: controller,
-                                    liste: controller.secteurs,
-                                    selectedItem: controller.selectedSecteur,
-                                    onChanged: (data) {
-                                      controller.onChangeSecteur(data);
-                                    },
-                                    helpText: "Secteur d'activité",
-                                  ),
+                                  controller.entreprise == null
+                                      ? CustomDropDown(
+                                          controller: controller,
+                                          liste: controller.secteurs,
+                                          selectedItem:
+                                              controller.selectedSecteur,
+                                          onChanged: (data) {
+                                            controller.onChangeSecteur(data);
+                                          },
+                                          helpText: "Secteur d'activité",
+                                        )
+                                      : Container(height: 10),
                                   const SizedBox(height: 16),
                                   Row(
                                     children: [
@@ -182,13 +187,38 @@ class CompteView extends GetView<CompteController> {
                                     ],
                                   ),
                                   const SizedBox(height: 16),
-                                  SelectCountryCode(
-                                      controller: controller,
-                                      onChanged: (value) {
-                                        controller.textEditingTelephone.text =
-                                            value;
-                                        controller.update();
-                                      }),
+                                  controller.entreprise!.telephone!
+                                          .startsWith("+")
+                                      ? Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Téléphone",
+                                              style: TextStyle(
+                                                  color: kBlackColor
+                                                      .withOpacity(0.4),
+                                                  fontSize: 14),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            FormFieldInput(
+                                              keyboardType:
+                                                  TextInputType.phone,
+                                              textController:
+                                                  controller.textEditingTelephone,
+                                              onChanged: (string) {},
+                                              hintText: "Ex: +237670000000",
+                                            ),
+                                          ],
+                                        )
+                                      : SelectCountryCode(
+                                          textController:
+                                              controller.textEditingTelephone,
+                                          controller: controller,
+                                          onChanged: (value) {
+                                            controller.textEditingTelephone
+                                                .text = value;
+                                            controller.update();
+                                          }),
                                   const SizedBox(height: 16),
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -399,7 +429,7 @@ class CompteView extends GetView<CompteController> {
                                       height: 90,
                                       width: 90,
                                       decoration:
-                                          /*controller.imageFile == null
+                                          controller.entreprise != null && controller.imageFile == null
                                           ? BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(8),
@@ -410,10 +440,10 @@ class CompteView extends GetView<CompteController> {
                                               ),
                                               image: DecorationImage(
                                                   image: NetworkImage(
-                                                      controller.photo!.image!),
-                                                  fit: BoxFit.cover),
+                                                      controller.entreprise!.logoUrl!.toString(),),
+                                                  fit: BoxFit.fill),
                                             )
-                                          : */
+                                          : 
                                           BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
                                         border: Border.all(
@@ -445,7 +475,9 @@ class CompteView extends GetView<CompteController> {
                                                   color: kPrimaryColor),
                                         )
                                       : CustomActionButton(
-                                          title: "Enregistrer",
+                                          title: controller.entreprise != null
+                                              ? "Mettre à jour"
+                                              : "Enregistrer",
                                           onTap: () async {
                                             await controller.saveEntreprise();
                                           },
