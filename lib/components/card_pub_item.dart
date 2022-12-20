@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/models/response_model/publication_model.dart';
-import 'package:mdmscoops/routes/app_routes.dart';
 
 class CardPubItem extends StatelessWidget {
   const CardPubItem(
@@ -107,30 +106,22 @@ class CardPubItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.CREATE_SECTEUR_ACTIVITE);
-                      },
+                      onTap: () {},
                       child: Icon(CupertinoIcons.heart,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: onMessage ?? () {
-                        Get.toNamed(AppRoutes.CREATE_CORPS_METIER);
-                      },
+                      onTap: onMessage ?? () {},
                       child: Icon(Icons.comment_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.CREATE_SERVICE);
-                      },
+                      onTap: () {},
                       child: Icon(Icons.share,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.CREATE_PRODUCTS);
-                      },
+                      onTap: () {},
                       child: Icon(Icons.more_vert_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                 ],
@@ -154,7 +145,29 @@ class CardPubItem extends StatelessWidget {
                     )
                   ],
                 ),
-                child: Icon(Icons.person,
+                child: item!.entreprise != null ?
+                Container(
+                  alignment: Alignment.center,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: CachedNetworkImage(
+                        imageUrl: item!.entreprise!.logoUrl!.toString(),
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.fill,
+                                colorFilter: const ColorFilter.mode(
+                                    Colors.transparent, BlendMode.colorBurn)),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error, size: 36),
+                      ),
+                )
+                : Icon(Icons.person,
                     size: 36, color: kBlackColor.withOpacity(0.5))),
           ),
         ],

@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 
+import 'package:mdmscoops/models/response_model/entreprise_model.dart';
+
 
 
 class PublicationResponseModel {
@@ -42,7 +44,8 @@ class Publication {
   final String? description;
   final String? imageUrl;
   final int? auteur;
-  final String? entreprise;
+  // final String? idEntreprise;
+  final Entreprise? entreprise;
   final int? type;
   final DateTime? created_at;
   final DateTime? updated_at;
@@ -53,6 +56,7 @@ class Publication {
       this.description,
       this.imageUrl,
       this.auteur,
+      // this.idEntreprise,
       this.entreprise,
       this.type,
       this.created_at,
@@ -67,7 +71,8 @@ class Publication {
       description: map["description"] as String?,
       imageUrl: map["imageUrl"] as String?,
       auteur: map["auteur"] as int?,
-      entreprise: map["entreprise"] as String?,
+      // idEntreprise: map["entreprise"] as String?,
+      entreprise: map["entreprise"] == null ? null : Entreprise.fromMap(map["entreprise"]),
       type: map["type"] as int?,
       created_at:
           map["created_at"] == null ? null : DateTime.parse(map["created_at"]),
@@ -80,6 +85,7 @@ class Publication {
         "description": description,
         "imageUrl": imageUrl,
         "auteur": auteur,
+        // "idEntreprise": idEntreprise,
         "entreprise": entreprise,
         "type": type,
         "created_at": created_at!.toIso8601String(),

@@ -101,7 +101,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                   ),
                                 ),
                               ),*/
-                              Positioned(
+                              controller.produit!.prix != null ? Positioned(
                                 bottom: 0,
                                 right: 0,
                                 child: Container(
@@ -124,7 +124,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                     ),
                                   ),
                                 ),
-                              ),
+                              ) : Container(),
                             ],
                           ),
                           const SizedBox(
@@ -136,7 +136,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(controller.produit!.nom!.toString(),
+                                Text(controller.produit!.nom!.toString().capitalizeFirst!,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
@@ -171,9 +171,8 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                         .withOpacity(0.6),
                                                   ),
                                                 ),
-                                                const Text(
-                                                  "DouxSoftTech",
-                                                  style: TextStyle(
+                                                Text(controller.produit!.entreprises!.first.nom!.toString().capitalizeFirst!,
+                                                  style: const TextStyle(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w600,
                                                     color: kBlackColor,
@@ -181,10 +180,10 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                 ),
                                               ],
                                             ),
-                                            Text(
-                                              "Le 26/09/2022",
+                                            Text("Le ${DateTime.parse(controller.produit!.entreprises!.first.created_at!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.entreprises!.first.created_at!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.entreprises!.first.created_at!.toString()).year.toString().padLeft(2, "0")}",
                                               textAlign: TextAlign.justify,
                                               style: TextStyle(
+                                                fontStyle: FontStyle.italic,
                                                 fontSize: 14,
                                                 color: kBlackColor
                                                     .withOpacity(0.6),
@@ -219,7 +218,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                       .withOpacity(0.8))),
                                           const SizedBox(width: 8),
                                           InkWell(
-                                              onTap: () { controller.updateProduct();},
+                                              onLongPress: () { controller.updateProduct();},
                                               child: Icon(
                                                   Icons.more_vert_outlined,
                                                   size: 26,

@@ -145,7 +145,29 @@ class CardItem extends StatelessWidget {
                     )
                   ],
                 ),
-                child: Icon(Icons.person,
+                child: item!.entreprises.isNotEmpty ?
+                Container(
+                  alignment: Alignment.center,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: CachedNetworkImage(
+                        imageUrl: item!.entreprises!.first.logoUrl!.toString(),
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.fill,
+                                colorFilter: const ColorFilter.mode(
+                                    Colors.transparent, BlendMode.colorBurn)),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error, size: 36),
+                      ),
+                )
+                : Icon(Icons.person,
                     size: 36, color: kBlackColor.withOpacity(0.5))),
           ),
         ],
