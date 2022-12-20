@@ -8,5 +8,4 @@ class Constantes {
   static const String ACCESSTOKEN = "ACCESSTOKEN";
   static const String USERDATA = "USERDATA";
   static const String ENTREPRISE_ID = "ENTREPRISE_ID";
-  
 }

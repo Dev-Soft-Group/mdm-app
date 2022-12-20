@@ -90,19 +90,8 @@ class PublicationFormView extends GetView<PublicationFormController> {
                                     hintText: "Titre",
                                     radius: kDefaultRadius,
                                   ),
-                                  
+                                
                                   const SizedBox(height: kDefaultPadding/1.3),
-                                  CustomDropDown(
-                                    controller: controller,
-                                    liste: controller.entreprises,
-                                    selectedItem: controller.selectedEntreprise,
-                                    onChanged: (data) {
-                                      controller.onChangeEntreprise(data);
-                                    },
-                                    helpText: "Entreprise concernée",
-                                  ),
-                                  
-                                   const SizedBox(height: kDefaultPadding/1.3),
                                   CustomDropDown(
                                     controller: controller,
                                     liste: controller.typePublications,

@@ -107,12 +107,6 @@ class ProduitFormController extends GetxController {
           title: "Erreur", message: "Entrez le nom du produit svp !");
       return;
     }
-
-    if (!GetUtils.isNumericOnly(textEditingPrixProduit.text)) {
-      AppSnackBar.show(
-          title: "Erreur", message: "Veuillez entrer le prix du produit.");
-      return;
-    }
     if (textEditingDescriptionProduit.text.isEmpty) {
       AppSnackBar.show(
           title: "Erreur",
@@ -167,7 +161,7 @@ class ProduitFormController extends GetxController {
       "id": produit!.id!.toString(),
       "nom": textEditingNomProduit.text.trim(),
       "description": textEditingDescriptionProduit.text.trim(),
-      "prix": int.parse(textEditingPrixProduit.text.trim()),
+      "prix": textEditingPrixProduit.text.trim().isNotEmpty ? int.parse(textEditingPrixProduit.text.trim()) : 0,
       "categorie": categories.firstWhere(
           (element) => element['libelle'] == selectedCategory)['id'],
       "image": imageFile != null

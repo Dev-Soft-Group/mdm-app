@@ -85,6 +85,10 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                             },
                                             itemBuilder: (context) => const [
                                               PopupMenuItem(
+                                                value: 0,
+                                                child: Text("Editer l'entreprise"),
+                                              ),
+                                              PopupMenuItem(
                                                 value: 1,
                                                 child: Text("Ajouter un produit"),
                                               ),

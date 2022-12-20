@@ -61,20 +61,31 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                     size: 26,
                                                     color: kWhiteColor)),
                                             const Spacer(),
-                                            InkWell(
-                                                      onTap: (){ Get.toNamed(AppRoutes.COMPTEENTREPRISE, arguments: { "entreprise": controller.entreprise! }); },
-                                                      child: Container(
-                                                        height: 30,
-                                                        width: 30,
-                                                        alignment: Alignment.center,
-                                                        decoration: BoxDecoration(
-                                                          color: Colors.grey[300],
-                                                          shape: BoxShape.circle,
-                                                        ),
-                                                        child: const Icon(Icons.edit, size: 20, color: kPrimaryColor)
-                                                      ),
-                                                    ),
-                                            const SizedBox(width: 5,),
+                                            // InkWell(
+                                            //           onTap: (){ Get.toNamed(AppRoutes.COMPTEENTREPRISE, arguments: { "entreprise": controller.entreprise! }); },
+                                            //           child: Container(
+                                            //             height: 30,
+                                            //             width: 30,
+                                            //             alignment: Alignment.center,
+                                            //             decoration: BoxDecoration(
+                                            //               color: Colors.grey[300],
+                                            //               shape: BoxShape.circle,
+                                            //             ),
+                                            //             child: const Icon(Icons.edit, size: 20, color: kPrimaryColor)
+                                            //           ),
+                                            //         ),
+
+                                            Container(
+                                                height: 30,
+                                                width: 30,
+                                                decoration:
+                                                    const BoxDecoration(),
+                                                child: Image.asset(
+                                                    "assets/images/D-SoftTechWhite.png",
+                                                    fit: BoxFit.fill)),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
                                           ]),
                                     ),
                                     const SizedBox(height: kDefaultPadding),
@@ -119,20 +130,32 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                         BorderRadius.circular(
                                                             8),
                                                   ),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: controller.entreprise!.logoUrl!.toString(),
-                                                  imageBuilder: (context, imageProvider) => Container(
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                          image: imageProvider,
-                                                          fit: BoxFit.cover,
-                                                          colorFilter: const ColorFilter.mode(
-                                                              Colors.transparent, BlendMode.colorBurn)),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: controller
+                                                        .entreprise!.logoUrl!
+                                                        .toString(),
+                                                    imageBuilder: (context,
+                                                            imageProvider) =>
+                                                        Container(
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                            image:
+                                                                imageProvider,
+                                                            fit: BoxFit.cover,
+                                                            colorFilter:
+                                                                const ColorFilter
+                                                                        .mode(
+                                                                    Colors
+                                                                        .transparent,
+                                                                    BlendMode
+                                                                        .colorBurn)),
+                                                      ),
                                                     ),
+                                                    errorWidget: (context, url,
+                                                            error) =>
+                                                        const Icon(Icons.error,
+                                                            size: 36),
                                                   ),
-                                                  errorWidget: (context, url, error) =>
-                                                      const Icon(Icons.error, size: 36),
-                                                ),
                                                 )
                                               : Container(
                                                   height: 75,
@@ -271,7 +294,8 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                         .toString()
                                                         .capitalizeFirst!,
                                                     style: TextStyle(
-                                                      color: kBlackColor.withOpacity(0.8),
+                                                      color: kBlackColor
+                                                          .withOpacity(0.8),
                                                       fontSize: 16,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -286,7 +310,8 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                         .toString()
                                                         .capitalizeFirst!,
                                                     style: TextStyle(
-                                                      color: kBlackColor.withOpacity(0.7),
+                                                      color: kBlackColor
+                                                          .withOpacity(0.7),
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -304,7 +329,8 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                   Text(
                                                     "Tel: ${controller.entreprise!.succursales![i].telephone!}",
                                                     style: TextStyle(
-                                                      color: kBlackColor.withOpacity(0.6),
+                                                      color: kBlackColor
+                                                          .withOpacity(0.6),
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -314,7 +340,8 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                   Text(
                                                     "Email: ${controller.entreprise!.succursales![i].email!}",
                                                     style: TextStyle(
-                                                      color: kBlackColor.withOpacity(0.6),
+                                                      color: kBlackColor
+                                                          .withOpacity(0.6),
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -351,12 +378,12 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                               child: InkWell(
                                                 onTap: () async {
                                                   String url = (controller
-                                                          .siteWeb[i]
-                                                          .startsWith(
-                                                              "http://") || controller
-                                                          .siteWeb[i]
-                                                          .startsWith(
-                                                              "https://"))
+                                                              .siteWeb[i]
+                                                              .startsWith(
+                                                                  "http://") ||
+                                                          controller.siteWeb[i]
+                                                              .startsWith(
+                                                                  "https://"))
                                                       ? controller.siteWeb[i]
                                                       : "http://${controller.siteWeb[i]}";
 
@@ -403,7 +430,10 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                           const SizedBox(
                                               width: kDefaultPadding),
                                           InkWell(
-                                            onTap: () async { controller.sendWhatsAppMessenger();},
+                                            onTap: () async {
+                                              controller
+                                                  .sendWhatsAppMessenger();
+                                            },
                                             child: Image.asset(
                                                 "assets/icons/Iconlogo-whatsapp.png",
                                                 height: 40,

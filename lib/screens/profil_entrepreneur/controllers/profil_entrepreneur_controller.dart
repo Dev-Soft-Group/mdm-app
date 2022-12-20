@@ -136,6 +136,9 @@ class ProfilEntrepreneurController extends GetxController {
 
   void switchList(value) {
     switch (value) {
+      case 0:
+        Get.toNamed(AppRoutes.COMPTEENTREPRISE, arguments: { "entreprise": entreprise! });
+        break;
       case 1:
         Get.toNamed(AppRoutes.CREATE_PRODUCTS);
         break;
