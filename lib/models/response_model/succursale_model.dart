@@ -20,7 +20,7 @@ class SuccursaleResponseModel {
           success: map["success"] as bool?,
           message: map["message"] as String?,
           succursales: map["results"] == null
-              ? null
+              ? []
               : List<Succursale>.from(
                   map["results"].map((x) => Succursale.fromMap(x))));
 

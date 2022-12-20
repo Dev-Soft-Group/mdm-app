@@ -44,4 +44,11 @@ abstract class EntrepriseService {
     Function(dynamic data)? onSuccess,
     Function(DioError error)? onError,
   });
+
+  Future<void> updateSuccursale({
+    dynamic data,
+    String? idSuccursale,
+    Function(dynamic data)? onSuccess,
+    Function(DioError error)? onError,
+  });
 }

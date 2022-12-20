@@ -77,11 +77,10 @@ class SuccursaleFormView extends GetView<CompteController> {
                                   const SizedBox(height: kDefaultPadding),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Text(
-                                        "Ajouter une succursale",
+                                    children: [
+                                      Text(controller.succursale != null ? "Modifier la succursale" : "Ajouter une succursale",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: kBlackColor,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20),
@@ -170,13 +169,34 @@ class SuccursaleFormView extends GetView<CompteController> {
                                     ],
                                   ),
                                   const SizedBox(height: 20),
-                                  SelectCountryCode(
-                                      controller: controller,
-                                      onChanged: (value) {
-                                        controller.textEditingTelephone.text =
-                                            value;
-                                        controller.update();
-                                      }),
+                                   Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: [
+                                       Text(
+                                        "Téléphone",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: kBlackColor.withOpacity(0.4),
+                                            fontSize: 14),
+                                      ),
+                                      const SizedBox(height: 5),
+                                       FormFieldInput(
+                                            keyboardType:
+                                                TextInputType.phone,
+                                            textController:
+                                                controller.textEditingTelephone,
+                                            onChanged: (string) {},
+                                            hintText: "Ex: +237650310892",
+                                          ),
+                                     ],
+                                   ),
+                                  // SelectCountryCode(
+                                  //     controller: controller,
+                                  //     onChanged: (value) {
+                                  //       controller.textEditingTelephone.text =
+                                  //           value;
+                                  //       controller.update();
+                                  //     }),
                                   const SizedBox(height: kDefaultPadding * 4),
                                   controller.succursaleStatus ==
                                           AppStatus.appLoading
@@ -188,7 +208,7 @@ class SuccursaleFormView extends GetView<CompteController> {
                                                   color: kPrimaryColor),
                                         )
                                       : CustomActionButton(
-                                          title: "Enregistrer",
+                                          title: controller.succursale != null ? "Mettre à jour" : "Enregistrer",
                                           onTap: () async {
                                             await controller.saveSuccursale();
                                           },

@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/card_pub_item.dart';
+import 'package:mdmscoops/components/succursale_card.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/controllers/profil_entrepreneur_controller.dart';
 
 class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
@@ -233,7 +235,8 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: kDefaultPadding - 4),
-                            child: Column(
+                            child: controller.selectedTabs == 0 ?
+                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const SizedBox(height: kDefaultPadding),
@@ -364,7 +367,32 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                 ),
                                 const SizedBox(height: kDefaultPadding * 2),
                               ],
-                            ),
+                            ) : controller.selectedTabs == 1 ? 
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: kDefaultPadding /2),
+                                ...List.generate(controller.entreprise!.succursales!.length, (index) => Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: InkWell(
+                                    onLongPress: (){ Get.toNamed(AppRoutes.ENTREPRISE_SUCCURSALE, arguments: { "succursale": controller.entreprise!.succursales![index] }); },
+                                    child: SuccursaleCard(succursale: controller.entreprise!.succursales![index])),
+                                )),
+                                controller.entreprise!.succursales!.isEmpty ? Container(
+                                  height: 280,
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding*1.5),
+                                  alignment: Alignment.center,
+                                  child: Text("Votre entreprise n'a aucune succursale pour le moment",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: kBlackColor.withOpacity(0.5)
+                                    ),
+                                  ),
+                                ) : Container()
+                              ],
+                            ): Container(),
                           ),
                         ]),
                   ))));

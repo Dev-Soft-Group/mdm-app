@@ -129,4 +129,23 @@ class EntrepriseServiceImpl implements EntrepriseService {
       }
     });
   }
+
+  @override
+  Future<void> updateSuccursale(
+      {dynamic data,
+      String? idSuccursale,
+      Function(dynamic data)? onSuccess,
+      Function(DioError error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/succursale/$idSuccursale/",
+      data: data,
+      token: await _localAuth.getToken(),
+    ).put(onSuccess: (data) {
+      onSuccess!(data);
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
 }

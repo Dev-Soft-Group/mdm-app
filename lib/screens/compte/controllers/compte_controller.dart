@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/models/response_model/entreprise_model.dart';
 import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
+import 'package:mdmscoops/models/response_model/succursale_model.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:path/path.dart' as p;
 import 'package:dio/dio.dart' as client;
@@ -56,12 +57,17 @@ class CompteController extends GetxController {
    var countryCode;
 
    Entreprise? entreprise;
+   Succursale? succursale;
 
   @override
   void onInit() async {
     try {
       entreprise = Get.arguments["entreprise"];
       getArguments();
+    } catch (e) {}
+    try {
+      succursale = Get.arguments["succursale"];
+      getSuccursaleArguments();
     } catch (e) {}
     await getAllSecteurs();
     super.onInit();
@@ -74,6 +80,13 @@ class CompteController extends GetxController {
     textEditingTelephone.text = entreprise!.telephone!.toString();
     textEditingDescription.text = entreprise!.description!.toString();
     webSites = entreprise!.sites!.split(", ");
+  }
+
+  void getSuccursaleArguments(){
+    textEditingNom.text = succursale!.nom!.toString();
+    textEditingEmail.text = succursale!.email.toString();
+    textEditingLocalisation.text = succursale!.localisation.toString();
+    textEditingTelephone.text = succursale!.telephone!.toString();
   }
 
   void onChangeSecteur(data) {
@@ -182,6 +195,11 @@ class CompteController extends GetxController {
     succursaleStatus = AppStatus.appLoading;
     update();
 
+    if ( succursale != null ){
+      await updateSuccursale();
+      return;
+    }
+
     client.FormData formData = client.FormData.fromMap({
       "nom": textEditingNom.text.trim(),
       "localisation": textEditingLocalisation.text.trim(),
@@ -192,6 +210,36 @@ class CompteController extends GetxController {
 
     await _entrepriseService.addSuccursale(
         data: formData,
+        onSuccess: (data) {
+          Get.back();
+          AppSnackBar.show(
+              title: "Succès",
+              message: data["message"].toString(),
+              backColor: kBlackColor);
+          succursaleStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Erreur", message: e.response!.data["message"].toString());
+          succursaleStatus = AppStatus.appSuccess;
+          update();
+        });
+  }
+
+  Future updateSuccursale() async {
+    
+    client.FormData formData = client.FormData.fromMap({
+      "nom": textEditingNom.text.trim(),
+      "localisation": textEditingLocalisation.text.trim(),
+      "telephone": textEditingTelephone.text.trim(),
+      "email": textEditingEmail.text.trim(),
+      "entreprise": succursale!.entreprise!.toString(),
+    });
+
+    await _entrepriseService.updateSuccursale(
+        data: formData,
+        idSuccursale: succursale!.id.toString(),
         onSuccess: (data) {
           Get.back();
           AppSnackBar.show(

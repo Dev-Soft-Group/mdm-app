@@ -34,8 +34,9 @@ class ProfilEntrepreneurController extends GetxController {
 
   List menus = [
     "Publications",
-    "Secteurs",
+    "Succursales",
     "Entreprises",
+    "Secteurs",
     "Produits",
     "Services",
   ];

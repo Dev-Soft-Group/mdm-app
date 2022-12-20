@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mdmscoops/components/succursale_card.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/models/response_model/succursale_model.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/detail_entreprise/controllers/detail_entreprise_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -272,88 +274,7 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                     ...List.generate(
                                       controller
                                           .entreprise!.succursales!.length,
-                                      (i) => Card(
-                                        color: kWhiteColor,
-                                        shadowColor: kWhiteColor,
-                                        elevation: 1,
-                                        child: Container(
-                                          height: 60,
-                                          padding: const EdgeInsets.all(10.0),
-                                          alignment: Alignment.center,
-                                          decoration: const BoxDecoration(),
-                                          child: Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const Spacer(),
-                                                  Text(
-                                                    controller.entreprise!
-                                                        .succursales![i].nom!
-                                                        .toString()
-                                                        .capitalizeFirst!,
-                                                    style: TextStyle(
-                                                      color: kBlackColor
-                                                          .withOpacity(0.8),
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 3),
-                                                  Text(
-                                                    controller
-                                                        .entreprise!
-                                                        .succursales![i]
-                                                        .localisation!
-                                                        .toString()
-                                                        .capitalizeFirst!,
-                                                    style: TextStyle(
-                                                      color: kBlackColor
-                                                          .withOpacity(0.7),
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                  const Spacer(),
-                                                ],
-                                              ),
-                                              const Spacer(),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  const Spacer(),
-                                                  Text(
-                                                    "Tel: ${controller.entreprise!.succursales![i].telephone!}",
-                                                    style: TextStyle(
-                                                      color: kBlackColor
-                                                          .withOpacity(0.6),
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 3),
-                                                  Text(
-                                                    "Email: ${controller.entreprise!.succursales![i].email!}",
-                                                    style: TextStyle(
-                                                      color: kBlackColor
-                                                          .withOpacity(0.6),
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                  const Spacer(),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                      (i) => SuccursaleCard(succursale: controller.entreprise!.succursales![i],)
                                     ),
                                     const SizedBox(height: kDefaultPadding - 4),
                                     controller.siteWeb.isNotEmpty
