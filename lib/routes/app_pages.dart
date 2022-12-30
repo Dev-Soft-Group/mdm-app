@@ -7,6 +7,8 @@ import 'package:mdmscoops/screens/connexion/bindings/connexion_binding.dart';
 import 'package:mdmscoops/screens/connexion/views/connexion_view.dart';
 import 'package:mdmscoops/screens/corps_metier/bindings/coprs_metier_bindings.dart';
 import 'package:mdmscoops/screens/corps_metier/views/corps_metier_form_views.dart';
+import 'package:mdmscoops/screens/detail_corps_metier/binding/corps_metier_detail_binding.dart';
+import 'package:mdmscoops/screens/detail_corps_metier/views/details_corpsMetier_view.dart';
 import 'package:mdmscoops/screens/detail_entreprise/bindings/detail_entreprise_binding.dart';
 import 'package:mdmscoops/screens/detail_entreprise/views/detail_entreprise_view.dart';
 import 'package:mdmscoops/screens/detail_produit/bindings/produit_detal_binding.dart';
@@ -152,6 +154,12 @@ class AppPages {
       name: AppRoutes.PROFILENTREPRENEUR,
       page: () => const ProfilEntrepreneurView(),
       binding: ProfilEntrepreneurBinding(),
+    ),
+
+     GetPage(
+      name: AppRoutes.CROPS_METIER_DETAIL,
+      page: () => const CorpsMetierDetailView(),
+      binding: CorpsMetierDetailBinding(),
     ),
   ];
 }

@@ -5,8 +5,6 @@ import 'package:mdmscoops/components/succursale_card.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/models/response_model/succursale_model.dart';
-import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/detail_entreprise/controllers/detail_entreprise_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -2,17 +2,17 @@
 
 import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/models/response_model/entreprise_model.dart';
+import 'package:mdmscoops/models/response_model/corps_metier_model.dart';
 import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
 import 'package:mdmscoops/services/remote_services/secteur_activite/secteur_activite.dart';
 
 class SecteurDetailsController extends GetxController{
 
    final SecteurActiviteService _secteurActiviteService = SecteurActiviteServiceImpl();
-  AppStatus entrepriseStatus = AppStatus.appDefault;
+  AppStatus corpsMetierStatus = AppStatus.appDefault;
 
 
-  List<Entreprise> entreprisesList = [];
+  List<CorpsMetier> corpsMetierList = [];
 
   int selectedTabs = 0;
 
@@ -28,7 +28,7 @@ class SecteurDetailsController extends GetxController{
   void onInit() async {
     secteur = Get.arguments["secteur"];
     update(); 
-    await getEntreprisesForSector();
+    await getCorpsMetierForSector();
     super.onInit();
   }
   @override
@@ -38,20 +38,21 @@ class SecteurDetailsController extends GetxController{
     super.dispose();
   }
 
-  Future getEntreprisesForSector() async {
-    entrepriseStatus = AppStatus.appLoading;
+  Future getCorpsMetierForSector() async {
+    corpsMetierStatus = AppStatus.appLoading;
     update();
-    await _secteurActiviteService.getEntreprisesForSector(
+    await _secteurActiviteService.getCorpsMetierForSector(
       idSecteur: secteur!.id.toString(),
       onSuccess: (data){
-        entreprisesList = data.entreprises!;
-        entrepriseStatus = AppStatus.appSuccess;
+        corpsMetierList = data.corpsMetiers!;
+        corpsMetierStatus = AppStatus.appSuccess;
         update();
       },
       onError: (e){
-        entrepriseStatus = AppStatus.appFailure;
+        corpsMetierStatus = AppStatus.appFailure;
         update();
       }
     );
   }
 }
+

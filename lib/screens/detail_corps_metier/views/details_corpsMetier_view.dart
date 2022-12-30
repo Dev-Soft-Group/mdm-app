@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
@@ -7,17 +6,16 @@ import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/models/response_model/corps_metier_model.dart';
-import 'package:mdmscoops/routes/app_routes.dart';
-import 'package:mdmscoops/screens/detail_secteur/controllers/details_secteurs_controller.dart';
+import 'package:mdmscoops/screens/detail_corps_metier/controllers/detail_corps_metier_controller.dart';
+import 'package:mdmscoops/screens/entreprise/views/entreprise_view.dart';
 
-class SecteurDetailView extends GetView<SecteurDetailsController> {
-  const SecteurDetailView({Key? key}) : super(key: key);
+class CorpsMetierDetailView extends GetView<CorpsMetierDetailController> {
+  const CorpsMetierDetailView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<SecteurDetailsController>(
+      child: GetBuilder<CorpsMetierDetailController>(
         builder: (controller) => Scaffold(
           drawer: const NavigationDrawer(),
           body: Container(
@@ -70,7 +68,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Secteur d'activité",
+                                          "Corps Métier",
                                           style: TextStyle(
                                               color: kBlackColor.withOpacity(0.5),
                                               fontSize: 14),
@@ -78,8 +76,8 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                         const SizedBox(height: 3),
                                         Flexible(
                                           child: Text(
-                                            controller.secteur != null
-                                                ? controller.secteur!.nom!
+                                            controller.corpsMetier != null
+                                                ? controller.corpsMetier!.nom!
                                                     .toString()
                                                     .capitalizeFirst!
                                                 : "Banque",
@@ -96,7 +94,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                   top: 5,
                                   right: 5,
                                   child: InkWell(
-                                    onTap: (){ Get.toNamed(AppRoutes.CREATE_SECTEUR_ACTIVITE, arguments: { "secteur": controller.secteur! } ); },
+                                    // onTap: (){ Get.toNamed(AppRoutes.CREATE_SECTEUR_ACTIVITE, arguments: { "secteur": controller.secteur! } ); },
                                     child: Container(
                                       height: 30,
                                       width: 30,
@@ -121,9 +119,9 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        const TextTitle(text: "Corps métier"),
+                        const TextTitle(text: "Entreprises"),
                         const SizedBox(height: kDefaultPadding),
-                        controller.corpsMetierStatus == AppStatus.appLoading
+                        controller.entrepriseStatus == AppStatus.appLoading
                             ? Expanded(
                                 child: Container(
                                   alignment: Alignment.center,
@@ -131,7 +129,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                       color: kPrimaryColor.withOpacity(0.4)),
                                 ),
                               )
-                            : controller.corpsMetierList.isNotEmpty
+                            : controller.entreprisesList.isNotEmpty
                                 ? Expanded(
                                     child: GridView.count(
                                       crossAxisCount: 3,
@@ -139,10 +137,10 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                       crossAxisSpacing: 10,
                                       shrinkWrap: true,
                                       children: List.generate(
-                                          controller.corpsMetierList.length,
-                                          (index) => CoprsMetier(
+                                          controller.entreprisesList.length,
+                                          (index) => CustomCard(
                                               item: controller
-                                                  .corpsMetierList[index])),
+                                                  .entreprisesList[index])),
                                     ),
                                   )
                                 : Expanded(
@@ -151,7 +149,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                             horizontal: kDefaultPadding * 1.5),
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "Aucun corps métier trouvé dont le secteur d'activité est ${controller.secteur!.nom!.toString().capitalizeFirst!}.",
+                                          "Aucune entreprise trouvée dont le corps métier est ${controller.corpsMetier!.nom!.toString().capitalizeFirst!}.",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: kBlackColor.withOpacity(0.5),
@@ -175,62 +173,62 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
 }
 
 
-class CoprsMetier extends StatelessWidget {
-  const CoprsMetier({
-    Key? key,
-    required this.item,
-  }) : super(key: key);
+// class CoprsMetier extends StatelessWidget {
+//   const CoprsMetier({
+//     Key? key,
+//     required this.item,
+//   }) : super(key: key);
 
-  final CorpsMetier item;
+//   final CorpsMetier item;
 
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){ Get.toNamed(AppRoutes.CROPS_METIER_DETAIL, arguments: {"corpsMetier": item});},
-      child: Card(
-        elevation: 0,
-        child: Container(
-            alignment: Alignment.center,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              color: kWhiteColor,
-              borderRadius: BorderRadius.circular(kDefaultRadius),
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(0, 1),
-                  blurRadius: 3,
-                  color: kBlackColor.withOpacity(0.3),
-                )
-              ],
-            ),
-            child: Stack(
-              children: [
-                Image.asset("assets/images/photo.jpg",
-                height: double.infinity,
-                    width: double.infinity, fit: BoxFit.cover),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      color: kBlackColor.withOpacity(0.7),
-                    ),
-                    child: Text(item.nom!.toString().capitalizeFirst!,
-                      style: const TextStyle(
-                        color: kWhiteColor,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
+//   @override
+//   Widget build(BuildContext context) {
+//     return InkWell(
+//       // onTap: (){ Get.toNamed(AppRoutes.ENTREPRISEDETAILS, arguments: {"idEntreprise": item.id});},
+//       child: Card(
+//         elevation: 0,
+//         child: Container(
+//             alignment: Alignment.center,
+//             clipBehavior: Clip.antiAlias,
+//             decoration: BoxDecoration(
+//               color: kWhiteColor,
+//               borderRadius: BorderRadius.circular(kDefaultRadius),
+//               boxShadow: [
+//                 BoxShadow(
+//                   offset: const Offset(0, 1),
+//                   blurRadius: 3,
+//                   color: kBlackColor.withOpacity(0.3),
+//                 )
+//               ],
+//             ),
+//             child: Stack(
+//               children: [
+//                 Image.asset("assets/images/photo.jpg",
+//                 height: double.infinity,
+//                     width: double.infinity, fit: BoxFit.cover),
+//                 Positioned(
+//                   top: 0,
+//                   left: 0,
+//                   right: 0,
+//                   bottom: 0,
+//                   child: Container(
+//                     alignment: Alignment.center,
+//                     padding: const EdgeInsets.all(8.0),
+//                     decoration: BoxDecoration(
+//                       color: kBlackColor.withOpacity(0.7),
+//                     ),
+//                     child: Text(item.nom!.toString().capitalizeFirst!,
+//                       style: const TextStyle(
+//                         color: kWhiteColor,
+//                         fontSize: 16,
+//                       ),
+//                     ),
+//                   ),
+//                 ),
                 
-              ],
-            )),
-      ),
-    );
-  }
-}
+//               ],
+//             )),
+//       ),
+//     );
+//   }
+// }

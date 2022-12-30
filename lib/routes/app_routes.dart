@@ -28,4 +28,5 @@ class AppRoutes {
   static const String INSCRIPTION = "/inscription";
   static const String CONNEXION = "/connexion";
   static const String PROFILENTREPRENEUR = "/profil_entrepreneur";
+  static const String CROPS_METIER_DETAIL = "/corps_metier_detail";
 }

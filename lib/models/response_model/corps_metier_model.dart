@@ -18,7 +18,7 @@ class CoprsMetierResponseModel {
     status: map["status"] as int?,
     success: map["success"] as bool?,
     message: map["message"] as String?,
-    corpsMetiers: map["results"] == null ? null : List<CorpsMetier>.from(map["categories"].map((x) => CorpsMetier.fromMap(x)))
+    corpsMetiers: map["results"] == null ? null : List<CorpsMetier>.from(map["results"].map((x) => CorpsMetier.fromMap(x)))
   );
 
 

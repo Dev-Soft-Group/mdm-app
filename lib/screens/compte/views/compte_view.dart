@@ -187,7 +187,7 @@ class CompteView extends GetView<CompteController> {
                                     ],
                                   ),
                                   const SizedBox(height: 16),
-                                  controller.entreprise!.telephone!
+                                  controller.entreprise != null && controller.entreprise!.telephone!
                                           .startsWith("+")
                                       ? Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,9 +215,9 @@ class CompteView extends GetView<CompteController> {
                                               controller.textEditingTelephone,
                                           controller: controller,
                                           onChanged: (value) {
-                                            controller.textEditingTelephone
-                                                .text = value;
-                                            controller.update();
+                                            // controller.textEditingTelephone
+                                            //     .text = value;
+                                            // controller.update();
                                           }),
                                   const SizedBox(height: 16),
                                   SingleChildScrollView(

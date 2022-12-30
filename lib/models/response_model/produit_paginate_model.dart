@@ -22,7 +22,7 @@ class ProduitPaginateResponseModel {
           previous: map["previous"],
           isSearching: false,
           produits: map["results"] == null
-              ? null
+              ? []
               : List<Produit>.from(
                   map["results"].map((x) => Produit.fromMap(x)))
           );
