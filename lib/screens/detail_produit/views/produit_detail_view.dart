@@ -180,7 +180,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                 ),
                                               ],
                                             ),
-                                            Text("Le ${DateTime.parse(controller.produit!.entreprises!.first.created_at!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.entreprises!.first.created_at!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.entreprises!.first.created_at!.toString()).year.toString().padLeft(2, "0")}",
+                                            Text("Le ${DateTime.parse(controller.produit!.created_at!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.created_at!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.created_at!.toString()).year.toString().padLeft(2, "0")}",
                                               textAlign: TextAlign.justify,
                                               style: TextStyle(
                                                 fontStyle: FontStyle.italic,

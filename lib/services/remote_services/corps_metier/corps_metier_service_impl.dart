@@ -1,5 +1,6 @@
 import 'package:mdmscoops/core/app_constantes.dart';
 import 'package:mdmscoops/core/app_library.dart';
+import 'package:mdmscoops/models/response_model/corps_metier_model.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/corps_metier/corps_metier_service.dart';
 
@@ -8,13 +9,13 @@ class CorpsMetierServiceImpl implements CorpsMetierService {
 
   @override
   Future<void> getAllCorpsMetier(
-      {Function(dynamic data)? onSuccess,
+      {Function(CoprsMetierResponseModel data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(
       url: "${Constantes.API_URL}/corps-metier/",
       token: await _localAuth.getToken(),
     ).get(onSuccess: (data) {
-      onSuccess!(data);
+      onSuccess!(CoprsMetierResponseModel.fromMap(data));
     }, onError: (error) {
       if (error != null) {
         onError!(error);

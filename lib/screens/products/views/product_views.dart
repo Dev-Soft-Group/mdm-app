@@ -81,8 +81,10 @@ class ProductView extends GetView<ProductController> {
                                         controller.productStatus ==
                                             AppStatus.appSuccess
                                     ? Container(
+                                      alignment: Alignment.center,
                                         decoration: const BoxDecoration(),
                                         width: double.infinity,
+                                        height: Get.height - 125,
                                         child: Text(
                                           "Ooops !!!\nAucune catégorie trouvée",
                                           textAlign: TextAlign.center,
@@ -151,7 +153,7 @@ class RowWidget extends StatelessWidget {
             ),
             child: TextTitle(
                 text:
-                    "${controller.categoriesList[index].nom!.toString().capitalizeFirst!} (${controller.categoriesList[index].produitModel!.produits.length})"),
+                    "${controller.categoriesList[index].nom!.toString().capitalizeFirst!} (${controller.categoriesList[index].produitModel!.count})"),
           ),
           const SizedBox(height: kDefaultPadding / 2),
           SingleChildScrollView(

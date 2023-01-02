@@ -97,13 +97,13 @@ class CompteView extends GetView<CompteController> {
                                   controller.entreprise == null
                                       ? CustomDropDown(
                                           controller: controller,
-                                          liste: controller.secteurs,
+                                          liste: controller.corpsM,
                                           selectedItem:
                                               controller.selectedSecteur,
                                           onChanged: (data) {
                                             controller.onChangeSecteur(data);
                                           },
-                                          helpText: "Secteur d'activité",
+                                          helpText: "Corps métier",
                                         )
                                       : Container(height: 10),
                                   const SizedBox(height: 16),

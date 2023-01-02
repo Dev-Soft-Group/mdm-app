@@ -5,10 +5,12 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:mdmscoops/models/response_model/corps_metier_model.dart';
 import 'package:mdmscoops/models/response_model/entreprise_model.dart';
 import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
 import 'package:mdmscoops/models/response_model/succursale_model.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
+import 'package:mdmscoops/services/remote_services/corps_metier/corps_metier.dart';
 import 'package:path/path.dart' as p;
 import 'package:dio/dio.dart' as client;
 import 'package:image_picker/image_picker.dart';
@@ -16,11 +18,10 @@ import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/services/remote_services/entreprises/entreprise.dart';
-import 'package:mdmscoops/services/remote_services/secteur_activite/secteur_activite.dart';
 
 class CompteController extends GetxController {
-  final SecteurActiviteService _secteurActiviteService =
-      SecteurActiviteServiceImpl();
+  final CorpsMetierService _corpsMetiers =
+      CorpsMetierServiceImpl();
   final EntrepriseService _entrepriseService = EntrepriseServiceImpl();
   final LocalAuthService _localService = LocalAuthServiceImpl();
 
@@ -39,7 +40,7 @@ class CompteController extends GetxController {
   TextEditingController textEditingDescription = TextEditingController();
   TextEditingController textEditingLocalisation = TextEditingController();
 
-  List<Map<String, dynamic>> secteurs = [
+  List<Map<String, dynamic>> corpsM = [
     {'id': '-1', "libelle": "Aucun"},
   ];
 
@@ -69,7 +70,7 @@ class CompteController extends GetxController {
       succursale = Get.arguments["succursale"];
       getSuccursaleArguments();
     } catch (e) {}
-    await getAllSecteurs();
+    await getAllCorpsMetiers();
     super.onInit();
   }
 
@@ -146,15 +147,17 @@ class CompteController extends GetxController {
     update();
   }
 
-  Future getAllSecteurs() async {
-    await _secteurActiviteService.getAllSecteurActivite(onSuccess: (data) {
-      for (SecteurActivite map in data.secteurActivites!) {
-        secteurs.add({"id": map.id!, "libelle": map.nom!});
+  Future getAllCorpsMetiers() async {
+    await _corpsMetiers.getAllCorpsMetier(
+      onSuccess: (data) {
+        print(data.corpsMetiers);
+      for (CorpsMetier map in data.corpsMetiers!) {
+        corpsM.add({"id": map.id!, "libelle": map.nom!});
       }
-      if (secteurs.length > 1) {
-        selectedSecteur = secteurs[1]['libelle'];
-        secteurs.removeAt(0);
-        secteurs.sort((a, b) => a['libelle'].compareTo(b['libelle']));
+      if (corpsM.length > 1) {
+        selectedSecteur = corpsM[1]['libelle'];
+        corpsM.removeAt(0);
+        corpsM.sort((a, b) => a['libelle'].compareTo(b['libelle']));
       }
       update();
     }, onError: (e) {
@@ -308,7 +311,7 @@ class CompteController extends GetxController {
     }
 
     client.FormData formData = client.FormData.fromMap({
-      "idSecteur": secteurs.firstWhere((element) => element["libelle"] == selectedSecteur)['id'],
+      "corpsMetier": corpsM.firstWhere((element) => element["libelle"] == selectedSecteur)['id'],
       "nom": textEditingNom.text.trim(),
       "siegeSocial": textEditingSiegeSocial.text.trim(),
       "telephone": countryCode == null ? "+237${textEditingTelephone.text.trim()}" : "${countryCode!.dialCode!}${textEditingTelephone.text.trim()}",

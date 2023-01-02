@@ -1,7 +1,9 @@
 
+import 'package:mdmscoops/models/response_model/corps_metier_model.dart';
+
 abstract class CorpsMetierService {
   Future<void> getAllCorpsMetier({
-    Function(dynamic data)? onSuccess,
+    Function(CoprsMetierResponseModel data)? onSuccess,
     Function(dynamic error)? onError,
   });
 
