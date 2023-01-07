@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/models/response_model/corps_metier_model.dart';
 import 'package:mdmscoops/models/response_model/entreprise_model.dart';
-import 'package:mdmscoops/models/response_model/secteur_activite_model.dart';
 import 'package:mdmscoops/models/response_model/succursale_model.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/corps_metier/corps_metier.dart';
@@ -20,15 +19,15 @@ import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/services/remote_services/entreprises/entreprise.dart';
 
 class CompteController extends GetxController {
-  final CorpsMetierService _corpsMetiers =
-      CorpsMetierServiceImpl();
+  final CorpsMetierService _corpsMetiers = CorpsMetierServiceImpl();
+  
   final EntrepriseService _entrepriseService = EntrepriseServiceImpl();
   final LocalAuthService _localService = LocalAuthServiceImpl();
 
   AppStatus entrepriseStatus = AppStatus.appDefault;
   AppStatus succursaleStatus = AppStatus.appDefault;
 
-  String selectedSecteur = "Aucun";
+  String selectedCorps = "Aucun";
   String selectedEntreprise = "Aucune";
 
   TextEditingController textEditingNom = TextEditingController();
@@ -55,10 +54,10 @@ class CompteController extends GetxController {
   List<String> webSites = [];
   List<String> pagesSociales = [];
 
-   var countryCode;
+  var countryCode;
 
-   Entreprise? entreprise;
-   Succursale? succursale;
+  Entreprise? entreprise;
+  Succursale? succursale;
 
   @override
   void onInit() async {
@@ -74,7 +73,7 @@ class CompteController extends GetxController {
     super.onInit();
   }
 
-  void getArguments(){
+  void getArguments() {
     textEditingNom.text = entreprise!.nom!.toString();
     textEditingEmail.text = entreprise!.email.toString();
     textEditingSiegeSocial.text = entreprise!.siegeSocial.toString();
@@ -83,15 +82,15 @@ class CompteController extends GetxController {
     webSites = entreprise!.sites!.split(", ");
   }
 
-  void getSuccursaleArguments(){
+  void getSuccursaleArguments() {
     textEditingNom.text = succursale!.nom!.toString();
     textEditingEmail.text = succursale!.email.toString();
     textEditingLocalisation.text = succursale!.localisation.toString();
     textEditingTelephone.text = succursale!.telephone!.toString();
   }
 
-  void onChangeSecteur(data) {
-    selectedSecteur = data;
+  void onChangeCorpsM(data) {
+    selectedCorps = data;
     update();
   }
 
@@ -136,8 +135,8 @@ class CompteController extends GetxController {
               textEditingPageSociale.text.trim().startsWith("https://"))
           ? textEditingPageSociale.text.trim()
           : "https://${textEditingPageSociale.text.trim()}",
-      
-      ...pagesSociales];
+      ...pagesSociales
+    ];
     textEditingPageSociale.clear();
     update();
   }
@@ -148,14 +147,12 @@ class CompteController extends GetxController {
   }
 
   Future getAllCorpsMetiers() async {
-    await _corpsMetiers.getAllCorpsMetier(
-      onSuccess: (data) {
-        print(data.corpsMetiers);
+    await _corpsMetiers.getAllCorpsMetier(onSuccess: (data) {
       for (CorpsMetier map in data.corpsMetiers!) {
         corpsM.add({"id": map.id!, "libelle": map.nom!});
       }
       if (corpsM.length > 1) {
-        selectedSecteur = corpsM[1]['libelle'];
+        selectedCorps = corpsM[1]['libelle'];
         corpsM.removeAt(0);
         corpsM.sort((a, b) => a['libelle'].compareTo(b['libelle']));
       }
@@ -198,7 +195,7 @@ class CompteController extends GetxController {
     succursaleStatus = AppStatus.appLoading;
     update();
 
-    if ( succursale != null ){
+    if (succursale != null) {
       await updateSuccursale();
       return;
     }
@@ -206,7 +203,9 @@ class CompteController extends GetxController {
     client.FormData formData = client.FormData.fromMap({
       "nom": textEditingNom.text.trim(),
       "localisation": textEditingLocalisation.text.trim(),
-      "telephone": countryCode == null ? "+237${textEditingTelephone.text.trim()}" : "${countryCode!.dialCode!}${textEditingTelephone.text.trim()}",
+      "telephone": countryCode == null
+          ? "+237${textEditingTelephone.text.trim()}"
+          : "${countryCode!.dialCode!}${textEditingTelephone.text.trim()}",
       "email": textEditingEmail.text.trim(),
       "entreprise": await _localService.getEntrepriseId()
     });
@@ -231,7 +230,6 @@ class CompteController extends GetxController {
   }
 
   Future updateSuccursale() async {
-    
     client.FormData formData = client.FormData.fromMap({
       "nom": textEditingNom.text.trim(),
       "localisation": textEditingLocalisation.text.trim(),
@@ -272,7 +270,7 @@ class CompteController extends GetxController {
       AppSnackBar.show(
           title: "Erreur",
           message: "Veuillez entrer une adresse email valide !");
-          
+
       return;
     }
 
@@ -305,16 +303,19 @@ class CompteController extends GetxController {
       sites += sites.isEmpty ? string : ", $string";
     }
 
-    if ( entreprise != null){
+    if (entreprise != null) {
       await updateEntreprise(sites);
       return;
     }
 
     client.FormData formData = client.FormData.fromMap({
-      "corpsMetier": corpsM.firstWhere((element) => element["libelle"] == selectedSecteur)['id'],
+      "corpsMetier": corpsM
+          .firstWhere((element) => element["libelle"] == selectedCorps)['id'],
       "nom": textEditingNom.text.trim(),
       "siegeSocial": textEditingSiegeSocial.text.trim(),
-      "telephone": countryCode == null ? "+237${textEditingTelephone.text.trim()}" : "${countryCode!.dialCode!}${textEditingTelephone.text.trim()}",
+      "telephone": countryCode == null
+          ? "+237${textEditingTelephone.text.trim()}"
+          : "${countryCode!.dialCode!}${textEditingTelephone.text.trim()}",
       "email": textEditingEmail.text.trim(),
       "logo": imageFile != null
           ? await client.MultipartFile.fromFile(imageFile!.path!,
@@ -358,7 +359,7 @@ class CompteController extends GetxController {
       "description": textEditingDescription.text.trim(),
       "utilisateur": entreprise!.utilisateur!
     });
-    
+
     await _entrepriseService.updateEntreprise(
         data: formData,
         idEntreprise: entreprise!.id!.toString(),

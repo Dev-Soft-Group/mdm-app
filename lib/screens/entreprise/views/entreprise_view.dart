@@ -78,7 +78,8 @@ class EntreprisesView extends GetView<EntrepriseController> {
                                                   top: kDefaultPadding / 3,
                                                   bottom: kDefaultPadding / 3),
                                               child: Text(
-                                                controller.menus[index],
+                                                controller.menus[index]
+                                                    ['libelle'],
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                   color:
@@ -98,19 +99,41 @@ class EntreprisesView extends GetView<EntrepriseController> {
                                           )),
                                 ),
                                 const SizedBox(height: kDefaultPadding - 4),
-                                Expanded(
-                                  child: GridView.count(
-                                    crossAxisCount: 3,
-                                    mainAxisSpacing: 10,
-                                    crossAxisSpacing: 10,
-                                    shrinkWrap: true,
-                                    children: List.generate(
-                                        controller.entreprisesList.length,
-                                        (index) => CustomCard(
-                                            item:
-                                                controller.entreprisesList[index])),
-                                  ),
-                                ),
+                                controller.entrepriseListStatus ==
+                                        AppStatus.appLoading
+                                    ? Expanded(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: CircularProgressIndicator(
+                                              color: kPrimaryColor
+                                                  .withOpacity(0.4)),
+                                        ),
+                                      )
+                                    : controller.entreprisesList.isNotEmpty ? Expanded(
+                                        child: GridView.count(
+                                          crossAxisCount: 3,
+                                          mainAxisSpacing: 10,
+                                          crossAxisSpacing: 10,
+                                          shrinkWrap: true,
+                                          children: List.generate(
+                                              controller.entreprisesList.length,
+                                              (index) => CustomCard(
+                                                  item: controller
+                                                      .entreprisesList[index])),
+                                        ),
+                                      ) : Expanded(
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding*1.5),
+                                          alignment: Alignment.center,
+                                          child: Text("Aucune entreprise pour le corps métier ${controller.menus[controller.selectedTabs]["libelle"]} !!!",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: kBlackColor.withOpacity(0.6),
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                 const SizedBox(height: kDefaultPadding * 1.5)
                               ],
                             ),
@@ -137,7 +160,10 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){ Get.toNamed(AppRoutes.ENTREPRISEDETAILS, arguments: {"idEntreprise": item.id});},
+      onTap: () {
+        Get.toNamed(AppRoutes.ENTREPRISEDETAILS,
+            arguments: {"idEntreprise": item.id});
+      },
       child: Card(
         elevation: 0,
         child: Container(
@@ -156,23 +182,23 @@ class CustomCard extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                item != null?
-                CachedNetworkImage(
-                  imageUrl: item.logoUrl!.toString(),
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.fill,
-                          colorFilter: const ColorFilter.mode(
-                              Colors.transparent, BlendMode.colorBurn)),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) =>
-                      const Icon(Icons.error, size: 36),
-                )
-                :Image.asset("assets/images/shoes.jpg",
-                    width: double.infinity, fit: BoxFit.cover),
+                item != null
+                    ? CachedNetworkImage(
+                        imageUrl: item.logoUrl!.toString(),
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.fill,
+                                colorFilter: const ColorFilter.mode(
+                                    Colors.transparent, BlendMode.colorBurn)),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error, size: 36),
+                      )
+                    : Image.asset("assets/images/shoes.jpg",
+                        width: double.infinity, fit: BoxFit.cover),
                 Positioned(
                   top: 0,
                   left: 0,
@@ -184,7 +210,8 @@ class CustomCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: kBlackColor.withOpacity(0.7),
                     ),
-                    child: Text(item.nom!.toString().capitalizeFirst!,
+                    child: Text(
+                      item.nom!.toString().capitalizeFirst!,
                       style: const TextStyle(
                         color: kWhiteColor,
                         fontSize: 16,
@@ -192,11 +219,9 @@ class CustomCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                
               ],
             )),
       ),
     );
   }
 }
-

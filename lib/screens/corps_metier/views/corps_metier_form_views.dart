@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mdmscoops/components/custom_dropdown.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
 import 'package:mdmscoops/components/custom_action_button.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/screens/corps_metier/controllers/coprs_metier_form_controller.dart';
+import 'package:mdmscoops/screens/corps_metier/controllers/corps_metier_form_controller.dart';
 
 
 class CorpsMetierFormView extends GetView<CorpsMetierFormController> {
@@ -92,7 +93,16 @@ class CorpsMetierFormView extends GetView<CorpsMetierFormController> {
                                     radius: kDefaultRadius,
                                   ),
                                   const SizedBox(height: kDefaultPadding/1.3),
-                                 
+                                  CustomDropDown(
+                                          controller: controller,
+                                          liste: controller.secteurs,
+                                          selectedItem:
+                                              controller.selectedSecteur,
+                                          onChanged: (data) {
+                                            controller.onChangeSecteur(data);
+                                          },
+                                          helpText: "Secteur d'activité",
+                                        ),
                                   const SizedBox(height: kDefaultPadding * 6),
                                   controller.corpsMetierFormStatus ==
                                           AppStatus.appLoading

@@ -99,9 +99,9 @@ class CompteView extends GetView<CompteController> {
                                           controller: controller,
                                           liste: controller.corpsM,
                                           selectedItem:
-                                              controller.selectedSecteur,
+                                              controller.selectedCorps,
                                           onChanged: (data) {
-                                            controller.onChangeSecteur(data);
+                                            controller.onChangeCorpsM(data);
                                           },
                                           helpText: "Corps métier",
                                         )
