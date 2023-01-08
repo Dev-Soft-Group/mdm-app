@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_status.dart';
@@ -21,9 +22,15 @@ class ProduitController extends GetxController {
   List<Publication> publicationsListCopy = [];
   List<Produit> produitsList = [];
 
+  TextEditingController searchText = TextEditingController();
+
   int selectedTabs = 0;
 
-  List menus = [
+  List menus = [    
+    {
+      "id": -1,
+      "libelle": "Tous",
+    },
     {
       "id": 0,
       "libelle": "Article",
@@ -54,6 +61,24 @@ class ProduitController extends GetxController {
       return;
     }
     // await getProduitForCategorie();
+  }
+
+  Future searchAllEntreprises({String? value}) async {
+    searchText.text = value ?? "";
+    publicationStatus = AppStatus.appLoading;
+    update();
+    await _publisherService.searchAllPublications(
+      data: { "search": searchText.text },
+      onSuccess: (data){
+        publicationsList = data.publications!;
+        publicationStatus = AppStatus.appSuccess;
+        update();
+      },
+      onError: (e){
+        publicationStatus = AppStatus.appFailure;
+        update();
+      }
+    );
   }
 
   //  Future getProduitForCategorie() async {

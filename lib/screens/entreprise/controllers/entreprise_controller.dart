@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_status.dart';
@@ -14,6 +15,8 @@ class EntrepriseController extends GetxController{
   final CorpsMetierService _corpsMetiers = CorpsMetierServiceImpl();
   AppStatus entrepriseStatus = AppStatus.appDefault;
   AppStatus entrepriseListStatus = AppStatus.appDefault;
+
+  TextEditingController searchText = TextEditingController();
 
   int selectedTabs = 0;
 
@@ -37,15 +40,17 @@ class EntrepriseController extends GetxController{
 
   @override
   void onInit() async {
-    await getAllEntreprises();
+    await searchAllEntreprises();
     await getAllCorpsMetiers();
     super.onInit();
   }
 
-  Future getAllEntreprises() async {
+  Future searchAllEntreprises({String? value}) async {
+    searchText.text = value ?? "";
     entrepriseStatus = AppStatus.appLoading;
     update();
-    await _entrepriseService.getAllEntreprises(
+    await _entrepriseService.searchAllEntreprises(
+      data: { "search": searchText.text },
       onSuccess: (data){
         entreprisesListCopy = data.entreprises!;
         entreprisesList = data.entreprises!;

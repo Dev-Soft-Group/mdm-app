@@ -1,4 +1,3 @@
-
 import 'package:mdmscoops/models/response_model/publication_model.dart';
 
 abstract class PublicationService {
@@ -7,6 +6,11 @@ abstract class PublicationService {
     Function(dynamic error)? onError,
   });
 
+  Future<void> searchAllPublications({
+    dynamic data,
+    Function(PublicationResponseModel data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
 
   Future<void> getAllPublicationsForEnterprise({
     String? idEntreprise,

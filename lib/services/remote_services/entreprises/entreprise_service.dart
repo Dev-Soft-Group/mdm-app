@@ -8,6 +8,11 @@ abstract class EntrepriseService {
     Function(DioError error)? onError,
   });
 
+   Future<void> searchAllEntreprises({
+    dynamic data,
+    Function(EntrepriseResponseModel data)? onSuccess,
+    Function(DioError error)? onError,
+  });
 
   Future<void> getEntrepriseById({
     String? idEntreprise,

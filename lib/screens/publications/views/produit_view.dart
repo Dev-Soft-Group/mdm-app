@@ -33,7 +33,12 @@ class ProduitsView extends GetView<ProduitController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBanner(open: openDrawer),
+                AppBanner(
+                  open: openDrawer,
+                  onChanged: (text) async {
+                    await controller.searchAllEntreprises(value: text);
+                  },
+                ),
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () async {
@@ -88,33 +93,49 @@ class ProduitsView extends GetView<ProduitController> {
                             child: Container(
                               margin: const EdgeInsets.symmetric(
                                   horizontal: kDefaultPadding),
-                              child: Wrap(
-                                runSpacing: 0,
-                                spacing: kDefaultPadding / 2,
-                                children: [
-                                  ...List.generate(
-                                      controller.publicationsList.length,
-                                      (index) => CardPubItem(
-                                            onMessage: () async {
-                                              await controller
-                                                  .sendWhatsAppMessenger(
-                                                      controller
-                                                              .publicationsList[
-                                                          index]);
-                                            },
-                                            item: controller
-                                                .publicationsList[index],
-                                            width: Get.width / 2 - 25,
-                                            left: 0,
-                                            bottom: 0,
-                                            bottomLeft: kDefaultPadding - 4,
-                                            containerHeight: 212,
-                                            imageHeight: 100,
-                                            logoTop: 85,
-                                          )),
-                                  const SizedBox(height: kDefaultPadding),
-                                ],
-                              ),
+                              child: controller.publicationsList.isNotEmpty
+                                  ? Wrap(
+                                      runSpacing: 0,
+                                      spacing: kDefaultPadding / 2,
+                                      children: [
+                                        ...List.generate(
+                                            controller.publicationsList.length,
+                                            (index) => CardPubItem(
+                                                  onMessage: () async {
+                                                    await controller
+                                                        .sendWhatsAppMessenger(
+                                                            controller
+                                                                    .publicationsList[
+                                                                index]);
+                                                  },
+                                                  item: controller
+                                                      .publicationsList[index],
+                                                  width: Get.width / 2 - 25,
+                                                  left: 0,
+                                                  bottom: 0,
+                                                  bottomLeft:
+                                                      kDefaultPadding - 4,
+                                                  containerHeight: 212,
+                                                  imageHeight: 100,
+                                                  logoTop: 85,
+                                                )),
+                                        const SizedBox(height: kDefaultPadding),
+                                      ],
+                                    )
+                                  : Container(
+                                    height: Get.height - 220,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: kDefaultPadding * 1.5),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Aucune publication trouvée dont le titre contient ${controller.searchText.text.toUpperCase()} !!!",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: kBlackColor.withOpacity(0.6),
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
                             ),
                           ),
                         ),

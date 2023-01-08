@@ -39,7 +39,9 @@ class EntreprisesView extends GetView<EntrepriseController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBanner(open: openDrawer),
+                AppBanner(open: openDrawer, onChanged: (text) async {
+                  await controller.searchAllEntreprises(value: text);
+                },),
                 controller.entrepriseStatus == AppStatus.appLoading
                     ? Expanded(
                         child: Container(
@@ -51,7 +53,7 @@ class EntreprisesView extends GetView<EntrepriseController> {
                     : Expanded(
                         child: RefreshIndicator(
                           onRefresh: () async {
-                            await controller.getAllEntreprises();
+                            await controller.searchAllEntreprises();
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
