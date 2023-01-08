@@ -20,6 +20,7 @@ class SecteursView extends GetView<SecteursController> {
     void openDrawer() {
       scaffoldKey.currentState!.openDrawer();
     }
+
     return SafeArea(
       child: GetBuilder<SecteursController>(
         builder: (controller) => Scaffold(
@@ -35,20 +36,27 @@ class SecteursView extends GetView<SecteursController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBanner(open: openDrawer),
+                AppBanner(
+                  open: openDrawer,
+                  onChanged: (text) async {
+                    await controller.searchAllSecteurActivite(value: text);
+                  },
+                ),
                 Expanded(
                   child: RefreshIndicator(
-                    onRefresh: () async { await controller.getAllSecteurActivite();},
+                    onRefresh: () async {
+                      await controller.getAllSecteurActivite();
+                    },
                     child: Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: kDefaultPadding),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const TextTitle(text: "Catégories"),
+                          const TextTitle(text: "Secteurs d'activités"),
                           const SizedBox(height: kDefaultPadding),
-                          Container(
+                          /*Container(
                             height: 30,
                             decoration: const BoxDecoration(),
                             child: ListView.builder(
@@ -79,26 +87,47 @@ class SecteursView extends GetView<SecteursController> {
                                         ),
                                       ),
                                     )),
-                          ),
-                          const SizedBox(height: kDefaultPadding - 4),
-                          controller.secteursStatus == AppStatus.appLoading ?
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: CircularProgressIndicator(color: kPrimaryColor.withOpacity(0.4)),
-                            ),
-                          ):
-                          Expanded(
-                            child: GridView.count(
-                              crossAxisCount: 3,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              shrinkWrap: true,
-                              children: List.generate(
-                                  controller.secteurActivitesList.length, (index) => CustomCard(item: controller.secteurActivitesList[index])),
-                            ),
-                          ),
-                          const SizedBox(height: kDefaultPadding*1.5)
+                          ),*/
+                          // const SizedBox(height: kDefaultPadding - 4),
+                          controller.secteursStatus == AppStatus.appLoading
+                              ? Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: CircularProgressIndicator(
+                                        color: kPrimaryColor.withOpacity(0.4)),
+                                  ),
+                                )
+                              : controller.secteurActivitesList.isNotEmpty
+                                  ? Expanded(
+                                      child: GridView.count(
+                                        crossAxisCount: 3,
+                                        mainAxisSpacing: 10,
+                                        crossAxisSpacing: 10,
+                                        shrinkWrap: true,
+                                        children: List.generate(
+                                            controller
+                                                .secteurActivitesList.length,
+                                            (index) => CustomCard(
+                                                item: controller
+                                                        .secteurActivitesList[
+                                                    index])),
+                                      ),
+                                    )
+                                  : Expanded(
+                                      child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal:
+                                                  kDefaultPadding * 1.5),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "Aucun résultat trouvé pour '${controller.searchText.text.toUpperCase()}'",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: kBlackColor
+                                                    .withOpacity(0.4)),
+                                          )),
+                                    ),
+                          const SizedBox(height: kDefaultPadding * 1.5)
                         ],
                       ),
                     ),
@@ -124,7 +153,9 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){ Get.toNamed(AppRoutes.DETAILSSECTEURS, arguments: { "secteur": item! }); },
+      onTap: () {
+        Get.toNamed(AppRoutes.DETAILSSECTEURS, arguments: {"secteur": item!});
+      },
       child: Card(
         elevation: 0,
         child: Container(
@@ -136,7 +167,7 @@ class CustomCard extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   offset: const Offset(0, 1),
-                  blurRadius: 3, 
+                  blurRadius: 3,
                   color: kBlackColor.withOpacity(0.3),
                 )
               ],
@@ -156,13 +187,14 @@ class CustomCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: kBlackColor.withOpacity(0.7),
                     ),
-                    child: Text(item!.nom!.toString().capitalizeFirst!,
+                    child: Text(
+                      item!.nom!.toString().capitalizeFirst!,
                       style: const TextStyle(
                         color: kWhiteColor,
                         fontSize: 16,
                       ),
                     ),
-                  ), 
+                  ),
                 ),
               ],
             )),

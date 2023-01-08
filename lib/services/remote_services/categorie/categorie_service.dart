@@ -1,4 +1,3 @@
-
 import 'package:mdmscoops/models/response_model/categorie_paginate_model.dart';
 
 abstract class CategorieService {
@@ -6,10 +5,18 @@ abstract class CategorieService {
     Function(dynamic data)? onSuccess,
     Function(dynamic error)? onError,
   });
-  
+
   Future<void> getAllProductsCategories({
     dynamic url,
     String? pageSize,
+    Function(CategoriePaginateResponseModel data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
+
+  Future<void> searchAllProductsCategories({
+    dynamic url,
+    String? pageSize,
+    dynamic data,
     Function(CategoriePaginateResponseModel data)? onSuccess,
     Function(dynamic error)? onError,
   });

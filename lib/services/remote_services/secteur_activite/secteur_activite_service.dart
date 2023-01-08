@@ -9,6 +9,14 @@ abstract class SecteurActiviteService {
     Function(dynamic error)? onError,
   });
 
+  Future<void> searchAllSecteurActivite({
+    dynamic data,
+    Function(SecteurActiviteResponseModel data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
+
+
+
   Future<void> addSecteurActivite({
     dynamic data,
     Function(dynamic data)? onSuccess,

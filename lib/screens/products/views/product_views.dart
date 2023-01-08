@@ -36,7 +36,9 @@ class ProductView extends GetView<ProductController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBanner(open: openDrawer),
+                AppBanner(open: openDrawer, onChanged: (text) async { 
+                  controller.clearVariables();
+                  await controller.searchAllProductsCategories(value: text);}),
                 Expanded(
                   child: RefreshIndicator(
                     color: kPrimaryColor,
@@ -45,7 +47,7 @@ class ProductView extends GetView<ProductController> {
                       controller.categoriesList.clear();
                       controller.next = null;
                       controller.update();
-                      await controller.getProductsCategories();
+                      await controller.searchAllProductsCategories(value: controller.searchText.text);
                     },
                     child: controller.productStatus == AppStatus.appLoading &&
                             controller.categoriesList.isEmpty

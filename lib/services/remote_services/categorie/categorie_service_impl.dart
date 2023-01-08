@@ -43,6 +43,26 @@ class CategorieServiceImpl implements CategorieService {
   }
 
   @override
+  Future<void> searchAllProductsCategories(
+      {dynamic url,
+      String? pageSize,
+      dynamic data,
+      Function(CategoriePaginateResponseModel data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: url ?? "${Constantes.API_URL}/categories/search",
+      data: data!,
+      token: await _localAuth.getToken(),
+    ).post(onSuccess: (data) {
+      onSuccess!(CategoriePaginateResponseModel.fromMap(data));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+  @override
   Future<void> addCategories(
       {dynamic data,
       Function(dynamic data)? onSuccess,

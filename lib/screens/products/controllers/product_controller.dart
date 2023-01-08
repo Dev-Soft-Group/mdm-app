@@ -18,6 +18,8 @@ class ProductController extends GetxController {
 
   final ProduitService _produitService = ProduitServiceImpl();
 
+  TextEditingController searchText = TextEditingController();
+
   List<Categorie> categoriesList = [];
 
   ScrollController parentScrollController = ScrollController();
@@ -28,9 +30,17 @@ class ProductController extends GetxController {
 
   @override
   void onInit() async {
-    await getProductsCategories();
+    await searchAllProductsCategories(value: "");
     await listerner();
     super.onInit();
+  }
+
+  void clearVariables() {
+    categoriesList.clear();
+    _count = 0;
+    next = null;
+    previous = null;
+    update();
   }
 
   Future listerner() async {
@@ -42,19 +52,22 @@ class ProductController extends GetxController {
           productStatus = AppStatus.appLoading;
           update();
           Future.delayed(const Duration(seconds: 3), () async {
-            await getProductsCategories();
+            await searchAllProductsCategories(value: searchText.text.trim());
           });
         }
       }
     });
   }
 
-  Future getProductsCategories() async {
+
+  Future searchAllProductsCategories({String? value}) async {
+    searchText.text = value!;
     productStatus = AppStatus.appLoading;
     update();
-    await _categorieService.getAllProductsCategories(
+    await _categorieService.searchAllProductsCategories(
       url: next,
       pageSize: 3.toString(),
+      data: { "search": searchText.text.trim() },
       onSuccess: (data) {
       _count = data.count!;
       next = data.next;
@@ -111,4 +124,6 @@ class ProductController extends GetxController {
       }
     }
   }
+
+  
 }

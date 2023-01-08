@@ -36,7 +36,9 @@ class ProduitsView extends GetView<ProduitController> {
                 AppBanner(open: openDrawer),
                 Expanded(
                   child: RefreshIndicator(
-                    onRefresh: ()async{  await controller.getAllPublications();},
+                    onRefresh: () async {
+                      await controller.getAllPublications();
+                    },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -64,10 +66,11 @@ class ProduitsView extends GetView<ProduitController> {
                                           top: kDefaultPadding / 3,
                                           bottom: kDefaultPadding / 3),
                                       child: Text(
-                                        controller.menus[index],
+                                        controller.menus[index]['libelle'],
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: controller.selectedTabs == index
+                                          color: controller.selectedTabs ==
+                                                  index
                                               ? kBlackColor
                                               : kBlackColor.withOpacity(0.4),
                                           fontWeight:
@@ -92,8 +95,15 @@ class ProduitsView extends GetView<ProduitController> {
                                   ...List.generate(
                                       controller.publicationsList.length,
                                       (index) => CardPubItem(
-                                        onMessage: () async { await controller.sendWhatsAppMessenger(controller.publicationsList[index]);},
-                                            item: controller.publicationsList[index],
+                                            onMessage: () async {
+                                              await controller
+                                                  .sendWhatsAppMessenger(
+                                                      controller
+                                                              .publicationsList[
+                                                          index]);
+                                            },
+                                            item: controller
+                                                .publicationsList[index],
                                             width: Get.width / 2 - 25,
                                             left: 0,
                                             bottom: 0,

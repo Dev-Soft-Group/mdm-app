@@ -9,10 +9,12 @@ class AppBanner extends StatelessWidget {
   const AppBanner({
     Key? key,
     required this.open,
+    this.onChanged,
     this.iconData,
   }) : super(key: key);
 
   final Function() open;
+  final Function(String value)? onChanged;
   final IconData? iconData;
 
   @override
@@ -52,9 +54,7 @@ class AppBanner extends StatelessWidget {
                       borderRadius: BorderRadius.circular(kDefaultRadius * 10)),
                   child: TextField(
                     keyboardType: TextInputType.text,
-                    onChanged: (value) {
-                      // print(value);
-                    },
+                    onChanged: onChanged,
                     style: const TextStyle(
                       color: kBlackColor,
                       decoration: TextDecoration.none,

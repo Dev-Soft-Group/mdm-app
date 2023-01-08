@@ -21,7 +21,6 @@ class StartView extends GetView<StartController> {
               ),
               child: Stack(
                 children: [
-
                   Positioned(
                     top: Get.height*0.23,
                     left: 0,

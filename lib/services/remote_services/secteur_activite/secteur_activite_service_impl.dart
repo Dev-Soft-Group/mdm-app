@@ -29,6 +29,24 @@ class SecteurActiviteServiceImpl implements SecteurActiviteService {
   }
 
   @override
+  Future<void> searchAllSecteurActivite(
+      {dynamic data,
+      Function(SecteurActiviteResponseModel data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/secteur-activite/search",
+      data: data!,
+      token: await _localAuth.getToken(),
+    ).post(onSuccess: (data) {
+      onSuccess!(SecteurActiviteResponseModel.fromMap(data));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+  @override
   Future<void> addSecteurActivite(
       {dynamic data,
       Function(dynamic data)? onSuccess,
