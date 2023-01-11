@@ -4,17 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/models/response_model/categorie_produit_modele.dart';
 import 'package:mdmscoops/models/response_model/produit_model.dart';
 import 'package:mdmscoops/models/response_model/publication_model.dart';
-import 'package:mdmscoops/services/remote_services/produits/produits.dart';
 import 'package:mdmscoops/services/remote_services/publications/publication.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProduitController extends GetxController {
   final PublicationService _publisherService = PublicationServiceImpl();
 
-  final ProduitService _produitService = ProduitServiceImpl();
+  // final ProduitService _produitService = ProduitServiceImpl();
 
   AppStatus publicationStatus = AppStatus.appDefault;
 

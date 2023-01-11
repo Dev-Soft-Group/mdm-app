@@ -30,7 +30,7 @@ class ServicesFormController extends GetxController {
     } catch (e) {
       service = null;
     }
-    await getCategories();
+    await getCategoriesServices();
     super.onInit();
   }
 
@@ -43,8 +43,8 @@ class ServicesFormController extends GetxController {
     {'id': "-1", 'libelle': "Aucun"},
   ];
 
-  Future getCategories() async {
-    await _categorieService.getAllCategories(onSuccess: (data) {
+  Future getCategoriesServices() async {
+    await _categorieService.getAllCategoriesServices(onSuccess: (data) {
       for (Map map in data["results"]) {
         categories.add({"id": map["id"], "libelle": map["nom"]});
       }
@@ -105,6 +105,7 @@ class ServicesFormController extends GetxController {
     await _servicetService.addService(
         data: data,
         onSuccess: (data) {
+          Get.back();
           AppSnackBar.show(
               title: "Succès",
               message: data["message"].toString(),

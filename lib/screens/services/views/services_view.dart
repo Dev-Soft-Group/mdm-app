@@ -67,7 +67,7 @@ class ServicesView extends GetView<ServiceController> {
                               ...List.generate(
                                   controller.servicesList.length,
                                   (index) => InkWell(
-                                        onTap: () async {
+                                        onLongPress: () async {
                                           Get.toNamed(AppRoutes.CREATE_SERVICE, arguments:  {"service": controller.servicesList[index] });
                                         },
                                         child: Card(
