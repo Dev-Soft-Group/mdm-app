@@ -16,7 +16,7 @@ class AppRoutes {
   static const String CREATE_CORPS_METIER = "/create_coprs_metier";
   static const String CREATE_SECTEUR_ACTIVITE = "/create_secteur_activite";
   static const String CREATE_PUBLICAION = "/create_publication";
-  static const String PRODUITS = "/produits";
+  static const String PUBLICATIONS = "/publications";
   static const String ENTREPRISES = "/entreprises";
   static const String MYENTREPRISES = "/_mes_entreprises";
   static const String SECTEURS = "/secteurs";
@@ -29,4 +29,5 @@ class AppRoutes {
   static const String CONNEXION = "/connexion";
   static const String PROFILENTREPRENEUR = "/profil_entrepreneur";
   static const String CROPS_METIER_DETAIL = "/corps_metier_detail";
+  static const String PUBLICATION_DETAIL = "/publication_detail";
 }

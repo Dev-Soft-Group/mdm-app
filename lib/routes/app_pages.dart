@@ -13,6 +13,8 @@ import 'package:mdmscoops/screens/detail_entreprise/bindings/detail_entreprise_b
 import 'package:mdmscoops/screens/detail_entreprise/views/detail_entreprise_view.dart';
 import 'package:mdmscoops/screens/detail_produit/bindings/produit_detal_binding.dart';
 import 'package:mdmscoops/screens/detail_produit/views/produit_detail_view.dart';
+import 'package:mdmscoops/screens/detail_publication/bindings/publication_detail_binding.dart';
+import 'package:mdmscoops/screens/detail_publication/views/publication_detail_view.dart';
 import 'package:mdmscoops/screens/detail_secteur/bindings/details_secteurs_binding.dart';
 import 'package:mdmscoops/screens/detail_secteur/views/details_secteurs_view.dart';
 import 'package:mdmscoops/screens/entreprise/bindings/entreprise_binding.dart';
@@ -26,11 +28,11 @@ import 'package:mdmscoops/screens/onboarding/bindings/onboarding_bindings.dart';
 import 'package:mdmscoops/screens/onboarding/views/onboarding.dart';
 import 'package:mdmscoops/screens/products/bindings/product_bindings.dart';
 import 'package:mdmscoops/screens/products/views/product_views.dart';
-import 'package:mdmscoops/screens/publications/bindings/produits_bindings.dart';
+import 'package:mdmscoops/screens/publications/bindings/publication_bindings.dart';
 import 'package:mdmscoops/screens/publications/views/produit_form_view.dart';
-import 'package:mdmscoops/screens/publications/views/produit_view.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/bindings/profil_entrepreneur_binding.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/views/profil_entrepreneur_view.dart';
+import 'package:mdmscoops/screens/publications/views/publication_view.dart';
 import 'package:mdmscoops/screens/publications_form/bindings/publications_bindings.dart';
 import 'package:mdmscoops/screens/publications_form/views/publications_form_view.dart';
 import 'package:mdmscoops/screens/secteurs/bindings/secteurs_binding.dart';
@@ -91,8 +93,8 @@ class AppPages {
       binding: ProduitDetailBinding(),
     ),
     GetPage(
-      name: AppRoutes.PRODUITS,
-      page: () => const ProduitsView(),
+      name: AppRoutes.PUBLICATIONS,
+      page: () => const PublicationsView(),
       binding: ProduitBinding(),
     ),
     GetPage(
@@ -160,6 +162,12 @@ class AppPages {
       name: AppRoutes.CROPS_METIER_DETAIL,
       page: () => const CorpsMetierDetailView(),
       binding: CorpsMetierDetailBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.PUBLICATION_DETAIL,
+      page: () => const DetailPublicationView(),
+      binding: PublicationDetailBinding(),
     ),
   ];
 }

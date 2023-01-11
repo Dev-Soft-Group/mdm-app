@@ -5,18 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/screens/detail_produit/controllers/produit_detail_controller.dart';
+import 'package:mdmscoops/screens/detail_publication/controllers/publication_detail_controller.dart';
 
-class DetailProduitView extends GetView<ProduitDetailController> {
-  const DetailProduitView({Key? key}) : super(key: key);
+
+
+class DetailPublicationView extends GetView<PublicationDetailController> {
+  const DetailPublicationView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<ProduitDetailController>(builder: (context) {
+      child: GetBuilder<PublicationDetailController>(builder: (context) {
         return RefreshIndicator(
           onRefresh: () async {
-            await controller.getProductById();
+            await controller.getPublicationById();
           },
           child: Scaffold(
             appBar: AppBar(
@@ -29,13 +31,13 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                   child: const Icon(Icons.arrow_back,
                       size: 26, color: kBlackColor),
                 ),
-                title: const Text("Détail du produit",
+                title: const Text("Détail de la publication",
                     style: TextStyle(
                       color: kBlackColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ))),
-            body: controller.productStatus == AppStatus.appLoading
+            body: controller.publicationStatus == AppStatus.appLoading
                 ? Container(
                     height: Get.height,
                     width: Get.width,
@@ -43,7 +45,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                     child: CircularProgressIndicator(
                       color: kPrimaryColor.withOpacity(0.4),
                     ))
-                : Container(
+                : controller.publication != null ? Container(
                     height: Get.height,
                     width: Get.width,
                     decoration: const BoxDecoration(),
@@ -58,7 +60,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                 child: AspectRatio(
                                     aspectRatio: 4 / 3,
                                     child: CachedNetworkImage(
-                                      imageUrl: controller.produit!.imageUrl!.toString(),
+                                      imageUrl: controller.publication!.imageUrl!.toString(),
                                       imageBuilder: (context, imageProvider) => Container(
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
@@ -72,59 +74,31 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                           const Icon(Icons.error, size: 36),
                                     ),),
                                   ),
-                              /*Positioned(
-                                top: 20,
-                                right: 20,
-                                child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      color: kWhiteColor,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            offset: const Offset(0, 6),
-                                            blurRadius: 8,
-                                            color:
-                                                Colors.black.withOpacity(0.6)),
-                                      ]),
-                                  child: Center(
-                                    child: Text(
-                                      "${controller.produit!.prix!} F",
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: kWhiteColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),*/
-                              controller.produit!.prix != null ? Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Container(
-                                  height: 35,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: kDefaultPadding),
-                                  decoration: const BoxDecoration(
-                                    color: kBlackColor,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(
-                                            kDefaultRadius * 1.5)),
-                                  ),
-                                  child: Center(
-                                    child: Text("${controller.produit!.prix!} F",
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: kWhiteColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ) : Container(),
+                            
+                              // controller.publication!.prix != null ? Positioned(
+                              //   bottom: 0,
+                              //   right: 0,
+                              //   child: Container(
+                              //     height: 35,
+                              //     padding: const EdgeInsets.symmetric(
+                              //         horizontal: kDefaultPadding),
+                              //     decoration: const BoxDecoration(
+                              //       color: kBlackColor,
+                              //       borderRadius: BorderRadius.only(
+                              //           topLeft: Radius.circular(
+                              //               kDefaultRadius * 1.5)),
+                              //     ),
+                              //     child: Center(
+                              //       child: Text("${controller.produit!.prix!} F",
+                              //         style: const TextStyle(
+                              //           fontSize: 16,
+                              //           fontWeight: FontWeight.w600,
+                              //           color: kWhiteColor,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ) : Container(),
                             ],
                           ),
                           const SizedBox(
@@ -136,7 +110,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(controller.produit!.nom!.toString().capitalizeFirst!,
+                                Text(controller.publication!.titre!.toString().capitalizeFirst!,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
@@ -144,7 +118,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                   ),
                                 ),
                                 const SizedBox(height: kDefaultPadding - 4),
-                                Text(controller.produit!.description!.toString(),
+                                Text(controller.publication!.description!.toString(),
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
                                     fontSize: 16,
@@ -171,7 +145,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                         .withOpacity(0.6),
                                                   ),
                                                 ),
-                                                Text(controller.produit!.entreprises!.first.nom!.toString().capitalizeFirst!,
+                                                Text(controller.publication!.entreprise!.nom!.toString().capitalizeFirst!,
                                                   style: const TextStyle(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w600,
@@ -180,7 +154,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                 ),
                                               ],
                                             ),
-                                            Text("Le ${DateTime.parse(controller.produit!.created_at!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.created_at!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.created_at!.toString()).year.toString().padLeft(2, "0")}",
+                                            Text("Le ${DateTime.parse(controller.publication!.created_at!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(controller.publication!.created_at!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(controller.publication!.created_at!.toString()).year.toString().padLeft(2, "0")}",
                                               textAlign: TextAlign.justify,
                                               style: TextStyle(
                                                 fontStyle: FontStyle.italic,
@@ -218,7 +192,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                       .withOpacity(0.8))),
                                           const SizedBox(width: 8),
                                           InkWell(
-                                              onLongPress: () { controller.updateProduct();},
+                                              // onLongPress: () { controller.updateProduct();},
                                               child: Icon(
                                                   Icons.more_vert_outlined,
                                                   size: 26,
@@ -233,7 +207,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                         ],
                       ),
                     ),
-                  ),
+                  ): Container(),
           ),
         );
       }),

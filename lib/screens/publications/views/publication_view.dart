@@ -6,10 +6,11 @@ import 'package:mdmscoops/components/card_pub_item.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
-import 'package:mdmscoops/screens/publications/controllers/produits_controller.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
+import 'package:mdmscoops/screens/publications/controllers/produit_controller.dart';
 
-class ProduitsView extends GetView<ProduitController> {
-  const ProduitsView({Key? key}) : super(key: key);
+class PublicationsView extends GetView<ProduitController> {
+  const PublicationsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +102,7 @@ class ProduitsView extends GetView<ProduitController> {
                                         ...List.generate(
                                             controller.publicationsList.length,
                                             (index) => CardPubItem(
+                                              onTap: (){Get.toNamed(AppRoutes.PUBLICATION_DETAIL, arguments: { 'idPublication': controller.publicationsList[index].id! }); },
                                                   onMessage: () async {
                                                     await controller
                                                         .sendWhatsAppMessenger(

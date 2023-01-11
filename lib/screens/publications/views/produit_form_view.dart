@@ -8,15 +8,15 @@ import 'package:mdmscoops/components/custom_action_button.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/screens/publications/controllers/produit_form_controller.dart';
+import 'package:mdmscoops/screens/publications/controllers/publication_form_controller.dart';
 
-class ProduitFormView extends GetView<ProduitFormController> {
+class ProduitFormView extends GetView<PublicationFormController> {
   const ProduitFormView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GetBuilder<ProduitFormController>(builder: (controller) {
+      child: GetBuilder<PublicationFormController>(builder: (controller) {
         return Scaffold(
           body: Container(
             height: Get.height,

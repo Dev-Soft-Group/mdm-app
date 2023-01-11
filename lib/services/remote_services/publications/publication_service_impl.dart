@@ -23,11 +23,27 @@ class PublicationServiceImpl implements PublicationService {
     });
   }
 
-   @override
+  @override
+  Future<void> getPublicationById(
+      {String? idPublication,
+      Function(Publication data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/publication/$idPublication/",
+      token: await _localAuth.getToken(),
+    ).get(onSuccess: (data) {
+      onSuccess!(Publication.fromMap(data["results"]));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+  @override
   Future<void> searchAllPublications(
-      {
-        dynamic data,
-        Function(PublicationResponseModel data)? onSuccess,
+      {dynamic data,
+      Function(PublicationResponseModel data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(
       url: "${Constantes.API_URL}/publication/search",
@@ -42,11 +58,10 @@ class PublicationServiceImpl implements PublicationService {
     });
   }
 
-   @override
+  @override
   Future<void> getAllPublicationsForEnterprise(
-      {
-        String? idEntreprise,
-        Function(PublicationResponseModel data)? onSuccess,
+      {String? idEntreprise,
+      Function(PublicationResponseModel data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(
       url: "${Constantes.API_URL}/entreprise/$idEntreprise/publications",
