@@ -105,11 +105,11 @@ class NavigationDrawer extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 20.0),
                         child: Divider(),
                       ),
-                      MenuItem(
-                        image: "assets/icons/Icon-share.png",
-                        title: "Partager",
-                        onTap: () {},
-                      ),
+                      // MenuItem(
+                      //   image: "assets/icons/Icon-share.png",
+                      //   title: "Partager",
+                      //   onTap: () {},
+                      // ),
                       MenuItem(
                         image: "assets/icons/Icon-contacts.png",
                         title: "Aide et contact",

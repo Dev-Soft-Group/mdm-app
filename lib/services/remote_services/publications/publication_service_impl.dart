@@ -24,6 +24,24 @@ class PublicationServiceImpl implements PublicationService {
   }
 
   @override
+  Future<void> getAllPublicationsByType(
+      {dynamic data,
+      Function(PublicationResponseModel data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/publication/type",
+      data:  data!,
+      token: await _localAuth.getToken(),
+    ).post(onSuccess: (data) {
+      onSuccess!(PublicationResponseModel.fromMap(data));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+  @override
   Future<void> getPublicationById(
       {String? idPublication,
       Function(Publication data)? onSuccess,

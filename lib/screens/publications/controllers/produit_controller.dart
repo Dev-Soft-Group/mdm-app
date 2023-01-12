@@ -24,7 +24,7 @@ class ProduitController extends GetxController {
 
   int selectedTabs = 0;
 
-  List menus = [    
+  List menus = [
     {
       "id": -1,
       "libelle": "Tous",
@@ -46,19 +46,19 @@ class ProduitController extends GetxController {
   @override
   void onInit() async {
     await getAllPublications();
-    // await getAllCategorieProduits();
     super.onInit();
   }
 
   void onTabChange(int index) async {
     selectedTabs = index;
+    publicationsList.clear();
     update();
     if (selectedTabs == 0) {
-      // publicationsList = publicationsListCopy;
+      publicationsList = publicationsListCopy;
       update();
       return;
     }
-    // await getProduitForCategorie();
+    await getAllPublicationsByType();
   }
 
   Future searchAllEntreprises({String? value}) async {
@@ -66,49 +66,17 @@ class ProduitController extends GetxController {
     publicationStatus = AppStatus.appLoading;
     update();
     await _publisherService.searchAllPublications(
-      data: { "search": searchText.text },
-      onSuccess: (data){
-        publicationsList = data.publications!;
-        publicationStatus = AppStatus.appSuccess;
-        update();
-      },
-      onError: (e){
-        publicationStatus = AppStatus.appFailure;
-        update();
-      }
-    );
+        data: {"search": searchText.text},
+        onSuccess: (data) {
+          publicationsList = data.publications!;
+          publicationStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          publicationStatus = AppStatus.appFailure;
+          update();
+        });
   }
-
-  //  Future getProduitForCategorie() async {
-  //   publicationStatus = AppStatus.appLoading;
-  //   update();
-  //   await _produitService.getProduitForCategorie(
-  //     idCategory: menus[selectedTabs]["id"],
-  //     onSuccess: (data){
-  //       produitsList = data.produits!;
-  //       print(produitsList);
-  //       publicationStatus = AppStatus.appSuccess;
-  //       update();
-  //     },
-  //     onError: (e){
-  //       publicationStatus = AppStatus.appFailure;
-  //       update();
-  //     }
-  //   );
-  // }
-
-  // Future getAllCategorieProduits() async {
-  //   await _produitService.getAllCategorieProduits(onSuccess: (data) {
-  //     for (CategorieProduit map in data.categories!) {
-  //       menus.add({"id": map.id!, "libelle": map.nom!});
-  //     }
-  //     update();
-  //   }, onError: (e) {
-  //     AppSnackBar.show(
-  //         title: "Erreur", message: e.response!.data["message"].toString());
-  //     update();
-  //   });
-  // }
 
   Future getAllPublications() async {
     publicationStatus = AppStatus.appLoading;
@@ -124,6 +92,24 @@ class ProduitController extends GetxController {
       publicationStatus = AppStatus.appFailure;
       update();
     });
+  }
+
+  Future getAllPublicationsByType() async {
+    publicationStatus = AppStatus.appLoading;
+    update();
+    await _publisherService.getAllPublicationsByType(
+        data: {"type": menus[selectedTabs]['id']},
+        onSuccess: (data) {
+          publicationsList.addAll(data.publications!);
+          publicationStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Erreur", message: e.response.data['message'].toString());
+          publicationStatus = AppStatus.appFailure;
+          update();
+        });
   }
 
   Future<void> sendWhatsAppMessenger(Publication publication) async {
