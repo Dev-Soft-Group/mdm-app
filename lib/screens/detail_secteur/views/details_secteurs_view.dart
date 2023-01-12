@@ -34,6 +34,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                     open: () {
                       Get.back();
                     },
+                    onChanged: (text) async { await controller.searchAllCoprsForSecteurActivite(value: text); },
                     iconData: Icons.arrow_back),
                 Expanded(
                   child: Padding(
@@ -121,7 +122,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        const TextTitle(text: "Corps métier"),
+                        const TextTitle(text: "Corps métiers"),
                         const SizedBox(height: kDefaultPadding),
                         controller.corpsMetierStatus == AppStatus.appLoading
                             ? Expanded(
@@ -151,7 +152,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                             horizontal: kDefaultPadding * 1.5),
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "Aucun corps métier trouvé dont le secteur d'activité est ${controller.secteur!.nom!.toString().capitalizeFirst!}.",
+                                          "Aucun corps métier trouvé dont le secteur d'activité est ${ controller.searchText.text.isEmpty ? controller.secteur!.nom!.toUpperCase() : controller.searchText.text.toUpperCase()}.",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: kBlackColor.withOpacity(0.5),

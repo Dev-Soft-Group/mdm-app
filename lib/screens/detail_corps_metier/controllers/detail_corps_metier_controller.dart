@@ -1,21 +1,25 @@
-
-
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/models/response_model/corps_metier_model.dart';
 import 'package:mdmscoops/models/response_model/entreprise_model.dart';
+import 'package:mdmscoops/screens/detail_secteur/views/details_secteurs_view.dart';
+import 'package:mdmscoops/services/remote_services/entreprises/entreprise.dart';
 import 'package:mdmscoops/services/remote_services/secteur_activite/secteur_activite.dart';
 
-class CorpsMetierDetailController extends GetxController{
+class CorpsMetierDetailController extends GetxController {
+  final SecteurActiviteService _secteurActiviteService =
+      SecteurActiviteServiceImpl();
 
-   final SecteurActiviteService _secteurActiviteService = SecteurActiviteServiceImpl();
-    AppStatus entrepriseStatus = AppStatus.appDefault;
+  final EntrepriseService _entrepriseService = EntrepriseServiceImpl();
 
+  AppStatus entrepriseStatus = AppStatus.appDefault;
 
   List<Entreprise> entreprisesList = [];
 
-  int selectedTabs = 0;
+  TextEditingController searchText = TextEditingController();
 
+  int selectedTabs = 0;
 
   void onTabChange(int index) {
     selectedTabs = index;
@@ -27,10 +31,11 @@ class CorpsMetierDetailController extends GetxController{
   @override
   void onInit() async {
     corpsMetier = Get.arguments["corpsMetier"];
-    update(); 
+    update();
     await getEntreprisesForCorpsMetier();
     super.onInit();
   }
+
   @override
   void dispose() {
     corpsMetier = null;
@@ -42,16 +47,33 @@ class CorpsMetierDetailController extends GetxController{
     entrepriseStatus = AppStatus.appLoading;
     update();
     await _secteurActiviteService.getEntreprisesForCorpsMetier(
-      idCorpsMetier: corpsMetier!.id.toString(),
-      onSuccess: (data){
-        entreprisesList = data.entreprises!;
-        entrepriseStatus = AppStatus.appSuccess;
-        update();
-      },
-      onError: (e){
-        entrepriseStatus = AppStatus.appFailure;
-        update();
-      }
-    );
+        idCorpsMetier: corpsMetier!.id.toString(),
+        onSuccess: (data) {
+          entreprisesList = data.entreprises!;
+          entrepriseStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          entrepriseStatus = AppStatus.appFailure;
+          update();
+        });
+  }
+
+
+  Future searchAllEntreprises({String? value}) async {
+    searchText.text = value ?? "";
+    entrepriseStatus = AppStatus.appLoading;
+    update();
+    await _entrepriseService.searchAllEntreprises(
+        data: {"search": searchText.text, "idCorps": corpsMetier!.id!},
+        onSuccess: (data) {
+          entreprisesList = data.entreprises!;
+          entrepriseStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          entrepriseStatus = AppStatus.appFailure;
+          update();
+        });
   }
 }

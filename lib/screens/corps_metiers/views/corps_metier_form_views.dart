@@ -7,7 +7,7 @@ import 'package:mdmscoops/components/custom_action_button.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/screens/corps_metier/controllers/corps_metier_form_controller.dart';
+import 'package:mdmscoops/screens/corps_metierS/controllers/corps_metier_form_controller.dart';
 
 
 class CorpsMetierFormView extends GetView<CorpsMetierFormController> {

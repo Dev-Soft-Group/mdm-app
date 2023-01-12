@@ -34,6 +34,7 @@ class CorpsMetierDetailView extends GetView<CorpsMetierDetailController> {
                     open: () {
                       Get.back();
                     },
+                    onChanged: (text) async { await controller.searchAllEntreprises(value: text);},
                     iconData: Icons.arrow_back),
                 Expanded(
                   child: Padding(
@@ -151,7 +152,7 @@ class CorpsMetierDetailView extends GetView<CorpsMetierDetailController> {
                                             horizontal: kDefaultPadding * 1.5),
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "Aucune entreprise trouvée dont le corps métier est ${controller.corpsMetier!.nom!.toString().capitalizeFirst!}.",
+                                          "Aucune entreprise trouvée dont le corps métier est ${ controller.searchText.text.isEmpty ? controller.corpsMetier!.nom!.toUpperCase() : controller.searchText.text.toUpperCase() }.",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: kBlackColor.withOpacity(0.5),
@@ -174,63 +175,3 @@ class CorpsMetierDetailView extends GetView<CorpsMetierDetailController> {
   }
 }
 
-
-// class CoprsMetier extends StatelessWidget {
-//   const CoprsMetier({
-//     Key? key,
-//     required this.item,
-//   }) : super(key: key);
-
-//   final CorpsMetier item;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return InkWell(
-//       // onTap: (){ Get.toNamed(AppRoutes.ENTREPRISEDETAILS, arguments: {"idEntreprise": item.id});},
-//       child: Card(
-//         elevation: 0,
-//         child: Container(
-//             alignment: Alignment.center,
-//             clipBehavior: Clip.antiAlias,
-//             decoration: BoxDecoration(
-//               color: kWhiteColor,
-//               borderRadius: BorderRadius.circular(kDefaultRadius),
-//               boxShadow: [
-//                 BoxShadow(
-//                   offset: const Offset(0, 1),
-//                   blurRadius: 3,
-//                   color: kBlackColor.withOpacity(0.3),
-//                 )
-//               ],
-//             ),
-//             child: Stack(
-//               children: [
-//                 Image.asset("assets/images/photo.jpg",
-//                 height: double.infinity,
-//                     width: double.infinity, fit: BoxFit.cover),
-//                 Positioned(
-//                   top: 0,
-//                   left: 0,
-//                   right: 0,
-//                   bottom: 0,
-//                   child: Container(
-//                     alignment: Alignment.center,
-//                     padding: const EdgeInsets.all(8.0),
-//                     decoration: BoxDecoration(
-//                       color: kBlackColor.withOpacity(0.7),
-//                     ),
-//                     child: Text(item.nom!.toString().capitalizeFirst!,
-//                       style: const TextStyle(
-//                         color: kWhiteColor,
-//                         fontSize: 16,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-                
-//               ],
-//             )),
-//       ),
-//     );
-//   }
-// }
