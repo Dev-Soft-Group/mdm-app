@@ -9,7 +9,7 @@ import 'package:mdmscoops/models/response_model/publication_model.dart';
 class CardPubItem extends StatelessWidget {
   const CardPubItem(
       {Key? key,
-      this.item, 
+      this.item,
       this.width,
       this.onTap,
       this.onMessage,
@@ -60,30 +60,30 @@ class CardPubItem extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
-                  height: imageHeight ?? 120,
-                  width: double.infinity,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(kDefaultRadius),
-                  ),
-                  child: CachedNetworkImage(
-                      imageUrl: item!.imageUrl!.toString(),
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                              colorFilter: const ColorFilter.mode(
-                                  Colors.transparent, BlendMode.colorBurn)),
-                        ),
-                      ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error, size: 36),
-                    ),  
-                      
+                height: imageHeight ?? 120,
+                width: double.infinity,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(kDefaultRadius),
                 ),
+                child: CachedNetworkImage(
+                  imageUrl: item!.imageUrl!.toString(),
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                          colorFilter: const ColorFilter.mode(
+                              Colors.transparent, BlendMode.colorBurn)),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) =>
+                      const Icon(Icons.error, size: 36),
+                ),
+              ),
               const SizedBox(height: 8),
-              Text(item!.titre!.toString().capitalizeFirst!,
+              Text(
+                item!.titre!.toString().capitalizeFirst!,
                 style: const TextStyle(
                   color: kBlackColor,
                   fontWeight: FontWeight.bold,
@@ -91,7 +91,8 @@ class CardPubItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 3),
-              Text( item!.description!.toString().capitalizeFirst!,
+              Text(
+                item!.description!.toString().capitalizeFirst!,
                 maxLines: 3,
                 textAlign: TextAlign.justify,
                 overflow: TextOverflow.ellipsis,
@@ -111,7 +112,7 @@ class CardPubItem extends StatelessWidget {
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: onMessage ?? () {},
+                      onTap: () {},
                       child: Icon(Icons.comment_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
@@ -121,9 +122,11 @@ class CardPubItem extends StatelessWidget {
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: () {},
-                      child: Icon(Icons.more_vert_outlined,
-                          size: 20, color: kPrimaryColor.withOpacity(0.8))),
+                    onTap: onMessage ?? () {},
+                    child: Image.asset("assets/icons/Iconlogo-whatsapp.png",
+                        height: 18, width: 18, color: kPrimaryColor.withOpacity(0.9)),
+                  ),
+                   const SizedBox(width: 8),
                 ],
               ),
             ]),
@@ -145,30 +148,30 @@ class CardPubItem extends StatelessWidget {
                     )
                   ],
                 ),
-                child: item!.entreprise != null ?
-                Container(
-                  alignment: Alignment.center,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: CachedNetworkImage(
-                        imageUrl: item!.entreprise!.logoUrl!.toString(),
-                        imageBuilder: (context, imageProvider) => Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.fill,
-                                colorFilter: const ColorFilter.mode(
-                                    Colors.transparent, BlendMode.colorBurn)),
-                          ),
+                child: item!.entreprise != null
+                    ? Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
                         ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error, size: 36),
-                      ),
-                )
-                : Icon(Icons.person,
-                    size: 36, color: kBlackColor.withOpacity(0.5))),
+                        child: CachedNetworkImage(
+                          imageUrl: item!.entreprise!.logoUrl!.toString(),
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.fill,
+                                  colorFilter: const ColorFilter.mode(
+                                      Colors.transparent, BlendMode.colorBurn)),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error, size: 36),
+                        ),
+                      )
+                    : Icon(Icons.person,
+                        size: 36, color: kBlackColor.withOpacity(0.5))),
           ),
         ],
       ),

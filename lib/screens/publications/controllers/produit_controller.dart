@@ -12,8 +12,6 @@ import 'package:url_launcher/url_launcher.dart';
 class ProduitController extends GetxController {
   final PublicationService _publisherService = PublicationServiceImpl();
 
-  // final ProduitService _produitService = ProduitServiceImpl();
-
   AppStatus publicationStatus = AppStatus.appDefault;
 
   List<Publication> publicationsList = [];
@@ -54,7 +52,7 @@ class ProduitController extends GetxController {
     publicationsList.clear();
     update();
     if (selectedTabs == 0) {
-      publicationsList = publicationsListCopy;
+      publicationsList.addAll(publicationsListCopy);
       update();
       return;
     }
@@ -98,9 +96,9 @@ class ProduitController extends GetxController {
     publicationStatus = AppStatus.appLoading;
     update();
     await _publisherService.getAllPublicationsByType(
-        data: {"type": menus[selectedTabs]['id']},
+        data: {"type": menus[selectedTabs]['id'] >=  0 ? [menus[selectedTabs]['id']] : []},
         onSuccess: (data) {
-          publicationsList.addAll(data.publications!);
+          publicationsList = data.publications!;
           publicationStatus = AppStatus.appSuccess;
           update();
         },

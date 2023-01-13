@@ -1,10 +1,17 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:mdmscoops/screens/profil_entrepreneur/controllers/profil_entrepreneur_controller.dart';
+import 'package:path/path.dart' as p;
+import 'package:dio/dio.dart' as client;
+import 'package:image_picker/image_picker.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/models/response_model/publication_model.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/publications/publication_service.dart';
 import 'package:mdmscoops/services/remote_services/publications/publication_service_impl.dart';
@@ -13,15 +20,15 @@ class PublicationFormController extends GetxController {
   final LocalAuthService _localAuthService = LocalAuthServiceImpl();
 
   final PublicationService _publisherService = PublicationServiceImpl();
+  final ProfilEntrepreneurController _control = Get.find<ProfilEntrepreneurController>();
 
   AppStatus publicationFormStatus = AppStatus.appDefault;
 
   TextEditingController textEditingTitrePublication = TextEditingController();
-  TextEditingController textEditingDescriptionPublication = TextEditingController();
+  TextEditingController textEditingDescriptionPublication =
+      TextEditingController();
 
   String selectedType = "Annonce";
-
- 
 
   List<Map<String, dynamic>> entreprises = [
     {'id': "-1", 'libelle': "Aucun"},
@@ -32,6 +39,12 @@ class PublicationFormController extends GetxController {
     {'id': 1, 'libelle': "Annonce"},
     {'id': 2, 'libelle': "Publicité"},
   ];
+
+  var picker = ImagePicker();
+  var photo;
+  var imageFile;
+
+  Publication? publication;
 
   void onChangeTypePublication(data) {
     selectedType = data;
@@ -53,15 +66,23 @@ class PublicationFormController extends GetxController {
     publicationFormStatus = AppStatus.appLoading;
     update();
 
-    var data = {
+    client.FormData formData = client.FormData.fromMap({
       "titre": textEditingTitrePublication.text.trim(),
       "description": textEditingDescriptionPublication.text.trim(),
-      "type": typePublications.firstWhere((element) => element['libelle'] == selectedType)['id'],
-      "entreprise": await _localAuthService.getEntrepriseId()
-    };
+      "type": typePublications
+          .firstWhere((element) => element['libelle'] == selectedType)['id'],
+      "entreprise": await _localAuthService.getEntrepriseId(),
+      "photo": imageFile != null
+          ? await client.MultipartFile.fromFile(imageFile!.path!,
+              filename: p.basename(imageFile!.path!))
+          : "",
+    });
+
     await _publisherService.addPublication(
-        data: data,
+        data: formData,
         onSuccess: (data) {
+          Get.back();
+          _control.getAllPublicationsForEnterprise();
           AppSnackBar.show(
               title: "Succès",
               message: data["message"].toString(),
@@ -75,5 +96,19 @@ class PublicationFormController extends GetxController {
           publicationFormStatus = AppStatus.appFailure;
           update();
         });
+  }
+
+  Future choseImage(ImageSource source) async {
+    XFile? pickedFile = await picker.pickImage(
+      source: source,
+      imageQuality: 50,
+    );
+    if (pickedFile != null) {
+      imageFile = File(pickedFile.path);
+      var imageBytes = imageFile.readAsBytesSync();
+      var encoded = base64Encode(imageBytes);
+      photo = "data:image/png;base64, $encoded";
+      update();
+    }
   }
 }

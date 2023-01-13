@@ -111,7 +111,7 @@ class CardItem extends StatelessWidget {
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: onMessage ?? () {},
+                      onTap: () {},
                       child: Icon(Icons.comment_outlined,
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
@@ -121,9 +121,11 @@ class CardItem extends StatelessWidget {
                           size: 20, color: kPrimaryColor.withOpacity(0.8))),
                   const SizedBox(width: 8),
                   InkWell(
-                      onTap: () {},
-                      child: Icon(Icons.more_vert_outlined,
-                          size: 20, color: kPrimaryColor.withOpacity(0.8))),
+                    onTap: onMessage ?? () {},
+                    child: Image.asset("assets/icons/Iconlogo-whatsapp.png",
+                        height: 18, width: 18, color: kPrimaryColor.withOpacity(0.9)),
+                  ),
+                   const SizedBox(width: 8),
                 ],
               ),
             ]),

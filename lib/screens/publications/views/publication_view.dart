@@ -6,6 +6,7 @@ import 'package:mdmscoops/components/card_pub_item.dart';
 import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
+import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/publications/controllers/produit_controller.dart';
 
@@ -124,13 +125,22 @@ class PublicationsView extends GetView<ProduitController> {
                                         const SizedBox(height: kDefaultPadding),
                                       ],
                                     )
+                                  : 
+                                  controller.publicationsList.isEmpty && controller.publicationStatus == AppStatus.appLoading ?
+                                  Container(
+                                    height: Get.height- 220,
+                                    width: Get.width,
+                                    alignment: Alignment.center,
+                                    child: CircularProgressIndicator(color: kPrimaryColor.withOpacity(0.4)),
+                                  )
                                   : Container(
                                     height: Get.height - 220,
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: kDefaultPadding * 1.5),
                                       alignment: Alignment.center,
-                                      child: Text(
-                                        "Aucune publication trouvée dont le titre contient ${controller.searchText.text.toUpperCase()} !!!",
+                                      child: Text( controller.searchText.text.isNotEmpty ?
+                                        "Aucune publication trouvée dont le titre contient ${controller.searchText.text.toUpperCase()} !!!" :
+                                        "Aucune publication trouvée dont la catégorie est ${controller.menus[controller.selectedTabs]['libelle'].toString().toUpperCase()} !!!" ,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: kBlackColor.withOpacity(0.6),

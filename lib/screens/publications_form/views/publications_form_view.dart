@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mdmscoops/components/custom_dropdown.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
 import 'package:mdmscoops/components/custom_action_button.dart';
@@ -111,6 +113,63 @@ class PublicationFormView extends GetView<PublicationFormController> {
                                     radius: kDefaultRadius,
                                     maxLines: 4,
                                   ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    "Ajouter une image du produit",
+                                    style: TextStyle(
+                                      color: kBlackColor.withOpacity(0.8),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(height: kDefaultPadding /2),
+                                  InkWell(
+                                    onTap: () async {
+                                      // if (controller.produit != null ){return;}
+                                      await controller
+                                          .choseImage(ImageSource.gallery);
+                                    },
+                                    child: Container(
+                                      height: 90,
+                                      width: 90,
+                                      decoration:
+                                      controller.publication != null && controller.imageFile == null
+                                          ? BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              border: Border.all(
+                                                width: 1,
+                                                color: kBlackColor
+                                                    .withOpacity(0.3),
+                                              ),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      controller.publication!.imageUrl!),
+                                                  fit: BoxFit.cover),
+                                            )
+                                          : 
+                                          BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              border: Border.all(
+                                                width: 1,
+                                                color: kBlackColor
+                                                    .withOpacity(0.3),
+                                              ),
+                                              image: controller.imageFile !=
+                                                      null
+                                                  ? DecorationImage(
+                                                      image: FileImage(
+                                                          controller.imageFile),
+                                                      fit: BoxFit.cover)
+                                                  : null,
+                                            ),
+                                      child: Center(
+                                        child: Icon(CupertinoIcons.camera,
+                                            color: kBlackColor.withOpacity(0.4),
+                                            size: 30),
+                                      ),
+                                    ),
+                                  ),                                  
                                   const SizedBox(height: kDefaultPadding * 2.5),
                                   controller.publicationFormStatus ==
                                           AppStatus.appLoading
