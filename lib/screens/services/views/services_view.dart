@@ -79,8 +79,8 @@ class ServicesView extends GetView<ServiceController> {
                                                   Container(
                                                       alignment:
                                                           Alignment.center,
-                                                      height: 70,
-                                                      width: 70,
+                                                      height: 50,
+                                                      width: 50,
                                                       clipBehavior:
                                                           Clip.antiAlias,
                                                       decoration:
@@ -127,6 +127,8 @@ class ServicesView extends GetView<ServiceController> {
                                                                   .nom!
                                                                   .toString()
                                                                   .capitalizeFirst!,
+                                                                  maxLines:  1,
+                                                                  overflow: TextOverflow.ellipsis,
                                                               style: TextStyle(
                                                                 color: kBlackColor
                                                                     .withOpacity(
@@ -148,7 +150,7 @@ class ServicesView extends GetView<ServiceController> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
-                                                                fontSize: 14,
+                                                                fontSize: 13,
                                                               )),
                                                         ],
                                                       ),
