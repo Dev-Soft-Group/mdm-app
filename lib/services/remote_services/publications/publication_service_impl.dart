@@ -30,7 +30,7 @@ class PublicationServiceImpl implements PublicationService {
       Function(dynamic error)? onError}) async {
     ApiRequest(
       url: "${Constantes.API_URL}/publication/type",
-      data:  data!,
+      data: data!,
       token: await _localAuth.getToken(),
     ).post(onSuccess: (data) {
       onSuccess!(PublicationResponseModel.fromMap(data));
@@ -96,6 +96,25 @@ class PublicationServiceImpl implements PublicationService {
   @override
   Future<void> addPublication(
       {dynamic data,
+      Function(dynamic data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/publication/",
+      data: data!,
+      token: await _localAuth.getToken(),
+    ).post(onSuccess: (data) {
+      onSuccess!(data);
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+  @override
+  Future<void> updatePublication(
+      {dynamic data,
+      String? idPublication,
       Function(dynamic data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(

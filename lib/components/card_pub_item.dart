@@ -84,6 +84,8 @@ class CardPubItem extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 item!.titre!.toString().capitalizeFirst!,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: kBlackColor,
                   fontWeight: FontWeight.bold,

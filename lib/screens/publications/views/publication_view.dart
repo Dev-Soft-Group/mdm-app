@@ -52,7 +52,7 @@ class PublicationsView extends GetView<ProduitController> {
                       children: [
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.0),
-                          child: TextTitle(text: "Catégories"),
+                          child: TextTitle(text: "Publications"),
                         ),
                         const SizedBox(height: kDefaultPadding - 2),
                         Container(

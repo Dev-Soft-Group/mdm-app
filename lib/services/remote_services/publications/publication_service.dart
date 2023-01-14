@@ -35,4 +35,11 @@ abstract class PublicationService {
     Function(dynamic data)? onSuccess,
     Function(dynamic error)? onError,
   });
+
+  Future<void> updatePublication({
+    dynamic data,
+    String? idPublication,
+    Function(dynamic data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
 }
