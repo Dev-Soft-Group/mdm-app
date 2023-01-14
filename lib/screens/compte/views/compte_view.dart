@@ -214,11 +214,7 @@ class CompteView extends GetView<CompteController> {
                                           textController:
                                               controller.textEditingTelephone,
                                           controller: controller,
-                                          onChanged: (value) {
-                                            // controller.textEditingTelephone
-                                            //     .text = value;
-                                            // controller.update();
-                                          }),
+                                          onChanged: (value) {}),
                                   const SizedBox(height: 16),
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,

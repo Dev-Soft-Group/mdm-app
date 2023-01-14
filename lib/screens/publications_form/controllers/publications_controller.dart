@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables, empty_catches
 import 'dart:convert';
 import 'dart:io';
 
@@ -46,9 +46,48 @@ class PublicationFormController extends GetxController {
 
   Publication? publication;
 
+  @override
+  void onInit() async {
+    try {
+      publication = Get.arguments['publication'];
+      getArguments();
+    } catch (e) {}
+
+    super.onInit();
+  }
+
+  void getArguments() {
+    textEditingTitrePublication.text = publication!.titre!;
+    textEditingDescriptionPublication.text = publication!.description!;
+    selectedType = typePublications[publication!.type!]["libelle"];
+  }
+
   void onChangeTypePublication(data) {
     selectedType = data;
     update();
+  }
+
+  Future updatePublication(client.FormData formData) async  {
+
+     await _publisherService.updatePublication(
+        data: formData,
+        idPublication: publication!.id!,
+        onSuccess: (data) {
+          Get.back();
+          _control.getAllPublicationsForEnterprise();
+          AppSnackBar.show(
+              title: "Succès",
+              message: data["message"].toString(),
+              backColor: kBlackColor);
+          publicationFormStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Erreur", message: e.response!.data["message"].toString());
+          publicationFormStatus = AppStatus.appFailure;
+          update();
+        });
   }
 
   Future save() async {
@@ -77,6 +116,11 @@ class PublicationFormController extends GetxController {
               filename: p.basename(imageFile!.path!))
           : "",
     });
+
+    if ( publication != null){
+      await updatePublication(formData);
+      return;
+    }
 
     await _publisherService.addPublication(
         data: formData,

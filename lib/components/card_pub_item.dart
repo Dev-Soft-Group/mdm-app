@@ -12,6 +12,7 @@ class CardPubItem extends StatelessWidget {
       this.item,
       this.width,
       this.onTap,
+      this.onLongPress,
       this.onMessage,
       this.left,
       this.bottom,
@@ -22,6 +23,7 @@ class CardPubItem extends StatelessWidget {
       : super(key: key);
   final double? width;
   final Function()? onTap;
+  final Function()? onLongPress;
   final Function()? onMessage;
   final double? left;
   final double? bottom;
@@ -35,6 +37,8 @@ class CardPubItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      onLongPress: onLongPress,
+      onDoubleTap: onLongPress,
       child: Stack(
         children: [
           Container(

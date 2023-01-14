@@ -77,10 +77,10 @@ class PublicationFormView extends GetView<PublicationFormController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: kDefaultPadding),
-                                  const Text(
-                                    "Créer une publication",
+                                  Text(controller.publication != null ?
+                                    "Modifier la publication" : "Créer une publication",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: kBlackColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 22),
@@ -114,17 +114,17 @@ class PublicationFormView extends GetView<PublicationFormController> {
                                     maxLines: 4,
                                   ),
                                   const SizedBox(height: 16),
-                                  Text(
-                                    "Ajouter une image du produit",
+                                  Text(controller.publication != null ?
+                                   "Modifier l'image" : "Ajouter une image",
                                     style: TextStyle(
                                       color: kBlackColor.withOpacity(0.8),
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                   const SizedBox(height: kDefaultPadding /2),
+                                  
                                   InkWell(
                                     onTap: () async {
-                                      // if (controller.produit != null ){return;}
                                       await controller
                                           .choseImage(ImageSource.gallery);
                                     },
@@ -132,7 +132,7 @@ class PublicationFormView extends GetView<PublicationFormController> {
                                       height: 90,
                                       width: 90,
                                       decoration:
-                                      controller.publication != null && controller.imageFile == null
+                                          controller.publication != null && controller.imageFile == null
                                           ? BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(8),
@@ -143,33 +143,30 @@ class PublicationFormView extends GetView<PublicationFormController> {
                                               ),
                                               image: DecorationImage(
                                                   image: NetworkImage(
-                                                      controller.publication!.imageUrl!),
-                                                  fit: BoxFit.cover),
+                                                      controller.publication!.imageUrl!.toString(),),
+                                                  fit: BoxFit.fill),
                                             )
                                           : 
                                           BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                width: 1,
-                                                color: kBlackColor
-                                                    .withOpacity(0.3),
-                                              ),
-                                              image: controller.imageFile !=
-                                                      null
-                                                  ? DecorationImage(
-                                                      image: FileImage(
-                                                          controller.imageFile),
-                                                      fit: BoxFit.cover)
-                                                  : null,
-                                            ),
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: kBlackColor.withOpacity(0.3),
+                                        ),
+                                        image: controller.imageFile != null
+                                            ? DecorationImage(
+                                                image: FileImage(
+                                                    controller.imageFile),
+                                                fit: BoxFit.cover)
+                                            : null,
+                                      ),
                                       child: Center(
                                         child: Icon(CupertinoIcons.camera,
                                             color: kBlackColor.withOpacity(0.4),
                                             size: 30),
                                       ),
                                     ),
-                                  ),                                  
+                                  ),                                 
                                   const SizedBox(height: kDefaultPadding * 2.5),
                                   controller.publicationFormStatus ==
                                           AppStatus.appLoading
@@ -181,7 +178,7 @@ class PublicationFormView extends GetView<PublicationFormController> {
                                                   color: kPrimaryColor),
                                         )
                                       : CustomActionButton(
-                                          title: "Enregistrer",
+                                          title: controller.publication != null ? "Mettre à jour" : "Enregistrer",
                                           onTap: () async {
                                             await controller.save();
                                           },

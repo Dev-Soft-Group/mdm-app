@@ -118,10 +118,10 @@ class PublicationServiceImpl implements PublicationService {
       Function(dynamic data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(
-      url: "${Constantes.API_URL}/publication/",
+      url: "${Constantes.API_URL}/publication/$idPublication/",
       data: data!,
       token: await _localAuth.getToken(),
-    ).post(onSuccess: (data) {
+    ).put(onSuccess: (data) {
       onSuccess!(data);
     }, onError: (error) {
       if (error != null) {

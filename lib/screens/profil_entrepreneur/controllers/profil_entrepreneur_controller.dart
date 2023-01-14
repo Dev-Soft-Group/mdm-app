@@ -97,6 +97,7 @@ class ProfilEntrepreneurController extends GetxController {
     await _publisherService.getAllPublicationsForEnterprise(
         idEntreprise: await _localService.getEntrepriseId(),
         onSuccess: (data) {
+          publicationsList.clear();
           publicationsList.addAll(data.publications!);
           publicationStatus = AppStatus.appSuccess;
           update();

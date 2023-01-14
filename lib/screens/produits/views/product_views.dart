@@ -8,7 +8,7 @@ import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
-import 'package:mdmscoops/screens/products/controllers/product_controller.dart';
+import 'package:mdmscoops/screens/produits/controllers/product_controller.dart';
 
 class ProductView extends GetView<ProductController> {
   const ProductView({Key? key}) : super(key: key);
@@ -164,8 +164,7 @@ class RowWidget extends StatelessWidget {
             child: Row(
               children: [
                 ...List.generate(
-                    controller
-                        .categoriesList[index].produitModel!.produits!.length,
+                    controller.categoriesList[index].produitModel!.produits!.length,
                     (j) => CardItem(
                         onMessage: () async { await controller.sendWhatsAppMessenger(controller.categoriesList[index].produitModel!.produits![j]);},
                         onTap: () {

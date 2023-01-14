@@ -341,6 +341,8 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                                 padding: const EdgeInsets.only(
                                                     right: kDefaultPadding - 5),
                                                 child: CardPubItem(
+                                                  onTap: (){Get.toNamed(AppRoutes.PUBLICATION_DETAIL, arguments: { 'idPublication': controller.publicationsList[index].id! }); },
+                                                  onLongPress: (){Get.toNamed(AppRoutes.CREATE_PUBLICAION, arguments: { 'publication': controller.publicationsList[index] }); },
                                                   onMessage: () async { await controller.sendWhatsAppMessenger(controller.publicationsList[index]);},
                                                   item: controller
                                                       .publicationsList[index],

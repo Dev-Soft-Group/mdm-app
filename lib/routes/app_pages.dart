@@ -26,8 +26,8 @@ import 'package:mdmscoops/screens/inscription/bindings/inscription_binding.dart'
 import 'package:mdmscoops/screens/inscription/views/inscription_view.dart';
 import 'package:mdmscoops/screens/onboarding/bindings/onboarding_bindings.dart';
 import 'package:mdmscoops/screens/onboarding/views/onboarding.dart';
-import 'package:mdmscoops/screens/products/bindings/product_bindings.dart';
-import 'package:mdmscoops/screens/products/views/product_views.dart';
+import 'package:mdmscoops/screens/produits/bindings/product_bindings.dart';
+import 'package:mdmscoops/screens/produits/views/product_views.dart';
 import 'package:mdmscoops/screens/publications/bindings/publication_bindings.dart';
 import 'package:mdmscoops/screens/publications/views/produit_form_view.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/bindings/profil_entrepreneur_binding.dart';
