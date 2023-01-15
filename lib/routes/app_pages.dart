@@ -38,6 +38,7 @@ import 'package:mdmscoops/screens/secteurs/bindings/secteurs_binding.dart';
 import 'package:mdmscoops/screens/secteurs/views/secteur_activite_form_views.dart';
 import 'package:mdmscoops/screens/secteurs/views/secteurs_view.dart';
 import 'package:mdmscoops/screens/services/bindings/services_bindings.dart';
+import 'package:mdmscoops/screens/services/views/service_detail_view.dart';
 import 'package:mdmscoops/screens/services/views/service_form_views.dart';
 import 'package:mdmscoops/screens/services/views/services_view.dart';
 import 'package:mdmscoops/screens/start/bindings/start_binding.dart';
@@ -101,7 +102,7 @@ class AppPages {
       page: () => const PublicationsView(),
       binding: PublicationsBinding(),
     ),
-     GetPage(
+    GetPage(
       name: AppRoutes.CREATE_PUBLICAION,
       page: () => const PublicationFormView(),
       binding: PublicationsBinding(),
@@ -109,14 +110,18 @@ class AppPages {
     GetPage(
       name: AppRoutes.CREATE_SERVICE,
       page: () => const ServiceFormView(),
-      binding: ServicesFormBinding(),
+      binding: ServicesBinding(),
     ),
-     GetPage(
+    GetPage(
       name: AppRoutes.SERVICES,
       page: () => const ServicesView(),
-      binding: ServicesFormBinding(),
+      binding: ServicesBinding(),
     ),
-    
+    GetPage(
+      name: AppRoutes.SERVICES_DETAIL,
+      page: () => const ServicesDetailView(),
+      binding: ServicesBinding(),
+    ),
     GetPage(
       name: AppRoutes.CREATE_CORPS_METIER,
       page: () => const CorpsMetierFormView(),
@@ -127,7 +132,6 @@ class AppPages {
       page: () => const SecteurActiviteFormView(),
       binding: SecteursBinding(),
     ),
-   
     GetPage(
       name: AppRoutes.ENTREPRISEDETAILS,
       page: () => const EntrepriseDetailView(),
@@ -158,13 +162,11 @@ class AppPages {
       page: () => const ProfilEntrepreneurView(),
       binding: ProfilEntrepreneurBinding(),
     ),
-
-     GetPage(
+    GetPage(
       name: AppRoutes.CROPS_METIER_DETAIL,
       page: () => const CorpsMetierDetailView(),
       binding: CorpsMetierDetailBinding(),
     ),
-
     GetPage(
       name: AppRoutes.PUBLICATION_DETAIL,
       page: () => const DetailPublicationView(),

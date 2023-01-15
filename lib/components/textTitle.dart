@@ -17,7 +17,7 @@ class TextTitle extends StatelessWidget {
           style: const TextStyle(
             color: kBlackColor,
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 16,
           ),
         ),
         Container(

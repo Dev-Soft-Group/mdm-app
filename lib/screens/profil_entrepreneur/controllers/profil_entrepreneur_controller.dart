@@ -34,10 +34,10 @@ class ProfilEntrepreneurController extends GetxController {
 
   List menus = [
     "Publications",
+    "Produits",
     "Succursales",
     "Entreprises",
     "Secteurs",
-    "Produits",
     "Services",
   ];
 
@@ -114,6 +114,32 @@ class ProfilEntrepreneurController extends GetxController {
     var number = "+237652310829";
     String message =
         "Bonjour M./Mme\nJe vous contacte depuis la plateforme mobile MDM SCOOPS\n\nJ'éprouve un intérêt particulier pour la publication du produit: ${publication.titre.toString().toUpperCase()} trouvé sur la plateforme";
+    var whatsappUrlAndroid = "whatsapp://send?phone=$number&text=$message";
+    var whatsappUrlIOS = "https://wa.me/$number?text=$message";
+
+    if (Platform.isAndroid) {
+      try {
+        await launchUrl(Uri.parse(whatsappUrlAndroid));
+      } catch (e) {
+        AppSnackBar.show(
+            title: "Error",
+            message: "WhatsApp n'est pas installé sur votre téléphone !");
+      }
+    } else {
+      if (await canLaunchUrl(Uri.parse(whatsappUrlIOS))) {
+        await launchUrl(Uri.parse(whatsappUrlIOS));
+      } else {
+        AppSnackBar.show(
+            title: "Error",
+            message: "WhatsApp n'est pas installé sur votre téléphone !");
+      }
+    }
+  }
+
+  Future<void> sendWhatsAppMessengerProduit(Produit produit) async {
+    var number = "+237652310829";
+    String message =
+        "Bonjour M./Mme\nJe vous contacte depuis la plateforme mobile MDM SCOOPS\n\nJ'éprouve un intérêt particulier pour la publication du produit: ${produit.nom.toString().toUpperCase()} trouvé sur la plateforme";
     var whatsappUrlAndroid = "whatsapp://send?phone=$number&text=$message";
     var whatsappUrlIOS = "https://wa.me/$number?text=$message";
 

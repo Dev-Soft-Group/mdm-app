@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mdmscoops/components/card_item.dart';
 import 'package:mdmscoops/components/card_pub_item.dart';
 import 'package:mdmscoops/components/succursale_card.dart';
 import 'package:mdmscoops/components/textTitle.dart';
@@ -167,7 +168,8 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                             ),
                                           ),
                                           const SizedBox(height: 10),
-                                          Row(
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 "Tel: ${controller.entreprise!.telephone!}",
@@ -177,7 +179,7 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
-                                              const SizedBox(width: 8),
+                                              const SizedBox(height: 8),
                                               Text(
                                                 "Email: ${controller.entreprise!.email!}",
                                                 style: const TextStyle(
@@ -369,7 +371,136 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                 ),
                                 const SizedBox(height: kDefaultPadding * 2),
                               ],
-                            ) : controller.selectedTabs == 1 ? 
+                            ) : controller.selectedTabs == 1 ?
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: kDefaultPadding),
+                                Container(
+                                  height: 80,
+                                  decoration: const BoxDecoration(),
+                                  child: GridView.count(
+                                      crossAxisCount: 2,
+                                      shrinkWrap: true,
+                                      childAspectRatio: 7 / 3,
+                                      mainAxisSpacing: kDefaultPadding - 5,
+                                      crossAxisSpacing: kDefaultPadding - 5,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      children: [
+                                        Card(
+                                          color: kWhiteColor,
+                                          shadowColor: kWhiteColor,
+                                          elevation: 1,
+                                          child: Container(
+                                            height: 60,
+                                            padding: const EdgeInsets.all(10.0),
+                                            alignment: Alignment.center,
+                                            decoration: const BoxDecoration(),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(controller.publicationsList.length.toString().padLeft(2, "0"),
+                                                  style: const TextStyle(
+                                                    color: kPrimaryColor,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 3),
+                                                Text(
+                                                  "Publications",
+                                                  style: TextStyle(
+                                                    color: kBlackColor
+                                                        .withOpacity(0.5),
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Card(
+                                          color: kWhiteColor,
+                                          shadowColor: kWhiteColor,
+                                          elevation: 1,
+                                          child: Container(
+                                            height: 60,
+                                            padding: const EdgeInsets.all(10.0),
+                                            alignment: Alignment.center,
+                                            decoration: const BoxDecoration(),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(controller.produitsList.length.toString().padLeft(2, "0"),
+                                                  style: const TextStyle(
+                                                    color: kPrimaryColor,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 3),
+                                                Text(
+                                                  "Total produits",
+                                                  style: TextStyle(
+                                                    color: kBlackColor
+                                                        .withOpacity(0.5),
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ]),
+                                ),
+                                const SizedBox(height: kDefaultPadding - 4),
+                                const TextTitle(text: "Mes produits"),
+                                const SizedBox(height: kDefaultPadding/2),
+                                controller.publicationStatus == AppStatus.appLoading ?
+                                Container(
+                                  height: 270,
+                                  alignment: Alignment.center,
+                                  child: CircularProgressIndicator( color: kPrimaryColor.withOpacity(0.4))
+                                ):
+                                controller.produitsList.isNotEmpty ? Container(
+                                    decoration: const BoxDecoration(),
+                                    child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(children:
+                                          List.generate(controller.produitsList.length, 
+                                          (index)=>Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: kDefaultPadding - 5),
+                                                    child: CardItem(
+                                                      left: 5,
+                                                      onMessage: () async { await controller.sendWhatsAppMessengerProduit(controller.produitsList[index]);},
+                                                      onTap: () {
+                                                        Get.toNamed(AppRoutes.PRODUITSDETAILS,
+                                                            arguments: {'idProduit': controller.produitsList[index].id!});
+                                                      },
+                                                      item: controller
+                                                          .produitsList[index])),
+                                              ))
+                                        )
+                                            ):  Container(
+                                  height: 270,
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding*1.5),
+                                  child: Text("Vous n'avez encore aucun produit pour le moment",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: kBlackColor.withOpacity(0.6)
+                                    ),
+                                  )
+                                ),
+                                const SizedBox(height: kDefaultPadding * 2),
+                              ],
+                            )
+                            : controller.selectedTabs == 2 ? 
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,

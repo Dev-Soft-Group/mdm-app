@@ -62,7 +62,7 @@ class EntreprisesView extends GetView<EntrepriseController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                const TextTitle(text: "Catégories"),
+                                const TextTitle(text: "Entreprises"),
                                 const SizedBox(height: kDefaultPadding),
                                 Container(
                                   height: 30,
