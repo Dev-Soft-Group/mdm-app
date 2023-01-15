@@ -1,13 +1,13 @@
 
 
 import 'package:get/instance_manager.dart';
-import 'package:mdmscoops/screens/publications/controllers/publication_form_controller.dart';
-import 'package:mdmscoops/screens/publications/controllers/produit_controller.dart';
+import 'package:mdmscoops/screens/publications/controllers/publications_controller.dart';
+import 'package:mdmscoops/screens/publications/controllers/publications_form_controller.dart';
 
-class ProduitBinding implements Bindings {
+class PublicationsBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ProduitController>(() => ProduitController());
+    Get.lazyPut<PublicationsController>(() => PublicationsController());
     
     Get.lazyPut<PublicationFormController>(() => PublicationFormController());
   }

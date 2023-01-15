@@ -50,7 +50,7 @@ class ConnexionController extends GetxController {
           await _localAuth.saveToken(data.access);
           textEditingNom.clear();
           textEditingPassword.clear();
-          Get.offAllNamed(AppRoutes.PRODUCTS);
+          Get.offAllNamed(AppRoutes.PRODUITS);
         },
         onLoginError: (error) {
           if (error.response!.statusCode == 400) {

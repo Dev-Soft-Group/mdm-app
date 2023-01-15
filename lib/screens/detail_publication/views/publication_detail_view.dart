@@ -170,11 +170,11 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
                                         children: [
                                           InkWell(
                                               onTap: () {},
-                                              child: Icon(CupertinoIcons.heart,
+                                              child: Icon(CupertinoIcons.hand_thumbsup,
                                                   size: 26,
                                                   color: kPrimaryColor
                                                       .withOpacity(0.8))),
-                                          const SizedBox(width: 8),
+                                          const SizedBox(width: 18),
                                           InkWell(
                                               onTap: () async {controller.sendWhatsAppMessenger(); },
                                               child: Icon(
@@ -182,22 +182,24 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
                                                   size: 26,
                                                   color: kPrimaryColor
                                                       .withOpacity(0.8))),
+                                          const SizedBox(width: 18),
+                                           InkWell(
+                                            onTap: () {},
+                                            child: Image.asset(
+                                                "assets/icons/Iconlogo-whatsapp.png",
+                                                height: 22,
+                                                width: 22,
+                                                color: kPrimaryColor
+                                                    .withOpacity(0.9)),
+                                          ),
                                           const SizedBox(width: 8),
-                                          InkWell(
-                                              onTap: () {
-                                              },
-                                              child: Icon(Icons.share,
-                                                  size: 26,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.8))),
-                                          const SizedBox(width: 8),
-                                          InkWell(
-                                              // onLongPress: () { controller.updateProduct();},
-                                              child: Icon(
-                                                  Icons.more_vert_outlined,
-                                                  size: 26,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.8))),
+                                          // InkWell(
+                                          //     // onLongPress: () { controller.updateProduct();},
+                                          //     child: Icon(
+                                          //         Icons.more_vert_outlined,
+                                          //         size: 26,
+                                          //         color: kPrimaryColor
+                                          //             .withOpacity(0.8))),
                                         ],
                                       ),
                                     ]),

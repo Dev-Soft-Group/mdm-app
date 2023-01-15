@@ -65,10 +65,10 @@ class HomeView extends GetView<HomeController> {
                                   const SizedBox(height: kDefaultPadding),
                                   ...List.generate(
                                       controller.categoriesList.length,
-                                      (i) => RowWidget(
+                                      (i) => controller.categoriesList[i].produitModel!.count != 0 ? RowWidget(
                                             controller: controller,
                                             index: i,
-                                          )),
+                                          ): Container()),
 
                                   controller.productStatus ==
                                           AppStatus.appLoading

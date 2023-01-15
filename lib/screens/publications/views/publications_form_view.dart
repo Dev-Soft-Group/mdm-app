@@ -8,10 +8,10 @@ import 'package:mdmscoops/components/custom_action_button.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/screens/publications/controllers/publication_form_controller.dart';
+import 'package:mdmscoops/screens/publications/controllers/publications_form_controller.dart';
 
-class ProduitFormView extends GetView<PublicationFormController> {
-  const ProduitFormView({Key? key}) : super(key: key);
+class PublicationFormView extends GetView<PublicationFormController> {
+  const PublicationFormView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +77,8 @@ class ProduitFormView extends GetView<PublicationFormController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: kDefaultPadding),
-                                  Text(controller.produit != null ? "Modifier le produit" :
-                                    "Ajouter un produit",
+                                  Text(controller.publication != null ?
+                                    "Modifier la publication" : "Créer une publication",
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                         color: kBlackColor,
@@ -88,51 +88,43 @@ class ProduitFormView extends GetView<PublicationFormController> {
                                   const SizedBox(height: kDefaultPadding * 2),
                                   FormFieldInput(
                                     textController:
-                                        controller.textEditingNomProduit,
-                                    hintText: "Nom du produit",
+                                        controller.textEditingTitrePublication,
+                                    hintText: "Titre",
                                     radius: kDefaultRadius,
                                   ),
-                                  const SizedBox(height: kDefaultPadding),
-                                  FormFieldInput(
-                                    textController:
-                                        controller.textEditingPrixProduit,
-                                    keyboardType: TextInputType.number,
-                                    hintText: "Prix du produit",
-                                    radius: kDefaultRadius,
-                                  ),
-                                  const SizedBox(height: kDefaultPadding / 1.3),
+                                
+                                  const SizedBox(height: kDefaultPadding/1.3),
                                   CustomDropDown(
                                     controller: controller,
-                                    liste: controller.categories,
-                                    selectedItem: controller.selectedCategory,
+                                    liste: controller.typePublications,
+                                    selectedItem: controller.selectedType,
                                     onChanged: (data) {
-                                      controller.onChangeCategory(data);
+                                      controller.onChangeTypePublication(data);
                                     },
-                                    helpText: "Catégorie du produit",
+                                    helpText: "Type de publication",
                                   ),
                                   const SizedBox(height: kDefaultPadding),
                                   FormFieldInput(
                                     textController: controller
-                                        .textEditingDescriptionProduit,
-                                    hintText: "Description du produit",
-                                    contentPadding: const EdgeInsets.only(
-                                        top: 6, right: 0, left: 0),
+                                        .textEditingDescriptionPublication,
+                                    hintText: "Description de la publication",
+                                    contentPadding: const EdgeInsets.only(top:6, right:0, left:0),
                                     keyboardType: TextInputType.emailAddress,
                                     radius: kDefaultRadius,
                                     maxLines: 4,
                                   ),
                                   const SizedBox(height: 16),
-                                  Text(
-                                    "Ajouter une image du produit",
+                                  Text(controller.publication != null ?
+                                   "Modifier l'image" : "Ajouter une image",
                                     style: TextStyle(
                                       color: kBlackColor.withOpacity(0.8),
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                   const SizedBox(height: kDefaultPadding /2),
+                                  
                                   InkWell(
                                     onTap: () async {
-                                      // if (controller.produit != null ){return;}
                                       await controller
                                           .choseImage(ImageSource.gallery);
                                     },
@@ -140,7 +132,7 @@ class ProduitFormView extends GetView<PublicationFormController> {
                                       height: 90,
                                       width: 90,
                                       decoration:
-                                      controller.produit != null && controller.imageFile == null
+                                          controller.publication != null && controller.imageFile == null
                                           ? BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(8),
@@ -151,35 +143,32 @@ class ProduitFormView extends GetView<PublicationFormController> {
                                               ),
                                               image: DecorationImage(
                                                   image: NetworkImage(
-                                                      controller.produit!.imageUrl!),
-                                                  fit: BoxFit.cover),
+                                                      controller.publication!.imageUrl!.toString(),),
+                                                  fit: BoxFit.fill),
                                             )
                                           : 
                                           BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                width: 1,
-                                                color: kBlackColor
-                                                    .withOpacity(0.3),
-                                              ),
-                                              image: controller.imageFile !=
-                                                      null
-                                                  ? DecorationImage(
-                                                      image: FileImage(
-                                                          controller.imageFile),
-                                                      fit: BoxFit.cover)
-                                                  : null,
-                                            ),
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: kBlackColor.withOpacity(0.3),
+                                        ),
+                                        image: controller.imageFile != null
+                                            ? DecorationImage(
+                                                image: FileImage(
+                                                    controller.imageFile),
+                                                fit: BoxFit.cover)
+                                            : null,
+                                      ),
                                       child: Center(
                                         child: Icon(CupertinoIcons.camera,
                                             color: kBlackColor.withOpacity(0.4),
                                             size: 30),
                                       ),
                                     ),
-                                  ),
+                                  ),                                 
                                   const SizedBox(height: kDefaultPadding * 2.5),
-                                  controller.produitFormStatus ==
+                                  controller.publicationFormStatus ==
                                           AppStatus.appLoading
                                       ? Container(
                                           height: 40,
@@ -189,7 +178,7 @@ class ProduitFormView extends GetView<PublicationFormController> {
                                                   color: kPrimaryColor),
                                         )
                                       : CustomActionButton(
-                                          title: controller.produit != null ? "Mettre à jour" : "Enregistrer",
+                                          title: controller.publication != null ? "Mettre à jour" : "Enregistrer",
                                           onTap: () async {
                                             await controller.save();
                                           },

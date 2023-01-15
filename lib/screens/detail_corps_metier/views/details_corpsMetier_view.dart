@@ -93,7 +93,7 @@ class CorpsMetierDetailView extends GetView<CorpsMetierDetailController> {
                                         ),
                                       ]),
                                 ]),
-                                Positioned(
+                                /*Positioned(
                                   top: 5,
                                   right: 5,
                                   child: InkWell(
@@ -116,7 +116,7 @@ class CorpsMetierDetailView extends GetView<CorpsMetierDetailController> {
                                       child: const Icon(Icons.edit, size: 20, color: kPrimaryColor)
                                     ),
                                   ),
-                                ),
+                                ),*/
                               ],
                             ),
                           ),

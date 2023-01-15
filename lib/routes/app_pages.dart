@@ -26,15 +26,14 @@ import 'package:mdmscoops/screens/inscription/bindings/inscription_binding.dart'
 import 'package:mdmscoops/screens/inscription/views/inscription_view.dart';
 import 'package:mdmscoops/screens/onboarding/bindings/onboarding_bindings.dart';
 import 'package:mdmscoops/screens/onboarding/views/onboarding.dart';
-import 'package:mdmscoops/screens/produits/bindings/product_bindings.dart';
-import 'package:mdmscoops/screens/produits/views/product_views.dart';
+import 'package:mdmscoops/screens/produits/bindings/produits_bindings.dart';
+import 'package:mdmscoops/screens/produits/views/produit_views.dart';
 import 'package:mdmscoops/screens/publications/bindings/publication_bindings.dart';
-import 'package:mdmscoops/screens/publications/views/produit_form_view.dart';
+import 'package:mdmscoops/screens/produits/views/produit_form_view.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/bindings/profil_entrepreneur_binding.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/views/profil_entrepreneur_view.dart';
 import 'package:mdmscoops/screens/publications/views/publication_view.dart';
-import 'package:mdmscoops/screens/publications_form/bindings/publications_bindings.dart';
-import 'package:mdmscoops/screens/publications_form/views/publications_form_view.dart';
+import 'package:mdmscoops/screens/publications/views/publications_form_view.dart';
 import 'package:mdmscoops/screens/secteurs/bindings/secteurs_binding.dart';
 import 'package:mdmscoops/screens/secteurs/views/secteur_activite_form_views.dart';
 import 'package:mdmscoops/screens/secteurs/views/secteurs_view.dart';
@@ -63,9 +62,14 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: AppRoutes.PRODUCTS,
-      page: () => const ProductView(),
-      binding: ProductBinding(),
+      name: AppRoutes.PRODUITS,
+      page: () => const ProduitsView(),
+      binding: ProduitsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.CREATE_PRODUITS,
+      page: () => const ProduitFormView(),
+      binding: ProduitsBinding(),
     ),
     GetPage(
       name: AppRoutes.ENTREPRISES,
@@ -95,7 +99,12 @@ class AppPages {
     GetPage(
       name: AppRoutes.PUBLICATIONS,
       page: () => const PublicationsView(),
-      binding: ProduitBinding(),
+      binding: PublicationsBinding(),
+    ),
+     GetPage(
+      name: AppRoutes.CREATE_PUBLICAION,
+      page: () => const PublicationFormView(),
+      binding: PublicationsBinding(),
     ),
     GetPage(
       name: AppRoutes.CREATE_SERVICE,
@@ -107,11 +116,7 @@ class AppPages {
       page: () => const ServicesView(),
       binding: ServicesFormBinding(),
     ),
-    GetPage(
-      name: AppRoutes.CREATE_PRODUCTS,
-      page: () => const ProduitFormView(),
-      binding: ProduitBinding(),
-    ),
+    
     GetPage(
       name: AppRoutes.CREATE_CORPS_METIER,
       page: () => const CorpsMetierFormView(),
@@ -122,11 +127,7 @@ class AppPages {
       page: () => const SecteurActiviteFormView(),
       binding: SecteursBinding(),
     ),
-    GetPage(
-      name: AppRoutes.CREATE_PUBLICAION,
-      page: () => const PublicationFormView(),
-      binding: PublicationFormBinding(),
-    ),
+   
     GetPage(
       name: AppRoutes.ENTREPRISEDETAILS,
       page: () => const EntrepriseDetailView(),

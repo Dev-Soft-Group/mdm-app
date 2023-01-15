@@ -142,7 +142,7 @@ class ProfilEntrepreneurController extends GetxController {
         Get.toNamed(AppRoutes.COMPTEENTREPRISE, arguments: { "entreprise": entreprise! });
         break;
       case 1:
-        Get.toNamed(AppRoutes.CREATE_PRODUCTS);
+        Get.toNamed(AppRoutes.CREATE_PRODUITS);
         break;
       case 2:
         Get.toNamed(AppRoutes.CREATE_SERVICE);

@@ -93,7 +93,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                         ),
                                       ]),
                                 ]),
-                                Positioned(
+                                /*Positioned(
                                   top: 5,
                                   right: 5,
                                   child: InkWell(
@@ -116,7 +116,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                       child: const Icon(Icons.edit, size: 20, color: kPrimaryColor)
                                     ),
                                   ),
-                                ),
+                                ),*/
                               ],
                             ),
                           ),

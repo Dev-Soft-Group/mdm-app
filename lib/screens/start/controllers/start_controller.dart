@@ -10,7 +10,7 @@ class StartController extends GetxController {
   void onInit() async {
     if (await _localAuth.hasAuthenticate()) {
       Future.delayed(const Duration(milliseconds: 400), () {
-        Get.offAllNamed(AppRoutes.PRODUCTS);
+        Get.offAllNamed(AppRoutes.PRODUITS);
       });
     }
   }

@@ -56,75 +56,53 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                               Container(
                                 decoration: const BoxDecoration(),
                                 child: AspectRatio(
-                                    aspectRatio: 4 / 3,
-                                    child: CachedNetworkImage(
-                                      imageUrl: controller.produit!.imageUrl!.toString(),
-                                      imageBuilder: (context, imageProvider) => Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.cover,
-                                              colorFilter: const ColorFilter.mode(
-                                                  Colors.transparent, BlendMode.colorBurn)),
+                                  aspectRatio: 4 / 3,
+                                  child: CachedNetworkImage(
+                                    imageUrl: controller.produit!.imageUrl!
+                                        .toString(),
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                            colorFilter: const ColorFilter.mode(
+                                                Colors.transparent,
+                                                BlendMode.colorBurn)),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error, size: 36),
+                                  ),
+                                ),
+                              ),
+                              controller.produit!.prix != null
+                                  ? Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      child: Container(
+                                        height: 35,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: kDefaultPadding),
+                                        decoration: const BoxDecoration(
+                                          color: kBlackColor,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(
+                                                  kDefaultRadius * 1.5)),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "${controller.produit!.prix!} F",
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: kWhiteColor,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                      errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error, size: 36),
-                                    ),),
-                                  ),
-                              /*Positioned(
-                                top: 20,
-                                right: 20,
-                                child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      color: kWhiteColor,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            offset: const Offset(0, 6),
-                                            blurRadius: 8,
-                                            color:
-                                                Colors.black.withOpacity(0.6)),
-                                      ]),
-                                  child: Center(
-                                    child: Text(
-                                      "${controller.produit!.prix!} F",
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: kWhiteColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),*/
-                              controller.produit!.prix != null ? Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Container(
-                                  height: 35,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: kDefaultPadding),
-                                  decoration: const BoxDecoration(
-                                    color: kBlackColor,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(
-                                            kDefaultRadius * 1.5)),
-                                  ),
-                                  child: Center(
-                                    child: Text("${controller.produit!.prix!} F",
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: kWhiteColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ) : Container(),
+                                    )
+                                  : Container(),
                             ],
                           ),
                           const SizedBox(
@@ -136,7 +114,10 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(controller.produit!.nom!.toString().capitalizeFirst!,
+                                Text(
+                                  controller.produit!.nom!
+                                      .toString()
+                                      .capitalizeFirst!,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
@@ -144,7 +125,8 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                   ),
                                 ),
                                 const SizedBox(height: kDefaultPadding - 4),
-                                Text(controller.produit!.description!.toString(),
+                                Text(
+                                  controller.produit!.description!.toString(),
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
                                     fontSize: 16,
@@ -171,7 +153,11 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                         .withOpacity(0.6),
                                                   ),
                                                 ),
-                                                Text(controller.produit!.entreprises!.first.nom!.toString().capitalizeFirst!,
+                                                Text(
+                                                  controller.produit!
+                                                      .entreprises!.first.nom!
+                                                      .toString()
+                                                      .capitalizeFirst!,
                                                   style: const TextStyle(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w600,
@@ -180,7 +166,8 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                 ),
                                               ],
                                             ),
-                                            Text("Le ${DateTime.parse(controller.produit!.created_at!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.created_at!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.created_at!.toString()).year.toString().padLeft(2, "0")}",
+                                            Text(
+                                              "Le ${DateTime.parse(controller.produit!.created_at!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.created_at!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(controller.produit!.created_at!.toString()).year.toString().padLeft(2, "0")}",
                                               textAlign: TextAlign.justify,
                                               style: TextStyle(
                                                 fontStyle: FontStyle.italic,
@@ -196,34 +183,42 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                         children: [
                                           InkWell(
                                               onTap: () {},
-                                              child: Icon(CupertinoIcons.heart,
+                                              child: Icon(
+                                                  CupertinoIcons.hand_thumbsup,
                                                   size: 26,
                                                   color: kPrimaryColor
                                                       .withOpacity(0.8))),
-                                          const SizedBox(width: 8),
+                                          const SizedBox(width: 18),
                                           InkWell(
-                                              onTap: () async {controller.sendWhatsAppMessenger(); },
+                                              onTap: () async {
+                                                controller
+                                                    .sendWhatsAppMessenger();
+                                              },
                                               child: Icon(
                                                   Icons.comment_outlined,
                                                   size: 26,
                                                   color: kPrimaryColor
                                                       .withOpacity(0.8))),
-                                          const SizedBox(width: 8),
+                                          const SizedBox(width: 18),
                                           InkWell(
-                                              onTap: () {
-                                              },
-                                              child: Icon(Icons.share,
-                                                  size: 26,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.8))),
+                                            onTap: () {},
+                                            child: Image.asset(
+                                                "assets/icons/Iconlogo-whatsapp.png",
+                                                height: 22,
+                                                width: 22,
+                                                color: kPrimaryColor
+                                                    .withOpacity(0.9)),
+                                          ),
                                           const SizedBox(width: 8),
-                                          InkWell(
-                                              onLongPress: () { controller.updateProduct();},
-                                              child: Icon(
-                                                  Icons.more_vert_outlined,
-                                                  size: 26,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.8))),
+                                          // InkWell(
+                                          //     onLongPress: () {
+                                          //       controller.updateProduct();
+                                          //     },
+                                          //     child: Icon(
+                                          //         Icons.more_vert_outlined,
+                                          //         size: 26,
+                                          //         color: kPrimaryColor
+                                          //             .withOpacity(0.8))),
                                         ],
                                       ),
                                     ]),

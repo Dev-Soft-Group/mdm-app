@@ -12,7 +12,7 @@ import 'package:mdmscoops/services/remote_services/categorie/categorie.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ProductController extends GetxController {
+class ProduitController extends GetxController {
   AppStatus productStatus = AppStatus.appDefault;
   final CategorieService _categorieService = CategorieServiceImpl();
 

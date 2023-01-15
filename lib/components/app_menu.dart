@@ -61,7 +61,7 @@ class NavigationDrawer extends StatelessWidget {
                       MenuItem(
                         image: "assets/icons/Icon-home.png",
                         title: "Accueil",
-                        onTap: () { Get.offAndToNamed(AppRoutes.PRODUCTS);},
+                        onTap: () { Get.offAndToNamed(AppRoutes.PRODUITS);},
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-building.png",

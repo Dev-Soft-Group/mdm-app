@@ -8,10 +8,10 @@ import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
-import 'package:mdmscoops/screens/produits/controllers/product_controller.dart';
+import 'package:mdmscoops/screens/produits/controllers/produit_controller.dart';
 
-class ProductView extends GetView<ProductController> {
-  const ProductView({Key? key}) : super(key: key);
+class ProduitsView extends GetView<ProduitController> {
+  const ProduitsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ProductView extends GetView<ProductController> {
     }
 
     return SafeArea(
-      child: GetBuilder<ProductController>(
+      child: GetBuilder<ProduitController>(
         builder: (controller) => Scaffold(
           key: scaffoldKey,
           drawer: const NavigationDrawer(),
@@ -64,10 +64,10 @@ class ProductView extends GetView<ProductController> {
                               children: [
                                 ...List.generate(
                                     controller.categoriesList.length,
-                                    (i) => RowWidget(
+                                    (i) => controller.categoriesList[i].produitModel!.count != 0 ? RowWidget(
                                           controller: controller,
                                           index: i,
-                                        )),
+                                        ) : Container()),
                                 controller.productStatus == AppStatus.appLoading
                                     ? Container(
                                         padding: const EdgeInsets.all(0),

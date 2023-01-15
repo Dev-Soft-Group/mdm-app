@@ -8,9 +8,9 @@ import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
-import 'package:mdmscoops/screens/publications/controllers/produit_controller.dart';
+import 'package:mdmscoops/screens/publications/controllers/publications_controller.dart';
 
-class PublicationsView extends GetView<ProduitController> {
+class PublicationsView extends GetView<PublicationsController> {
   const PublicationsView({Key? key}) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class PublicationsView extends GetView<ProduitController> {
     }
 
     return SafeArea(
-      child: GetBuilder<ProduitController>(
+      child: GetBuilder<PublicationsController>(
         builder: (controller) => Scaffold(
           key: scaffoldKey,
           drawer: const NavigationDrawer(),

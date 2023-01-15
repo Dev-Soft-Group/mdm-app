@@ -9,8 +9,8 @@ class AppRoutes {
   static const String ONBOARDING = "/onboarding";
   static const String START = "/start";
   static const String HOMEPAGE = "/home_page";
-  static const String PRODUCTS = "/products";
-  static const String CREATE_PRODUCTS = "/create_products";
+  static const String PRODUITS = "/products";
+  static const String CREATE_PRODUITS = "/create_products";
   static const String CREATE_SERVICE = "/create_service";
   static const String SERVICES = "/services";
   static const String CREATE_CORPS_METIER = "/create_coprs_metier";

@@ -9,7 +9,7 @@ import 'package:mdmscoops/models/response_model/publication_model.dart';
 import 'package:mdmscoops/services/remote_services/publications/publication.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ProduitController extends GetxController {
+class PublicationsController extends GetxController {
   final PublicationService _publisherService = PublicationServiceImpl();
 
   AppStatus publicationStatus = AppStatus.appDefault;

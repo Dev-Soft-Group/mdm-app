@@ -100,11 +100,11 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                               ),
                                               PopupMenuItem(
                                                 value: 3,
-                                                child: Text("Ajouter un SA"),
+                                                child: Text("Ajouter un Secteur d'activité"),
                                               ),
                                               PopupMenuItem(
                                                 value: 4,
-                                                child: Text("Ajouter un CM"),
+                                                child: Text("Ajouter un Corps métier"),
                                               ),
                                                PopupMenuItem(
                                                 value: 5,

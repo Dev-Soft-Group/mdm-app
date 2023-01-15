@@ -16,7 +16,7 @@ import 'package:mdmscoops/services/remote_services/categorie/categorie.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits.dart';
 import 'package:path/path.dart';
 
-class PublicationFormController extends GetxController {
+class ProduitFormController extends GetxController {
   final CategorieService _categorieService = CategorieServiceImpl();
   final ProduitService _produitService = ProduitServiceImpl();
 

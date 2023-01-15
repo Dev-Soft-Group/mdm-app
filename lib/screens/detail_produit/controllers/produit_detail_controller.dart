@@ -71,6 +71,6 @@ class ProduitDetailController extends GetxController {
   }
 
   void updateProduct() {
-    Get.toNamed(AppRoutes.CREATE_PRODUCTS , arguments: { "produit": produit! });
+    Get.toNamed(AppRoutes.CREATE_PRODUITS , arguments: { "produit": produit! });
   }
 }
