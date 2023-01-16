@@ -183,25 +183,43 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                         children: [
                                           InkWell(
                                               onTap: () {},
-                                              child: Icon(
-                                                  CupertinoIcons.hand_thumbsup,
-                                                  size: 26,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.8))),
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(controller.produit!.likes!.toString(),
+                                                    style: const TextStyle(fontSize: 15)
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  Icon(
+                                                      CupertinoIcons.hand_thumbsup,
+                                                      size: 26,
+                                                      color: kPrimaryColor
+                                                          .withOpacity(0.8)),
+                                                ],
+                                              )),
                                           const SizedBox(width: 18),
                                           InkWell(
-                                              onTap: () async {
+                                              onTap: (){},
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                children: [
+                                                   Text(controller.produit!.likes!.toString(),
+                                                    style: const TextStyle(fontSize: 15)
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  Icon(
+                                                      Icons.comment_outlined,
+                                                      size: 26,
+                                                      color: kPrimaryColor
+                                                          .withOpacity(0.8)),
+                                                ],
+                                              )),
+                                          const SizedBox(width: 18),
+                                          InkWell(
+                                            onTap: () async {
                                                 controller
                                                     .sendWhatsAppMessenger();
                                               },
-                                              child: Icon(
-                                                  Icons.comment_outlined,
-                                                  size: 26,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.8))),
-                                          const SizedBox(width: 18),
-                                          InkWell(
-                                            onTap: () {},
                                             child: Image.asset(
                                                 "assets/icons/Iconlogo-whatsapp.png",
                                                 height: 22,

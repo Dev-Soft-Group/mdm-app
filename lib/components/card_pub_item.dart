@@ -114,13 +114,30 @@ class CardPubItem extends StatelessWidget {
                 children: [
                   InkWell(
                       onTap: () {},
-                      child: Icon(CupertinoIcons.hand_thumbsup,
-                          size: 20, color: kPrimaryColor.withOpacity(0.8))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(item!.likes!.toString(),
+                            style: const TextStyle(fontSize: 13)
+                          ),
+                          const SizedBox(width: 5),
+                          Icon(CupertinoIcons.hand_thumbsup,
+                              size: 20, color: kPrimaryColor.withOpacity(0.8)),
+                        ],
+                      )),
                   const SizedBox(width: 15),
                   InkWell(
                       onTap: () {},
-                      child: Icon(Icons.comment_outlined,
-                          size: 20, color: kPrimaryColor.withOpacity(0.8))),
+                      child: Row(
+                        children: [
+                          Text(item!.commentaires!.toString(),
+                            style: const TextStyle(fontSize: 13)
+                          ),
+                          const SizedBox(width: 5),
+                          Icon(Icons.comment_outlined,
+                              size: 20, color: kPrimaryColor.withOpacity(0.8)),
+                        ],
+                      )),
                   const SizedBox(width: 15),
                   InkWell(
                     onTap: onMessage ?? () {},

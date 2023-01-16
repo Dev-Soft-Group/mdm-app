@@ -3,12 +3,19 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/models/response_model/commentaire_model.dart';
 import 'package:mdmscoops/models/response_model/publication_model.dart';
+import 'package:mdmscoops/services/remote_services/commentaires/commentaire_service.dart';
+import 'package:mdmscoops/services/remote_services/commentaires/commentaire_service_impl.dart';
 import 'package:mdmscoops/services/remote_services/publications/publication.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PublicationDetailController extends GetxController {
   final PublicationService _publicationService = PublicationServiceImpl();
+
+  final CommentairesService _commentaireService = CommentairesServiceImpl();
+
+  List<Commentaire>? commentaires;
 
   AppStatus publicationStatus = AppStatus.appDefault;
 
@@ -19,6 +26,7 @@ class PublicationDetailController extends GetxController {
   void onInit() async {
     idPublication = Get.arguments["idPublication"].toString();
     await getPublicationById();
+    await getAllCommentForPublication();
     super.onInit();
   }
 
@@ -39,9 +47,6 @@ class PublicationDetailController extends GetxController {
           update();
         });
   }
-
-
-  
 
   Future<void> sendWhatsAppMessenger() async {
     var number = "+237652310829";
@@ -69,7 +74,21 @@ class PublicationDetailController extends GetxController {
     }
   }
 
-  // void updateProduct() {
-  //   Get.toNamed(AppRoutes.CREATE_PRODUCTS , arguments: { "produit": produit! });
-  // }
+  Future getAllCommentForPublication() async {
+    publicationStatus = AppStatus.appLoading;
+    update();
+    await _commentaireService.getAllCommentForPublication(
+        idPublication: idPublication,
+        onSuccess: (data) {
+          commentaires = data.commentaires;
+          publicationStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
+          publicationStatus = AppStatus.appFailure;
+          update();
+        });
+  }
 }

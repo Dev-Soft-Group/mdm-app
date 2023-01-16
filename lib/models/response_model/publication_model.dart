@@ -41,10 +41,11 @@ class PublicationResponseModel {
 class Publication {
   final String? id;
   final String? titre;
+  int? likes;
+  int? commentaires;
   final String? description;
   final String? imageUrl;
   final int? auteur;
-  // final String? idEntreprise;
   final Entreprise? entreprise;
   final int? type;
   final DateTime? created_at;
@@ -53,10 +54,11 @@ class Publication {
   Publication(
       {this.id,
       this.titre,
+      this.likes,
+      this.commentaires,
       this.description,
       this.imageUrl,
       this.auteur,
-      // this.idEntreprise,
       this.entreprise,
       this.type,
       this.created_at,
@@ -71,7 +73,8 @@ class Publication {
       description: map["description"] as String?,
       imageUrl: map["imageUrl"] as String?,
       auteur: map["auteur"] as int?,
-      // idEntreprise: map["entreprise"] as String?,
+      likes: map["likes"] as int?,
+      commentaires: map["commentaires"] as int?,
       entreprise: map["entreprise"] == null ? null : Entreprise.fromMap(map["entreprise"]),
       type: map["type"] as int?,
       created_at:
@@ -82,10 +85,11 @@ class Publication {
   Map<String, dynamic> toMap() => {
         "id": id,
         "titre": titre,
+        "likes": likes,
+        "commentaires": commentaires,
         "description": description,
         "imageUrl": imageUrl,
         "auteur": auteur,
-        // "idEntreprise": idEntreprise,
         "entreprise": entreprise,
         "type": type,
         "created_at": created_at!.toIso8601String(),

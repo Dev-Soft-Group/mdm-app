@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
@@ -170,18 +171,36 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
                                         children: [
                                           InkWell(
                                               onTap: () {},
-                                              child: Icon(CupertinoIcons.hand_thumbsup,
-                                                  size: 26,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.8))),
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                children: [
+                                                   Text(controller.publication!.likes!.toString(),
+                                                    style: const TextStyle(fontSize: 15)
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  Icon(CupertinoIcons.hand_thumbsup,
+                                                      size: 26,
+                                                      color: kPrimaryColor
+                                                          .withOpacity(0.8)),
+                                                ],
+                                              )),
                                           const SizedBox(width: 18),
                                           InkWell(
                                               onTap: () async {controller.sendWhatsAppMessenger(); },
-                                              child: Icon(
-                                                  Icons.comment_outlined,
-                                                  size: 26,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.8))),
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                children: [
+                                                   Text(controller.publication!.commentaires!.toString(),
+                                                    style: const TextStyle(fontSize: 15)
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  Icon(
+                                                      Icons.comment_outlined,
+                                                      size: 26,
+                                                      color: kPrimaryColor
+                                                          .withOpacity(0.8)),
+                                                ],
+                                              )),
                                           const SizedBox(width: 18),
                                            InkWell(
                                             onTap: () {},
@@ -193,16 +212,45 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
                                                     .withOpacity(0.9)),
                                           ),
                                           const SizedBox(width: 8),
-                                          // InkWell(
-                                          //     // onLongPress: () { controller.updateProduct();},
-                                          //     child: Icon(
-                                          //         Icons.more_vert_outlined,
-                                          //         size: 26,
-                                          //         color: kPrimaryColor
-                                          //             .withOpacity(0.8))),
                                         ],
                                       ),
                                     ]),
+                              
+                                const SizedBox(height: kDefaultPadding * 1.5),
+                                controller.commentaires!.isNotEmpty ? const TextTitle(text: "Commentaires récents") : Container(),
+                                const SizedBox(height: kDefaultPadding ),
+                                ...List.generate( controller.commentaires!.length, (index) => 
+                                Container(
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  alignment: Alignment.centerLeft,
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text(controller.commentaires![index].username!.capitalizeFirst!,
+                                          style: TextStyle(
+                                            color: kBlackColor.withOpacity(0.8),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        subtitle: Text(controller.commentaires![index].contenu!.capitalizeFirst!,
+                                          style: TextStyle(
+                                            color: kBlackColor.withOpacity(0.48),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        leading: CircleAvatar(
+                                          backgroundColor: Colors.grey[200],
+                                          radius: 30,
+                                          child: Icon(CupertinoIcons.person, size: 36, color: kBlackColor.withOpacity(0.2),),
+                                        ),
+                                        contentPadding: const EdgeInsets.only(left: 0),
+                                      ),
+                                      const Divider(thickness: 1.2,)
+                                    ],
+                                  ),
+                                ), ),                             
                               ],
                             ),
                           )

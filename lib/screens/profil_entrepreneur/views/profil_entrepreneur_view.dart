@@ -477,6 +477,7 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                                     right: kDefaultPadding - 5),
                                                     child: CardItem(
                                                       left: 5,
+                                                      onLongPress: (){Get.toNamed(AppRoutes.CREATE_PRODUITS , arguments: { "produit": controller.produitsList[index] });},
                                                       onMessage: () async { await controller.sendWhatsAppMessengerProduit(controller.produitsList[index]);},
                                                       onTap: () {
                                                         Get.toNamed(AppRoutes.PRODUITSDETAILS,

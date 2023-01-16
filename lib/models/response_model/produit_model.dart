@@ -41,6 +41,8 @@ class Produit {
   final String? nom;
   final String? description;
   final int? prix;
+  int? likes;
+  int? commentaires;
   final String? imageUrl;
   final String? categorie;
   final int? utilisateur;
@@ -53,6 +55,8 @@ class Produit {
       this.nom,
       this.description,
       this.prix,
+      this.likes,
+      this.commentaires,
       this.imageUrl,
       this.categorie,
       this.utilisateur,
@@ -68,6 +72,8 @@ class Produit {
     nom: map["nom"] as String?,
     description: map["description"] as String?,
     prix: map["prix"] as int?,
+    likes: map["likes"] as int?,
+    commentaires: map["commentaires"] as int?,
     imageUrl: map["imageUrl"] as String?,
     categorie: map["categorie"] as String?,
     utilisateur: map["utilisateur"] as int?,
@@ -81,6 +87,8 @@ class Produit {
     "nom": nom,
     "description": description,
     "prix": prix,
+    "likes": likes,
+    "commentaires": commentaires,
     "imageUrl": imageUrl,
     "categorie": categorie,
     "utilisateur": utilisateur,

@@ -109,3 +109,4 @@ class ServicesDetailView extends GetView<ServiceDetailController> {
     );
   }
 }
+
