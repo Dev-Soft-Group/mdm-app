@@ -26,6 +26,25 @@ class CommentairesServiceImpl implements CommentairesService {
     });
   }
 
+   @override
+  Future<void> saveCommentForPublication(
+      {String? idPublication,
+      dynamic data,
+      Function(Commentaire data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/commentaires/$idPublication/publication",
+      data: data!,
+      token: await _localAuth.getToken(),
+    ).post(onSuccess: (data) {
+      onSuccess!(Commentaire.fromMap(data));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
   @override
   Future<void> getAllCommentForProduct(
       {String? idProduct,

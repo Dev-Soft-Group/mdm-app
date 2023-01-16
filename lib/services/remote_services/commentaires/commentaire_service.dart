@@ -10,6 +10,13 @@ abstract class CommentairesService {
     Function(dynamic error)? onError,
   });
 
+  Future<void> saveCommentForPublication({
+    String? idPublication,
+    dynamic data,
+    Function(Commentaire data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
+
    Future<void> getAllCommentForProduct({
     String? idProduct,
     Function(CommentaireResponseModel data)? onSuccess,

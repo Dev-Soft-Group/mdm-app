@@ -6,6 +6,7 @@ import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/detail_publication/controllers/publication_detail_controller.dart';
 
 
@@ -186,7 +187,7 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
                                               )),
                                           const SizedBox(width: 18),
                                           InkWell(
-                                              onTap: () async {controller.sendWhatsAppMessenger(); },
+                                              onTap: () { Get.toNamed(AppRoutes.COMMEANTAIRE_PUBLICATION, arguments: { "idPublication": controller.publication!.id! }); },
                                               child: Row(
                                                 crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
@@ -203,7 +204,7 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
                                               )),
                                           const SizedBox(width: 18),
                                            InkWell(
-                                            onTap: () {},
+                                            onTap: () async {controller.sendWhatsAppMessenger(); },
                                             child: Image.asset(
                                                 "assets/icons/Iconlogo-whatsapp.png",
                                                 height: 22,
@@ -216,10 +217,10 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
                                       ),
                                     ]),
                               
-                                const SizedBox(height: kDefaultPadding * 1.5),
+                               const SizedBox(height: kDefaultPadding * 1.5),
                                 controller.commentaires!.isNotEmpty ? const TextTitle(text: "Commentaires récents") : Container(),
                                 const SizedBox(height: kDefaultPadding ),
-                                ...List.generate( controller.commentaires!.length, (index) => 
+                                ...List.generate( controller.commentaires!.length > 5 ? 5 : controller.commentaires!.length, (index) => 
                                 Container(
                                   margin: const EdgeInsets.only(bottom: 10),
                                   alignment: Alignment.centerLeft,
@@ -245,12 +246,19 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
                                           radius: 30,
                                           child: Icon(CupertinoIcons.person, size: 36, color: kBlackColor.withOpacity(0.2),),
                                         ),
+                                        trailing: Text("Le ${DateTime.parse(controller.commentaires![index].createdAt!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(controller.commentaires![index].createdAt!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(controller.commentaires![index].createdAt!.toString()).year.toString().padLeft(2, "0")}",
+                                          style: TextStyle(
+                                            color: kBlackColor.withOpacity(0.6),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
                                         contentPadding: const EdgeInsets.only(left: 0),
                                       ),
                                       const Divider(thickness: 1.2,)
                                     ],
                                   ),
-                                ), ),                             
+                                ), ),                           
                               ],
                             ),
                           )
