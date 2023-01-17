@@ -78,10 +78,13 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                             Container(
                                                 height: 30,
                                                 width: 30,
+                                                clipBehavior: Clip.antiAlias,
                                                 decoration:
-                                                    const BoxDecoration(),
+                                                    const BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                    ),
                                                 child: Image.asset(
-                                                    "assets/images/D-SoftTechWhite.png",
+                                                    "assets/images/logo-mdm-scoops.jpg",
                                                     fit: BoxFit.fill)),
                                             const SizedBox(
                                               width: 5,

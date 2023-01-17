@@ -24,8 +24,9 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: const BoxDecoration(),
-                    child: Image.asset("assets/images/D-SoftTechWhite.png",
+                    clipBehavior: Clip.antiAlias,
+                    decoration: const BoxDecoration( shape: BoxShape.circle),
+                    child: Image.asset("aassets/images/logo-mdm-scoops.jpg",
                         fit: BoxFit.fill)),
                 const SizedBox(
                   width: kDefaultPadding,

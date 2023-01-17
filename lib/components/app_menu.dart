@@ -34,9 +34,12 @@ class NavigationDrawer extends StatelessWidget {
                     Container(
                         height: 60,
                         width: 60,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
                         alignment: Alignment.center,
-                        child: Image.asset(
-                            "assets/images/D-SoftTechWhite.png",
+                        child: Image.asset("assets/images/logo-mdm-scoops.jpg",
                             fit: BoxFit.fill)),
                     const SizedBox(height: kDefaultPadding - 4),
                     const Text(
@@ -61,25 +64,30 @@ class NavigationDrawer extends StatelessWidget {
                       MenuItem(
                         image: "assets/icons/Icon-home.png",
                         title: "Accueil",
-                        onTap: () { Get.offAndToNamed(AppRoutes.PRODUITS);},
+                        onTap: () {
+                          Get.offAndToNamed(AppRoutes.PRODUITS);
+                        },
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-building.png",
                         title: "Entreprises",
                         onTap: () {
                           Get.offAndToNamed(AppRoutes.ENTREPRISES);
-                        
                         },
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-room-service.png",
                         title: "Publications",
-                        onTap: () {Get.offAndToNamed(AppRoutes.PUBLICATIONS); },
+                        onTap: () {
+                          Get.offAndToNamed(AppRoutes.PUBLICATIONS);
+                        },
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-room-service.png",
                         title: "Secteurs d'activités",
-                        onTap: () {Get.offAndToNamed(AppRoutes.SECTEURS); },
+                        onTap: () {
+                          Get.offAndToNamed(AppRoutes.SECTEURS);
+                        },
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-product-hunt.png",
@@ -91,16 +99,20 @@ class NavigationDrawer extends StatelessWidget {
                       MenuItem(
                         image: "assets/icons/Icon-product-hunt.png",
                         title: "Services",
-                        onTap: () {Get.offAndToNamed(AppRoutes.SERVICES);},
+                        onTap: () {
+                          Get.offAndToNamed(AppRoutes.SERVICES);
+                        },
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-account-box.png",
                         title: "Mode entrepreneur",
                         onTap: () {
                           Get.offAndToNamed(AppRoutes.MYENTREPRISES);
-                          },
+                        },
                       ),
-                      Container(height: 20,),
+                      Container(
+                        height: 20,
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.0),
                         child: Divider(),
@@ -116,7 +128,8 @@ class NavigationDrawer extends StatelessWidget {
                         onTap: () {},
                       ),
                       MenuItem(
-                        image: "assets/icons/Icon-information-circle-outline.png",
+                        image:
+                            "assets/icons/Icon-information-circle-outline.png",
                         title: "A propos",
                         onTap: () {},
                       ),
@@ -124,27 +137,27 @@ class NavigationDrawer extends StatelessWidget {
                         image: "assets/icons/Icon-account-logout.png",
                         title: "Se déconnecter",
                         onTap: () async {
-                          final LocalAuthService localAuth = LocalAuthServiceImpl();
+                          final LocalAuthService localAuth =
+                              LocalAuthServiceImpl();
                           await localAuth.deleteToken();
                           Get.offAllNamed(AppRoutes.CONNEXION);
                         },
                       ),
-                      
                     ],
                   ),
                 ),
               ),
             ),
             Container(
-              height: 25,
-              alignment: Alignment.center,
-              child: Text("(c) All right reserved. by DouxSoftTech",
-                style: TextStyle(
-                  color: Colors.black.withOpacity(0.4),
-                  fontSize: 11,
-                ),
-              )
-            ),
+                height: 25,
+                alignment: Alignment.center,
+                child: Text(
+                  "(c) All right reserved. by Nyanga Tech",
+                  style: TextStyle(
+                    color: Colors.black.withOpacity(0.4),
+                    fontSize: 11,
+                  ),
+                )),
           ],
         ),
       ),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
@@ -7,7 +6,6 @@ import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/screens/secteurs/controllers/secteur_activite_form_controller.dart';
-
 
 class SecteurActiviteFormView extends GetView<SecteurActiviteFormController> {
   const SecteurActiviteFormView({Key? key}) : super(key: key);
@@ -59,11 +57,16 @@ class SecteurActiviteFormView extends GetView<SecteurActiviteFormController> {
                                         size: 26,
                                         color: kWhiteColor,
                                       )),
-                                  Image.asset(
-                                    "assets/images/D-SoftTechWhite.png",
+                                  Container(
                                     height: 30,
                                     width: 30,
-                                    fit: BoxFit.fill,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle),
+                                    child: Image.asset(
+                                      "assets/images/logo-mdm-scoops.jpg",
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -76,7 +79,10 @@ class SecteurActiviteFormView extends GetView<SecteurActiviteFormController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: kDefaultPadding),
-                                  Text(controller.secteur != null ? "Modifier le secteur d'activité" : "Ajouter un secteur d'activité",
+                                  Text(
+                                    controller.secteur != null
+                                        ? "Modifier le secteur d'activité"
+                                        : "Ajouter un secteur d'activité",
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                         color: kBlackColor,
@@ -90,8 +96,7 @@ class SecteurActiviteFormView extends GetView<SecteurActiviteFormController> {
                                     hintText: "Nom du secteur d'activité",
                                     radius: kDefaultRadius,
                                   ),
-                                  const SizedBox(height: kDefaultPadding/1.3),
-                                 
+                                  const SizedBox(height: kDefaultPadding / 1.3),
                                   const SizedBox(height: kDefaultPadding * 6),
                                   controller.secteurActiviteFormStatus ==
                                           AppStatus.appLoading
@@ -103,7 +108,9 @@ class SecteurActiviteFormView extends GetView<SecteurActiviteFormController> {
                                                   color: kPrimaryColor),
                                         )
                                       : CustomActionButton(
-                                          title: controller.secteur != null ? "Mettre à jour" : "Enregistrer",
+                                          title: controller.secteur != null
+                                              ? "Mettre à jour"
+                                              : "Enregistrer",
                                           onTap: () async {
                                             await controller.save();
                                           },

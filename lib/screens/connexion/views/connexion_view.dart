@@ -50,20 +50,16 @@ class ConnexionView extends GetView<ConnexionController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // InkWell(
-                                  //     onTap: () {
-                                  //       Get.back();
-                                  //     },
-                                  //     child: const Icon(
-                                  //       Icons.arrow_back,
-                                  //       size: 26,
-                                  //       color: kWhiteColor,
-                                  //     )),
-                                  Image.asset(
-                                    "assets/images/D-SoftTechWhite.png",
+                                  Container(
+                                    clipBehavior: Clip.antiAlias,
                                     height: 30,
                                     width: 30,
-                                    fit: BoxFit.fill,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle),
+                                    child: Image.asset(
+                                      "assets/images/logo-mdm-scoops.jpg",
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -133,7 +129,6 @@ class ConnexionView extends GetView<ConnexionController> {
                                   const SizedBox(height: 40),
                                 ]),
                           ),
-                        
                         ]),
                   ),
                 ),

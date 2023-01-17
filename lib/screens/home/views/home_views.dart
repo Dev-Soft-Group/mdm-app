@@ -60,7 +60,7 @@ class HomeView extends GetView<HomeController> {
                                   const Padding(
                                     padding: EdgeInsets.only(left:10.0),
                                     child: TextTitle(
-                                        text: "Rechercher un produit"),
+                                        text: "List des roduits"),
                                   ),
                                   const SizedBox(height: kDefaultPadding),
                                   ...List.generate(

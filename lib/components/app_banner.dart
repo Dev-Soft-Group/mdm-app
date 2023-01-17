@@ -76,10 +76,13 @@ class AppBanner extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Container(
-                  height: 30,
-                  width: 30,
-                  decoration: const BoxDecoration(),
-                  child: Image.asset("assets/images/D-SoftTechWhite.png",
+                  height: 33,
+                  width: 33,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.asset("assets/images/logo-mdm-scoops.jpg",
                       fit: BoxFit.fill)),
             ]),
             const Spacer(),

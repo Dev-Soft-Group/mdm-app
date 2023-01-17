@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/custom_dropdown.dart';
@@ -8,7 +7,6 @@ import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/screens/corps_metierS/controllers/corps_metier_form_controller.dart';
-
 
 class CorpsMetierFormView extends GetView<CorpsMetierFormController> {
   const CorpsMetierFormView({Key? key}) : super(key: key);
@@ -60,11 +58,16 @@ class CorpsMetierFormView extends GetView<CorpsMetierFormController> {
                                         size: 26,
                                         color: kWhiteColor,
                                       )),
-                                  Image.asset(
-                                    "assets/images/D-SoftTechWhite.png",
+                                  Container(
                                     height: 30,
                                     width: 30,
-                                    fit: BoxFit.fill,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle),
+                                    child: Image.asset(
+                                      "assets/images/logo-mdm-scoops.jpg",
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -87,22 +90,20 @@ class CorpsMetierFormView extends GetView<CorpsMetierFormController> {
                                   ),
                                   const SizedBox(height: kDefaultPadding * 3.5),
                                   FormFieldInput(
-                                    textController:
-                                        controller.textEditingNom,
+                                    textController: controller.textEditingNom,
                                     hintText: "Nom du corps métier",
                                     radius: kDefaultRadius,
                                   ),
-                                  const SizedBox(height: kDefaultPadding/1.3),
+                                  const SizedBox(height: kDefaultPadding / 1.3),
                                   CustomDropDown(
-                                          controller: controller,
-                                          liste: controller.secteurs,
-                                          selectedItem:
-                                              controller.selectedSecteur,
-                                          onChanged: (data) {
-                                            controller.onChangeSecteur(data);
-                                          },
-                                          helpText: "Secteur d'activité",
-                                        ),
+                                    controller: controller,
+                                    liste: controller.secteurs,
+                                    selectedItem: controller.selectedSecteur,
+                                    onChanged: (data) {
+                                      controller.onChangeSecteur(data);
+                                    },
+                                    helpText: "Secteur d'activité",
+                                  ),
                                   const SizedBox(height: kDefaultPadding * 6),
                                   controller.corpsMetierFormStatus ==
                                           AppStatus.appLoading

@@ -59,11 +59,15 @@ class ServiceFormView extends GetView<ServicesFormController> {
                                         size: 26,
                                         color: kWhiteColor,
                                       )),
-                                  Image.asset(
-                                    "assets/images/D-SoftTechWhite.png",
-                                    height: 30,
-                                    width: 30,
-                                    fit: BoxFit.fill,
+                                  Container(
+                                      height: 30,
+                                      width: 30,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: const BoxDecoration( shape: BoxShape.circle ),
+                                    child: Image.asset(
+                                      "assets/images/logo-mdm-scoops.jpg",
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ],
                               ),

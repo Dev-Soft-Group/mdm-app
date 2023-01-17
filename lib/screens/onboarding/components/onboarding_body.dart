@@ -39,8 +39,8 @@ class OnboardingBody extends StatelessWidget {
                 height: 90,
                 width: 90,
                 clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(),
-                child: Image.asset("assets/images/D-SoftTechWhite.png",
+                decoration: const BoxDecoration( shape: BoxShape.circle),
+                child: Image.asset("assets/images/logo-mdm-scoops.jpg",
                     fit: BoxFit.fill)),
             const SizedBox(height: kDefaultPadding * 6),
             Expanded(

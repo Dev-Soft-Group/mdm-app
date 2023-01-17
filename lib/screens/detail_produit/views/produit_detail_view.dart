@@ -24,17 +24,17 @@ class DetailProduitView extends GetView<ProduitDetailController> {
           child: Scaffold(
             appBar: AppBar(
                 elevation: 0,
-                backgroundColor: kWhiteColor,
+                backgroundColor: kPrimaryColor,
                 leading: InkWell(
                   onTap: () {
                     Get.back();
                   },
                   child: const Icon(Icons.arrow_back,
-                      size: 26, color: kBlackColor),
+                      size: 26, color: kWhiteColor),
                 ),
                 title: const Text("Détail du produit",
                     style: TextStyle(
-                      color: kBlackColor,
+                      color: kWhiteColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ))),
@@ -235,23 +235,23 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                       ),
                                     ]),
                                   const SizedBox(height: kDefaultPadding * 1.5),
-                                controller.commentaires!.isNotEmpty ? const TextTitle(text: "Commentaires récents") : Container(),
+                                controller.commentaires.isNotEmpty ? const TextTitle(text: "Commentaires récents") : Container(),
                                 const SizedBox(height: kDefaultPadding ),
-                                ...List.generate( controller.commentaires!.length > 5 ? 5 : controller.commentaires!.length, (index) => 
+                                ...List.generate( controller.commentaires.length > 5 ? 5 : controller.commentaires.length, (index) => 
                                 Container(
                                   margin: const EdgeInsets.only(bottom: 10),
                                   alignment: Alignment.centerLeft,
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text(controller.commentaires![index].username!.capitalizeFirst!,
+                                        title: Text(controller.commentaires[index].username!.capitalizeFirst!,
                                           style: TextStyle(
                                             color: kBlackColor.withOpacity(0.8),
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
-                                        subtitle: Text(controller.commentaires![index].contenu!.capitalizeFirst!,
+                                        subtitle: Text(controller.commentaires[index].contenu!.capitalizeFirst!,
                                           style: TextStyle(
                                             color: kBlackColor.withOpacity(0.48),
                                             fontSize: 14,
@@ -263,7 +263,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                           radius: 30,
                                           child: Icon(CupertinoIcons.person, size: 36, color: kBlackColor.withOpacity(0.2),),
                                         ),
-                                        trailing: Text("Le ${DateTime.parse(controller.commentaires![index].createdAt!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(controller.commentaires![index].createdAt!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(controller.commentaires![index].createdAt!.toString()).year.toString().padLeft(2, "0")}",
+                                        trailing: Text("Le ${DateTime.parse(controller.commentaires[index].createdAt!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(controller.commentaires[index].createdAt!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(controller.commentaires[index].createdAt!.toString()).year.toString().padLeft(2, "0")}",
                                           style: TextStyle(
                                             color: kBlackColor.withOpacity(0.6),
                                             fontSize: 12,

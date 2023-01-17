@@ -59,11 +59,16 @@ class InscriptionView extends GetView<InscriptionController> {
                                         size: 26,
                                         color: kWhiteColor,
                                       )),
-                                  Image.asset(
-                                    "assets/images/D-SoftTechWhite.png",
+                                  Container(
                                     height: 30,
                                     width: 30,
-                                    fit: BoxFit.fill,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle),
+                                    child: Image.asset(
+                                      "assets/images/logo-mdm-scoops.jpg",
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -120,8 +125,10 @@ class InscriptionView extends GetView<InscriptionController> {
                                                   color: kPrimaryColor),
                                         )
                                       : Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             CustomActionButton(
                                               title: "Enregistrer",

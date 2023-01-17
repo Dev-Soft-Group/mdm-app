@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/entreprise/views/entreprise_view.dart';
 import 'package:mdmscoops/screens/services/controllers/detail_services_controller.dart';
 
@@ -30,8 +29,9 @@ class ServicesDetailView extends GetView<ServiceDetailController> {
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: const BoxDecoration(),
-                    child: Image.asset("assets/images/D-SoftTechWhite.png",
+                    clipBehavior: Clip.antiAlias,
+                    decoration: const BoxDecoration( shape: BoxShape.circle),
+                    child: Image.asset("assets/images/logo-mdm-scoops.jpg",
                         fit: BoxFit.fill)),
                 const SizedBox(
                   width: kDefaultPadding,

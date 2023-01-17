@@ -19,7 +19,7 @@ class ProduitDetailController extends GetxController {
 
   final CommentairesService _commentaireService = CommentairesServiceImpl();
 
-  List<Commentaire>? commentaires;
+  List<Commentaire> commentaires = [];
 
   String idProduit = "";
   Produit? produit;
@@ -55,7 +55,7 @@ class ProduitDetailController extends GetxController {
     await _commentaireService.getAllCommentForProduit(
         idProduit: idProduit.toString(),
         onSuccess: (data) {
-          commentaires = data.commentaires;
+          commentaires = data.commentaires!;
           productStatus = AppStatus.appSuccess;
           update();
         },

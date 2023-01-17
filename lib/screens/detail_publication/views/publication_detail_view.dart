@@ -26,17 +26,17 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
           child: Scaffold(
             appBar: AppBar(
                 elevation: 0,
-                backgroundColor: kWhiteColor,
+                backgroundColor: kPrimaryColor,
                 leading: InkWell(
                   onTap: () {
                     Get.back();
                   },
                   child: const Icon(Icons.arrow_back,
-                      size: 26, color: kBlackColor),
+                      size: 26, color: kWhiteColor),
                 ),
                 title: const Text("Détail de la publication",
                     style: TextStyle(
-                      color: kBlackColor,
+                      color: kWhiteColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ))),
