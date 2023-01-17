@@ -12,6 +12,7 @@ class CardPubItem extends StatelessWidget {
       this.item,
       this.width,
       this.onTap,
+      this.liker,
       this.onLongPress,
       this.onMessage,
       this.left,
@@ -23,6 +24,7 @@ class CardPubItem extends StatelessWidget {
       : super(key: key);
   final double? width;
   final Function()? onTap;
+  final Function()? liker;
   final Function()? onLongPress;
   final Function()? onMessage;
   final double? left;
@@ -113,7 +115,7 @@ class CardPubItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                      onTap: () {},
+                      onTap: liker,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [

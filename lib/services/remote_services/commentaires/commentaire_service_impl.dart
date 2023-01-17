@@ -45,13 +45,33 @@ class CommentairesServiceImpl implements CommentairesService {
     });
   }
 
+   @override
+  Future<void> saveCommentForProduit(
+      {String? idProduit,
+      dynamic data,
+      Function(Commentaire data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/commentaires/$idProduit/produit",
+      data: data!,
+      token: await _localAuth.getToken(),
+    ).post(onSuccess: (data) {
+      onSuccess!(Commentaire.fromMap(data));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+
   @override
-  Future<void> getAllCommentForProduct(
-      {String? idProduct,
+  Future<void> getAllCommentForProduit(
+      {String? idProduit,
       Function(CommentaireResponseModel data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(
-      url: "${Constantes.API_URL}/commentaires/$idProduct/produit",
+      url: "${Constantes.API_URL}/commentaires/$idProduit/produit",
       token: await _localAuth.getToken(),
     ).get(onSuccess: (data) {
       onSuccess!(CommentaireResponseModel.fromMap(data));

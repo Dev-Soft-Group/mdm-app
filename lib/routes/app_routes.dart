@@ -31,6 +31,6 @@ class AppRoutes {
   static const String PROFILENTREPRENEUR = "/profil_entrepreneur";
   static const String CROPS_METIER_DETAIL = "/corps_metier_detail";
   static const String PUBLICATION_DETAIL = "/publication_detail";
-  static const String COMMEANTAIRE_PUBLICATION = "/commentaire_publication";
-  static const String COMMEANTAIRE_PRODUCTION = "/produit_publication";
+  static const String COMMENTAIRE_PUBLICATION = "/commentaire_publication";
+  static const String COMMENTAIRE_PRODUIT = "/produit_publication";
 }

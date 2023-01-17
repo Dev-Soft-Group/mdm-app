@@ -11,6 +11,7 @@ class CardItem extends StatelessWidget {
       this.item,
       this.width,
       this.onTap,
+      this.liker,
       this.onLongPress,
       this.onMessage,
       this.left,
@@ -22,6 +23,7 @@ class CardItem extends StatelessWidget {
       : super(key: key);
   final double? width;
   final Function()? onTap;
+  final Function()? liker;
   final Function()? onLongPress;
   final Function()? onMessage;
   final double? left;
@@ -110,7 +112,7 @@ class CardItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                      onTap: () {},
+                      onTap: liker,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -128,7 +130,7 @@ class CardItem extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(item!.likes!.toString(),
+                          Text(item!.commentaires!.toString(),
                             style: const TextStyle(fontSize: 13)
                           ),
                           const SizedBox(width: 5),

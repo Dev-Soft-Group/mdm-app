@@ -7,6 +7,7 @@ import 'package:mdmscoops/models/response_model/commentaire_model.dart';
 import 'package:mdmscoops/models/response_model/publication_model.dart';
 import 'package:mdmscoops/services/remote_services/commentaires/commentaire_service.dart';
 import 'package:mdmscoops/services/remote_services/commentaires/commentaire_service_impl.dart';
+import 'package:mdmscoops/services/remote_services/likes/likes.dart';
 import 'package:mdmscoops/services/remote_services/publications/publication.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,6 +15,8 @@ class PublicationDetailController extends GetxController {
   final PublicationService _publicationService = PublicationServiceImpl();
 
   final CommentairesService _commentaireService = CommentairesServiceImpl();
+  
+  final LikesService _likesService = LikesServiceImpl();
 
   List<Commentaire>? commentaires;
 
@@ -88,6 +91,20 @@ class PublicationDetailController extends GetxController {
           AppSnackBar.show(
               title: "Error", message: e.response!.data["message"].toString());
           publicationStatus = AppStatus.appFailure;
+          update();
+        });
+  }
+
+   Future likerPublication() async {
+    await _likesService.likerPublication(
+        idPublication: idPublication.toString(),
+        onSuccess: (data) {
+          publication!.likes = publication!.likes! + data["results"] as int ?;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
           update();
         });
   }

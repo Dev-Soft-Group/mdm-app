@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/detail_produit/controllers/produit_detail_controller.dart';
 
 class DetailProduitView extends GetView<ProduitDetailController> {
@@ -17,6 +19,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
         return RefreshIndicator(
           onRefresh: () async {
             await controller.getProductById();
+            await controller.getAllCommentForProduit();
           },
           child: Scaffold(
             appBar: AppBar(
@@ -182,7 +185,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                             MainAxisAlignment.end,
                                         children: [
                                           InkWell(
-                                              onTap: () {},
+                                              onTap: () async { await controller.likerProduit();},
                                               child: Row(
                                                 crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
@@ -199,11 +202,11 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                               )),
                                           const SizedBox(width: 18),
                                           InkWell(
-                                              onTap: (){},
+                                              onTap: () { Get.toNamed(AppRoutes.COMMENTAIRE_PRODUIT, arguments: { "idProduit": controller.produit!.id! }); },
                                               child: Row(
                                                 crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
-                                                   Text(controller.produit!.likes!.toString(),
+                                                   Text(controller.produit!.commentaires!.toString(),
                                                     style: const TextStyle(fontSize: 15)
                                                   ),
                                                   const SizedBox(width: 5),
@@ -228,18 +231,51 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                                     .withOpacity(0.9)),
                                           ),
                                           const SizedBox(width: 8),
-                                          // InkWell(
-                                          //     onLongPress: () {
-                                          //       controller.updateProduct();
-                                          //     },
-                                          //     child: Icon(
-                                          //         Icons.more_vert_outlined,
-                                          //         size: 26,
-                                          //         color: kPrimaryColor
-                                          //             .withOpacity(0.8))),
                                         ],
                                       ),
                                     ]),
+                                  const SizedBox(height: kDefaultPadding * 1.5),
+                                controller.commentaires!.isNotEmpty ? const TextTitle(text: "Commentaires récents") : Container(),
+                                const SizedBox(height: kDefaultPadding ),
+                                ...List.generate( controller.commentaires!.length > 5 ? 5 : controller.commentaires!.length, (index) => 
+                                Container(
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  alignment: Alignment.centerLeft,
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text(controller.commentaires![index].username!.capitalizeFirst!,
+                                          style: TextStyle(
+                                            color: kBlackColor.withOpacity(0.8),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        subtitle: Text(controller.commentaires![index].contenu!.capitalizeFirst!,
+                                          style: TextStyle(
+                                            color: kBlackColor.withOpacity(0.48),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        leading: CircleAvatar(
+                                          backgroundColor: Colors.grey[200],
+                                          radius: 30,
+                                          child: Icon(CupertinoIcons.person, size: 36, color: kBlackColor.withOpacity(0.2),),
+                                        ),
+                                        trailing: Text("Le ${DateTime.parse(controller.commentaires![index].createdAt!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(controller.commentaires![index].createdAt!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(controller.commentaires![index].createdAt!.toString()).year.toString().padLeft(2, "0")}",
+                                          style: TextStyle(
+                                            color: kBlackColor.withOpacity(0.6),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        contentPadding: const EdgeInsets.only(left: 0),
+                                      ),
+                                      const Divider(thickness: 1.2,)
+                                    ],
+                                  ),
+                                ), ),
                               ],
                             ),
                           )

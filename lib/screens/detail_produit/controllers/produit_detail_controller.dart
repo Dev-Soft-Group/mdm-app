@@ -3,15 +3,23 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_status.dart';
+import 'package:mdmscoops/models/response_model/commentaire_model.dart';
 import 'package:mdmscoops/models/response_model/produit_model.dart';
-import 'package:mdmscoops/routes/app_routes.dart';
+import 'package:mdmscoops/services/remote_services/commentaires/commentaire.dart';
+import 'package:mdmscoops/services/remote_services/likes/likes.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProduitDetailController extends GetxController {
   final ProduitService _produitService = ProduitServiceImpl();
 
+  final LikesService _likesService = LikesServiceImpl();
+
   AppStatus productStatus = AppStatus.appDefault;
+
+  final CommentairesService _commentaireService = CommentairesServiceImpl();
+
+  List<Commentaire>? commentaires;
 
   String idProduit = "";
   Produit? produit;
@@ -20,6 +28,7 @@ class ProduitDetailController extends GetxController {
   void onInit() async {
     idProduit = Get.arguments["idProduit"].toString();
     await getProductById();
+    await getAllCommentForProduit();
     super.onInit();
   }
 
@@ -37,6 +46,37 @@ class ProduitDetailController extends GetxController {
           AppSnackBar.show(
               title: "Error", message: e.response!.data["message"].toString());
           productStatus = AppStatus.appFailure;
+          update();
+        });
+  }
+   Future getAllCommentForProduit() async {
+    productStatus = AppStatus.appLoading;
+    update();
+    await _commentaireService.getAllCommentForProduit(
+        idProduit: idProduit.toString(),
+        onSuccess: (data) {
+          commentaires = data.commentaires;
+          productStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
+          productStatus = AppStatus.appFailure;
+          update();
+        });
+  }
+
+  Future likerProduit() async {
+    await _likesService.likerProduit(
+        idProduit: idProduit.toString(),
+        onSuccess: (data) {
+          produit!.likes = produit!.likes! + data["results"] as int ?;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
           update();
         });
   }

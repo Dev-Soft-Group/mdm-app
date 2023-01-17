@@ -177,12 +177,12 @@ class AppPages {
     ),
 
     GetPage(
-      name: AppRoutes.COMMEANTAIRE_PRODUCTION,
+      name: AppRoutes.COMMENTAIRE_PRODUIT,
       page: () => const CommentaireProduitView(),
       binding: CommentaireBinding(),
     ),
     GetPage(
-      name: AppRoutes.COMMEANTAIRE_PUBLICATION,
+      name: AppRoutes.COMMENTAIRE_PRODUIT,
       page: () => const CommentairePublicationView(),
       binding: CommentaireBinding(),
     ),

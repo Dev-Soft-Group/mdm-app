@@ -1,37 +1,74 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_status.dart';
-import 'package:mdmscoops/models/response_model/services_models.dart';
-import 'package:mdmscoops/services/remote_services/services/service.dart';
+import 'package:mdmscoops/models/response_model/commentaire_model.dart';
+import 'package:mdmscoops/services/remote_services/commentaires/commentaire.dart';
 
 
 
 class CommentaireProduitController extends GetxController{
-  final ServicesService _servicetService = ServicesServiceImpl();
+  final CommentairesService _commentaireService = CommentairesServiceImpl();
 
-  AppStatus servicesStatus = AppStatus.appDefault;
+  AppStatus commentairesStatus = AppStatus.appDefault;
+  AppStatus sendStatus = AppStatus.appDefault;
 
-  int selectedTabs = 0;
+  List<Commentaire>? commentaires = [];
+  TextEditingController textEditingCommentaire = TextEditingController();
 
-  List<Service> servicesList = [];
+  String? idProduit;
 
   @override
   void onInit() async {
-    await getAllServices();
+    try {
+      idProduit = Get.arguments['idProduit'];
+      await getAllCommentForProduit();
+    } catch (e) {}
     super.onInit();
   }
 
-  Future getAllServices() async {
-    servicesStatus = AppStatus.appLoading;
+  Future getAllCommentForProduit() async {
+    commentairesStatus = AppStatus.appLoading;
     update();
-    await _servicetService.getAllServices(onSuccess: (data) {
-      servicesList = data.services!;
-      servicesStatus = AppStatus.appSuccess;
-      update();
-    }, onError: (e) {
-      AppSnackBar.show(title: "Error", message: e.response!.data["message"]);
-      servicesStatus = AppStatus.appFailure;
-      update();
-    });
+    await _commentaireService.getAllCommentForProduit(
+        idProduit: idProduit!.toString(),
+        onSuccess: (data) {
+          commentaires = data.commentaires;
+          commentairesStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
+          commentairesStatus = AppStatus.appFailure;
+          update();
+        });
   }
+
+  Future saveCommentForProduit() async {
+    if ((textEditingCommentaire.text.isEmpty)) {
+      AppSnackBar.show(title: "Erreur", message: "Commentaire trop court !", backColor:  Colors.red);
+      return;
+    }
+    sendStatus = AppStatus.appLoading;
+    update();
+    await _commentaireService.saveCommentForProduit(
+        idProduit: idProduit!.toString(),
+        data: {
+          "contenu": textEditingCommentaire.text.trim(),
+        },
+        onSuccess: (data) {
+          commentaires = [Commentaire(username:  "Moi...", contenu: textEditingCommentaire.text.trim(), createdAt: DateTime.now()), ...commentaires!];
+          textEditingCommentaire.text = "";
+          sendStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
+          sendStatus = AppStatus.appFailure;
+          update();
+        });
+  }
+
 }

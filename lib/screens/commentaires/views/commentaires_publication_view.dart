@@ -70,7 +70,7 @@ class CommentairePublicationView
                                 textController:
                                     controller.textEditingCommentaire,
                                 onChanged: (string) {},
-                                hintText: "Entrez lvotre commentaire ici ...",
+                                hintText: "Entrez votre commentaire ici ...",
                                 maxLines: 5),
                             const SizedBox(height: 20),
                             Row(

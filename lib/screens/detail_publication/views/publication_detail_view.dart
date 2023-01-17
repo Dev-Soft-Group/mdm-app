@@ -21,6 +21,7 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
         return RefreshIndicator(
           onRefresh: () async {
             await controller.getPublicationById();
+            await controller.getAllCommentForPublication();
           },
           child: Scaffold(
             appBar: AppBar(
@@ -171,7 +172,7 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
                                             MainAxisAlignment.end,
                                         children: [
                                           InkWell(
-                                              onTap: () {},
+                                              onTap: () async { await controller.likerPublication();},
                                               child: Row(
                                                 crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
@@ -187,7 +188,7 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
                                               )),
                                           const SizedBox(width: 18),
                                           InkWell(
-                                              onTap: () { Get.toNamed(AppRoutes.COMMEANTAIRE_PUBLICATION, arguments: { "idPublication": controller.publication!.id! }); },
+                                              onTap: () { Get.toNamed(AppRoutes.COMMENTAIRE_PUBLICATION, arguments: { "idPublication": controller.publication!.id! }); },
                                               child: Row(
                                                 crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [

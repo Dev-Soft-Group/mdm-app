@@ -343,6 +343,7 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                                 padding: const EdgeInsets.only(
                                                     right: kDefaultPadding - 5),
                                                 child: CardPubItem(
+                                                  liker: () async { await controller.likerPublication(index); },
                                                   onTap: (){Get.toNamed(AppRoutes.PUBLICATION_DETAIL, arguments: { 'idPublication': controller.publicationsList[index].id! }); },
                                                   onLongPress: (){Get.toNamed(AppRoutes.CREATE_PUBLICAION, arguments: { 'publication': controller.publicationsList[index] }); },
                                                   onMessage: () async { await controller.sendWhatsAppMessenger(controller.publicationsList[index]);},
@@ -477,6 +478,7 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                                     right: kDefaultPadding - 5),
                                                     child: CardItem(
                                                       left: 5,
+                                                      liker: () async { await controller.likerProduit(index);},
                                                       onLongPress: (){Get.toNamed(AppRoutes.CREATE_PRODUITS , arguments: { "produit": controller.produitsList[index] });},
                                                       onMessage: () async { await controller.sendWhatsAppMessengerProduit(controller.produitsList[index]);},
                                                       onTap: () {

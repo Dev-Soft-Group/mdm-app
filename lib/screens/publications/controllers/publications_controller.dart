@@ -6,6 +6,7 @@ import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/models/response_model/produit_model.dart';
 import 'package:mdmscoops/models/response_model/publication_model.dart';
+import 'package:mdmscoops/services/remote_services/likes/likes.dart';
 import 'package:mdmscoops/services/remote_services/publications/publication.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,6 +14,8 @@ class PublicationsController extends GetxController {
   final PublicationService _publisherService = PublicationServiceImpl();
 
   AppStatus publicationStatus = AppStatus.appDefault;
+
+  final LikesService _likesService = LikesServiceImpl();
 
   List<Publication> publicationsList = [];
   List<Publication> publicationsListCopy = [];
@@ -96,7 +99,10 @@ class PublicationsController extends GetxController {
     publicationStatus = AppStatus.appLoading;
     update();
     await _publisherService.getAllPublicationsByType(
-        data: {"type": menus[selectedTabs]['id'] >=  0 ? [menus[selectedTabs]['id']] : []},
+        data: {
+          "type":
+              menus[selectedTabs]['id'] >= 0 ? [menus[selectedTabs]['id']] : []
+        },
         onSuccess: (data) {
           publicationsList = data.publications!;
           publicationStatus = AppStatus.appSuccess;
@@ -106,6 +112,20 @@ class PublicationsController extends GetxController {
           AppSnackBar.show(
               title: "Erreur", message: e.response.data['message'].toString());
           publicationStatus = AppStatus.appFailure;
+          update();
+        });
+  }
+
+  Future likerPublication(int index) async {
+    await _likesService.likerPublication(
+        idPublication: publicationsList[index].id.toString(),
+        onSuccess: (data) {
+          publicationsList[index].likes = publicationsList[index].likes! + data['results'] as int;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
           update();
         });
   }

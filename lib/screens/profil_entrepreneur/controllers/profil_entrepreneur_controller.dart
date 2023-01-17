@@ -9,6 +9,7 @@ import 'package:mdmscoops/models/response_model/publication_model.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/entreprises/entreprise.dart';
+import 'package:mdmscoops/services/remote_services/likes/likes.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits.dart';
 import 'package:mdmscoops/services/remote_services/publications/publication.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,6 +19,8 @@ class ProfilEntrepreneurController extends GetxController {
   final LocalAuthService _localService = LocalAuthServiceImpl();
 
   final ProduitService _produitService = ProduitServiceImpl();
+
+  final LikesService _likesService = LikesServiceImpl();
 
   AppStatus entrepriseStatus = AppStatus.appDefault;
 
@@ -52,6 +55,36 @@ class ProfilEntrepreneurController extends GetxController {
     await getAllPublicationsForEnterprise();
     await getAllProduitsForEnterprise();
     super.onInit();
+  }
+
+  Future likerPublication(int index) async {
+    await _likesService.likerPublication(
+        idPublication: publicationsList[index].id.toString(),
+        onSuccess: (data) {
+          publicationsList[index].likes =
+              publicationsList[index].likes! + data['results'] as int;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
+          update();
+        });
+  }
+
+   Future likerProduit(int index) async {
+    await _likesService.likerProduit(
+        idProduit: produitsList[index].id.toString(),
+        onSuccess: (data) {
+          produitsList[index].likes =
+              produitsList[index].likes! + data['results'] as int;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
+          update();
+        });
   }
 
   Future<void> getEntrepriseById() async {
@@ -165,7 +198,8 @@ class ProfilEntrepreneurController extends GetxController {
   void switchList(value) {
     switch (value) {
       case 0:
-        Get.toNamed(AppRoutes.COMPTEENTREPRISE, arguments: { "entreprise": entreprise! });
+        Get.toNamed(AppRoutes.COMPTEENTREPRISE,
+            arguments: {"entreprise": entreprise!});
         break;
       case 1:
         Get.toNamed(AppRoutes.CREATE_PRODUITS);
@@ -177,7 +211,7 @@ class ProfilEntrepreneurController extends GetxController {
         Get.toNamed(AppRoutes.CREATE_SECTEUR_ACTIVITE);
         break;
       case 4:
-         Get.toNamed(AppRoutes.CREATE_CORPS_METIER);
+        Get.toNamed(AppRoutes.CREATE_CORPS_METIER);
         break;
       case 5:
         Get.toNamed(AppRoutes.ENTREPRISE_SUCCURSALE);

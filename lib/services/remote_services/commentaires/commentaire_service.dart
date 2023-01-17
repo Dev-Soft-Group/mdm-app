@@ -1,6 +1,3 @@
-
-
-
 import 'package:mdmscoops/models/response_model/commentaire_model.dart';
 
 abstract class CommentairesService {
@@ -17,11 +14,17 @@ abstract class CommentairesService {
     Function(dynamic error)? onError,
   });
 
-   Future<void> getAllCommentForProduct({
-    String? idProduct,
+  Future<void> saveCommentForProduit({
+    String? idProduit,
+    dynamic data,
+    Function(Commentaire data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
+
+  Future<void> getAllCommentForProduit({
+    String? idProduit,
     Function(CommentaireResponseModel data)? onSuccess,
     Function(dynamic error)? onError,
   });
 
- 
 }

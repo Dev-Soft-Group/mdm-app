@@ -111,6 +111,7 @@ class PublicationsView extends GetView<PublicationsController> {
                                                                     .publicationsList[
                                                                 index]);
                                                   },
+                                                  liker: () async { await controller.likerPublication(index);},
                                                   item: controller
                                                       .publicationsList[index],
                                                   width: Get.width / 2 - 25,

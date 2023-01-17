@@ -9,6 +9,7 @@ import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/models/response_model/categorie_model.dart';
 import 'package:mdmscoops/models/response_model/produit_model.dart';
 import 'package:mdmscoops/services/remote_services/categorie/categorie.dart';
+import 'package:mdmscoops/services/remote_services/likes/likes.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,6 +18,8 @@ class ProduitController extends GetxController {
   final CategorieService _categorieService = CategorieServiceImpl();
 
   final ProduitService _produitService = ProduitServiceImpl();
+  
+  final LikesService _likesService = LikesServiceImpl();
 
   TextEditingController searchText = TextEditingController();
 
@@ -125,5 +128,20 @@ class ProduitController extends GetxController {
     }
   }
 
-  
+
+   Future likerProduit(int indexCat, int indexProd) async {
+    Produit produit = categoriesList[indexCat].produitModel!.produits![indexProd];
+    await _likesService.likerProduit(
+        idProduit: produit.id.toString(),
+        onSuccess: (data) {
+          categoriesList[indexCat].produitModel!.produits![indexProd].likes = produit.likes! + data["results"] as int ?;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
+          update();
+        });
+  }
+
 }
