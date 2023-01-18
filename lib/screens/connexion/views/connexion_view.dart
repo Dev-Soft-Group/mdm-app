@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/custom_input_field.dart';
@@ -98,6 +99,14 @@ class ConnexionView extends GetView<ConnexionController> {
                                         controller.textEditingPassword,
                                     hintText: "Entrez votre mot de passe",
                                     radius: kDefaultRadius * 3,
+                                    obscureText: controller.obscureText,
+                                    suffixIcon: InkWell(
+                                        onTap: (){ controller.hideAndShow(); },
+                                        child: Icon(
+                                            controller.obscureText
+                                                ? CupertinoIcons.eye
+                                                : CupertinoIcons.eye_slash,
+                                            size: 23)),
                                   ),
                                   const SizedBox(height: 90),
                                   controller.loginStatus == AppStatus.appLoading

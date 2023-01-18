@@ -16,6 +16,7 @@ class FormFieldInput extends StatelessWidget {
     this.textController,
     this.height,
     this.contentPadding,
+    this.obscureText,
   }) : super(key: key);
 
   final Function(String data)? onChanged;
@@ -27,6 +28,7 @@ class FormFieldInput extends StatelessWidget {
   final TextInputType? keyboardType;
   final double? height;
   final EdgeInsetsGeometry? contentPadding;
+  final bool? obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class FormFieldInput extends StatelessWidget {
         onChanged: onChanged,
         maxLines: maxLines ?? 1,
         keyboardType: keyboardType,
+        obscureText: obscureText ?? false,
         decoration: InputDecoration(
           labelText: maxLines != null ? null : " $hintText ",
           labelStyle: TextStyle(

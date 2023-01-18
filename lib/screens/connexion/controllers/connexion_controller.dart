@@ -17,8 +17,6 @@ class ConnexionController extends GetxController {
 
   AppStatus loginStatus = AppStatus.appDefault;
 
-  // final UtilisateurService _userService = UtilisateurServiceImpl();
-
   final TextEditingController textEditingNom = TextEditingController();
   final TextEditingController textEditingPassword = TextEditingController();
 
@@ -28,6 +26,11 @@ class ConnexionController extends GetxController {
     textEditingNom.dispose();
     textEditingPassword.dispose();
     super.dispose();
+  }
+
+  void hideAndShow(){
+    obscureText = !obscureText;
+    update();
   }
 
   Future login() async {
