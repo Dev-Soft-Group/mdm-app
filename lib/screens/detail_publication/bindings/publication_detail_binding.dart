@@ -7,6 +7,6 @@ class PublicationDetailBinding implements Bindings {
   @override
   void dependencies() {
 
-    Get.lazyPut<PublicationDetailController>(() => PublicationDetailController());
+    Get.lazyPut<PublicationDetailController>(() => PublicationDetailController(), fenix: true);
   }
 }

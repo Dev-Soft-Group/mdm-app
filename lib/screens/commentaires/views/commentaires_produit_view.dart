@@ -83,20 +83,22 @@ class CommentaireProduitView extends GetView<CommentaireProduitController> {
                                   onTap: () async { 
                                     if (controller.sendStatus == AppStatus.appLoading){ return;}
                                     await controller.saveCommentForProduit();},
-                                  child: controller.sendStatus == AppStatus.appLoading ?
-                                   Container(
-                                      alignment: Alignment.center,
-                                      child: CircularProgressIndicator(
-                                          color: kPrimaryColor.withOpacity(0.4)),
-                                    )
-                                  :  Container(
+                                  child: Container(
                                     alignment: Alignment.center,
                                     height: 35,
                                     width: 130,
                                     decoration: BoxDecoration(
                                         color: kPrimaryColor,
                                         borderRadius: BorderRadius.circular(10)),
-                                    child: const Text(
+                                    child: controller.sendStatus == AppStatus.appLoading ?
+                                    Container(
+                                      height: 28,
+                                      width: 28,
+                                      alignment: Alignment.center,
+                                      child: const CircularProgressIndicator(
+                                          color: kWhiteColor),
+                                    )
+                                    : const Text(
                                       "Envoyer",
                                       style: TextStyle(
                                         color: kWhiteColor,

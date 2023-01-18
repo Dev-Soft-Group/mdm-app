@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/models/response_model/commentaire_model.dart';
+import 'package:mdmscoops/models/response_model/entreprise_model.dart';
 import 'package:mdmscoops/models/response_model/produit_model.dart';
 import 'package:mdmscoops/services/remote_services/commentaires/commentaire.dart';
 import 'package:mdmscoops/services/remote_services/likes/likes.dart';
@@ -20,6 +21,7 @@ class ProduitDetailController extends GetxController {
   final CommentairesService _commentaireService = CommentairesServiceImpl();
 
   List<Commentaire> commentaires = [];
+  List<Entreprise> entreprisesList = [];
 
   String idProduit = "";
   Produit? produit;
@@ -29,6 +31,7 @@ class ProduitDetailController extends GetxController {
     idProduit = Get.arguments["idProduit"].toString();
     await getProductById();
     await getAllCommentForProduit();
+    await getAllEntreprisesForProduit();
     super.onInit();
   }
 
@@ -81,8 +84,24 @@ class ProduitDetailController extends GetxController {
         });
   }
 
-
-  
+  Future getAllEntreprisesForProduit() async {
+    // productStatus = AppStatus.appLoading;
+    update();
+    await _produitService.getAllEntreprisesForProduit(
+        idProduit: idProduit.toString(),
+        onSuccess: (data) {
+          print(data.entreprises![0].toMap());
+          entreprisesList = data.entreprises!;
+          // productStatus = AppStatus.appSuccess;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
+          // productStatus = AppStatus.appFailure;
+          update();
+        });
+  }
 
   Future<void> sendWhatsAppMessenger() async {
     var number = "+237652310829";

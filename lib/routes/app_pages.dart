@@ -1,6 +1,7 @@
 import 'package:get/route_manager.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
-import 'package:mdmscoops/screens/commentaires/bindings/commentaire_bindings.dart';
+import 'package:mdmscoops/screens/commentaires/bindings/commentaire_produit_bindings.dart';
+import 'package:mdmscoops/screens/commentaires/bindings/commentaire_publication_bindings.dart';
 import 'package:mdmscoops/screens/commentaires/views/commentaires_produit_view.dart';
 import 'package:mdmscoops/screens/commentaires/views/commentaires_publication_view.dart';
 import 'package:mdmscoops/screens/compte/bindings/compte_binding.dart';
@@ -179,12 +180,12 @@ class AppPages {
     GetPage(
       name: AppRoutes.COMMENTAIRE_PRODUIT,
       page: () => const CommentaireProduitView(),
-      binding: CommentaireBinding(),
+      binding: CommentaireProduitBinding(),
     ),
     GetPage(
-      name: AppRoutes.COMMENTAIRE_PRODUIT,
+      name: AppRoutes.COMMENTAIRE_PUBLICATION,
       page: () => const CommentairePublicationView(),
-      binding: CommentaireBinding(),
+      binding: CommentairePublicationBinding(),
     ),
   ];
 }

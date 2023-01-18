@@ -8,6 +8,7 @@ import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/detail_produit/controllers/produit_detail_controller.dart';
+import 'package:mdmscoops/screens/entreprise/views/entreprise_view.dart';
 
 class DetailProduitView extends GetView<ProduitDetailController> {
   const DetailProduitView({Key? key}) : super(key: key);
@@ -234,8 +235,40 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                         ],
                                       ),
                                     ]),
-                                  const SizedBox(height: kDefaultPadding * 1.5),
-                                controller.commentaires.isNotEmpty ? const TextTitle(text: "Commentaires récents") : Container(),
+                                
+                                controller.entreprisesList.isNotEmpty ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: kDefaultPadding * 1.5),
+                                    const TextTitle(text: "Entreprises ayant le produit"),
+                                    const SizedBox(height: kDefaultPadding / 2 ),                                
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      width: Get.width,
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children:  List.generate(
+                                                    controller.entreprisesList.length,
+                                                    (index) => Container(
+                                                      height: 130,
+                                                      width: 140,
+                                                      margin: const EdgeInsets.only(right: 6),
+                                                      clipBehavior: Clip.antiAlias,
+                                                      decoration: const BoxDecoration(),
+                                                      child: CustomCard(
+                                                          item: controller
+                                                              .entreprisesList[index]),
+                                                    )),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ) : Container(),
+                                                           
+                                const SizedBox(height: kDefaultPadding *1.5 ),
+                                controller.commentaires.isNotEmpty ? const TextTitle(text: "Avis récents") : Container(),
                                 const SizedBox(height: kDefaultPadding ),
                                 ...List.generate( controller.commentaires.length > 5 ? 5 : controller.commentaires.length, (index) => 
                                 Container(

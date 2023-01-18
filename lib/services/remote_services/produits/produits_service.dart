@@ -1,4 +1,5 @@
 import 'package:mdmscoops/models/response_model/categorie_produit_modele.dart';
+import 'package:mdmscoops/models/response_model/entreprise_model.dart';
 import 'package:mdmscoops/models/response_model/produit_model.dart';
 import 'package:mdmscoops/models/response_model/produit_paginate_model.dart';
 
@@ -10,6 +11,12 @@ abstract class ProduitService {
 
    Future<void> getAllCategorieProduits({
     Function(CategorieProduitResponseModel data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
+
+  Future<void> getAllEntreprisesForProduit({
+    String? idProduit,
+    Function(EntrepriseResponseModel data)? onSuccess,
     Function(dynamic error)? onError,
   });
 

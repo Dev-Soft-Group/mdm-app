@@ -219,7 +219,7 @@ class DetailPublicationView extends GetView<PublicationDetailController> {
                                     ]),
                               
                                const SizedBox(height: kDefaultPadding * 1.5),
-                                controller.commentaires!.isNotEmpty ? const TextTitle(text: "Commentaires récents") : Container(),
+                                controller.commentaires != null && controller.commentaires!.isNotEmpty ? const TextTitle(text: "Commentaires récents") : Container(),
                                 const SizedBox(height: kDefaultPadding ),
                                 ...List.generate( controller.commentaires!.length > 5 ? 5 : controller.commentaires!.length, (index) => 
                                 Container(

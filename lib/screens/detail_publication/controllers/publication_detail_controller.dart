@@ -93,6 +93,8 @@ class PublicationDetailController extends GetxController {
           publicationStatus = AppStatus.appFailure;
           update();
         });
+
+
   }
 
    Future likerPublication() async {

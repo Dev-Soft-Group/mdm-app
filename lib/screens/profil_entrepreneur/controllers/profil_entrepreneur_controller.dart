@@ -39,9 +39,9 @@ class ProfilEntrepreneurController extends GetxController {
     "Publications",
     "Produits",
     "Succursales",
-    "Entreprises",
-    "Secteurs",
-    "Services",
+    // "Entreprises",
+    // "Secteurs",
+    // "Services",
   ];
 
   void onTabChange(int index) {
@@ -208,15 +208,9 @@ class ProfilEntrepreneurController extends GetxController {
         Get.toNamed(AppRoutes.CREATE_SERVICE);
         break;
       case 3:
-        Get.toNamed(AppRoutes.CREATE_SECTEUR_ACTIVITE);
-        break;
-      case 4:
-        Get.toNamed(AppRoutes.CREATE_CORPS_METIER);
-        break;
-      case 5:
         Get.toNamed(AppRoutes.ENTREPRISE_SUCCURSALE);
         break;
-      case 6:
+      case 4:
         Get.toNamed(AppRoutes.CREATE_PUBLICAION);
         break;
       default:

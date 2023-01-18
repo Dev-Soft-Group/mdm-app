@@ -3,6 +3,7 @@
 import 'package:mdmscoops/core/app_constantes.dart';
 import 'package:mdmscoops/core/app_library.dart';
 import 'package:mdmscoops/models/response_model/categorie_produit_modele.dart';
+import 'package:mdmscoops/models/response_model/entreprise_model.dart';
 import 'package:mdmscoops/models/response_model/produit_model.dart';
 import 'package:mdmscoops/models/response_model/produit_paginate_model.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
@@ -53,6 +54,23 @@ class ProduitServiceImpl implements ProduitService {
       token: await _localAuth.getToken(),
     ).get(onSuccess: (data) {
       onSuccess!(CategorieProduitResponseModel.fromMap(data));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+  @override
+  Future<void> getAllEntreprisesForProduit(
+      {String? idProduit,
+      Function(EntrepriseResponseModel data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/produit/$idProduit/entreprises",
+      token: await _localAuth.getToken(),
+    ).get(onSuccess: (data) {
+      onSuccess!(EntrepriseResponseModel.fromMap(data));
     }, onError: (error) {
       if (error != null) {
         onError!(error);
