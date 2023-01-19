@@ -131,7 +131,9 @@ class NavigationDrawer extends StatelessWidget {
                         image:
                             "assets/icons/Icon-information-circle-outline.png",
                         title: "A propos",
-                        onTap: () {},
+                         onTap: () {
+                          Get.offAndToNamed(AppRoutes.APROPOS);
+                        },
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-account-logout.png",

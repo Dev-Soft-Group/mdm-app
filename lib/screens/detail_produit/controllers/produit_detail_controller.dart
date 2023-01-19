@@ -90,7 +90,6 @@ class ProduitDetailController extends GetxController {
     await _produitService.getAllEntreprisesForProduit(
         idProduit: idProduit.toString(),
         onSuccess: (data) {
-          print(data.entreprises![0].toMap());
           entreprisesList = data.entreprises!;
           // productStatus = AppStatus.appSuccess;
           update();
