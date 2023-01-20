@@ -125,7 +125,9 @@ class NavigationDrawer extends StatelessWidget {
                       MenuItem(
                         image: "assets/icons/Icon-contacts.png",
                         title: "Aide et contact",
-                        onTap: () {},
+                         onTap: () {
+                          Get.offAndToNamed(AppRoutes.CONTACTS);
+                        },
                       ),
                       MenuItem(
                         image:

@@ -34,4 +34,5 @@ class AppRoutes {
   static const String COMMENTAIRE_PUBLICATION = "/commentaire_publication";
   static const String COMMENTAIRE_PRODUIT = "/commentaire_produit";
   static const String APROPOS = "/apropos";
-}
+  static const String CONTACTS = "/contacts";
+} 

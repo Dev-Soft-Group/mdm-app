@@ -11,6 +11,8 @@ import 'package:mdmscoops/screens/compte/views/compte_view.dart';
 import 'package:mdmscoops/screens/compte/views/succursale_form_view.dart';
 import 'package:mdmscoops/screens/connexion/bindings/connexion_binding.dart';
 import 'package:mdmscoops/screens/connexion/views/connexion_view.dart';
+import 'package:mdmscoops/screens/contacts/bindings/contact_bindings.dart';
+import 'package:mdmscoops/screens/contacts/views/contact_view.dart';
 import 'package:mdmscoops/screens/corps_metiers/bindings/coprs_metier_bindings.dart';
 import 'package:mdmscoops/screens/corps_metiers/views/corps_metier_form_views.dart';
 import 'package:mdmscoops/screens/detail_corps_metier/binding/corps_metier_detail_binding.dart';
@@ -192,6 +194,11 @@ class AppPages {
       name: AppRoutes.APROPOS,
       page: () => const AproposView(),
       binding: AproposBinding(),
+    ),
+     GetPage(
+      name: AppRoutes.CONTACTS,
+      page: () => const ContactsView(),
+      binding: ContactsBinding(),
     ),
   ];
 }
