@@ -2,7 +2,6 @@
 
 import 'package:mdmscoops/core/app_constantes.dart';
 import 'package:mdmscoops/core/app_library.dart';
-import 'package:mdmscoops/models/response_model/commentaire_model.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/likes/likes.dart';
 

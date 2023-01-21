@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:mdmscoops/core/app_constantes.dart';
 import 'package:mdmscoops/core/app_library.dart';
 import 'package:mdmscoops/models/response_model/publication_model.dart';

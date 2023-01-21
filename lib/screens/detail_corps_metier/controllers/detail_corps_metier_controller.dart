@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/models/response_model/corps_metier_model.dart';
 import 'package:mdmscoops/models/response_model/entreprise_model.dart';
-import 'package:mdmscoops/screens/detail_secteur/views/details_secteurs_view.dart';
 import 'package:mdmscoops/services/remote_services/entreprises/entreprise.dart';
 import 'package:mdmscoops/services/remote_services/secteur_activite/secteur_activite.dart';
 
