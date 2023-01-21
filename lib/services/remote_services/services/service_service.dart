@@ -7,6 +7,12 @@ abstract class ServicesService {
     Function(dynamic error)? onError,
   });
 
+  Future<void> getAllServicesNotForMy({
+    String? idEntreprise,
+    Function(dynamic data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
+
   Future<void> getAllEntrepriseForService({
     String? idService,
     Function(EntrepriseResponseModel data)? onSuccess,
@@ -15,6 +21,7 @@ abstract class ServicesService {
 
   Future<void> addService({
     dynamic data,
+    String? idEntreprise,
     Function(dynamic data)? onSuccess,
     Function(dynamic error)? onError,
   });

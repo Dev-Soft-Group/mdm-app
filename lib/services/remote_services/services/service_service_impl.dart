@@ -27,6 +27,24 @@ class ServicesServiceImpl implements ServicesService {
   }
 
    @override
+  Future<void> getAllServicesNotForMy(
+      {
+        String? idEntreprise,
+        Function(dynamic data)? onSuccess,
+      Function(dynamic error)? onError}) async {
+    ApiRequest(
+      url: "${Constantes.API_URL}/service/$idEntreprise/not_my",
+      token: await _localAuth.getToken(),
+    ).get(onSuccess: (data) {
+      onSuccess!(SeviceResponseModel.fromMap(data));
+    }, onError: (error) {
+      if (error != null) {
+        onError!(error);
+      }
+    });
+  }
+
+   @override
   Future<void> getAllEntrepriseForService(
       {String? idService,
     Function(EntrepriseResponseModel data)? onSuccess,
@@ -46,10 +64,11 @@ class ServicesServiceImpl implements ServicesService {
  @override
   Future<void> addService(
       {dynamic data,
+      String? idEntreprise,
       Function(dynamic data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ApiRequest(
-      url: "${Constantes.API_URL}/service/",
+      url: "${Constantes.API_URL}/service/$idEntreprise/entreprise/",
       data: data!,
       token: await _localAuth.getToken(),
     ).post(onSuccess: (data) {
