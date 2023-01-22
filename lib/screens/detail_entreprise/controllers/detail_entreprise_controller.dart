@@ -6,25 +6,48 @@ import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_snackbar.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/models/response_model/entreprise_model.dart';
+import 'package:mdmscoops/models/response_model/services_models.dart';
 import 'package:mdmscoops/services/remote_services/entreprises/entreprise.dart';
+import 'package:mdmscoops/services/remote_services/services/service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EntrepriseDetailController extends GetxController {
   final EntrepriseService _entrepriseService = EntrepriseServiceImpl();
 
+  final ServicesService _serviceService = ServicesServiceImpl();
+
   AppStatus entrepriseStatus = AppStatus.appDefault;
+  AppStatus servicesStatus = AppStatus.appDefault;
 
   String idEntreprise = "";
   Entreprise? entreprise;
 
   List<String> siteWeb = [];
+  List<Service> servicesList = [];
 
   @override
   void onInit() async {
     idEntreprise = Get.arguments["idEntreprise"];
     await getEntrepriseById();
+    await getAllServicesForMy();
     update();
     super.onInit();
+  }
+
+  Future getAllServicesForMy() async {
+    servicesStatus = AppStatus.appLoading;
+    update();
+    await _serviceService.getAllServicesForMy(
+      idEntreprise: idEntreprise.toString(),
+      onSuccess: (data) {
+      servicesList = data.services!;
+      servicesStatus = AppStatus.appSuccess;
+      update();
+    }, onError: (e) {
+      AppSnackBar.show(title: "Error", message: e.response!.data["message"]);
+      servicesStatus = AppStatus.appFailure;
+      update();
+    });
   }
 
   Future<void> getEntrepriseById() async {

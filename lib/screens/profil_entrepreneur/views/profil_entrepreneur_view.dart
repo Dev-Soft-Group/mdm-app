@@ -10,6 +10,7 @@ import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/screens/profil_entrepreneur/controllers/profil_entrepreneur_controller.dart';
+import 'package:mdmscoops/screens/services/components/service_card.dart';
 
 class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
   const ProfilEntrepreneurView({Key? key}) : super(key: key);
@@ -364,7 +365,8 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                 ),
                                 const SizedBox(height: kDefaultPadding * 2),
                               ],
-                            ) : controller.selectedTabs == 1 ?
+                            )
+                            : controller.selectedTabs == 1 ?
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -520,7 +522,139 @@ class ProfilEntrepreneurView extends GetView<ProfilEntrepreneurController> {
                                   ),
                                 ) : Container()
                               ],
-                            ): Container(),
+                            )
+                            : controller.selectedTabs == 3 ?
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: kDefaultPadding),
+                                Container(
+                                  height: 80,
+                                  decoration: const BoxDecoration(),
+                                  child: GridView.count(
+                                      crossAxisCount: 2,
+                                      shrinkWrap: true,
+                                      childAspectRatio: 7 / 3,
+                                      mainAxisSpacing: kDefaultPadding - 5,
+                                      crossAxisSpacing: kDefaultPadding - 5,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      children: [
+                                        Card(
+                                          color: kWhiteColor,
+                                          shadowColor: kWhiteColor,
+                                          elevation: 1,
+                                          child: Container(
+                                            height: 60,
+                                            padding: const EdgeInsets.all(10.0),
+                                            alignment: Alignment.center,
+                                            decoration: const BoxDecoration(),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(controller.publicationsList.length.toString().padLeft(2, "0"),
+                                                  style: const TextStyle(
+                                                    color: kPrimaryColor,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 3),
+                                                Text(
+                                                  "Publications",
+                                                  style: TextStyle(
+                                                    color: kBlackColor
+                                                        .withOpacity(0.5),
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Card(
+                                          color: kWhiteColor,
+                                          shadowColor: kWhiteColor,
+                                          elevation: 1,
+                                          child: Container(
+                                            height: 60,
+                                            padding: const EdgeInsets.all(10.0),
+                                            alignment: Alignment.center,
+                                            decoration: const BoxDecoration(),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(controller.produitsList.length.toString().padLeft(2, "0"),
+                                                  style: const TextStyle(
+                                                    color: kPrimaryColor,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 3),
+                                                Text(
+                                                  "Total produits",
+                                                  style: TextStyle(
+                                                    color: kBlackColor
+                                                        .withOpacity(0.5),
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ]),
+                                ),
+                                const SizedBox(height: kDefaultPadding - 4),
+                                const TextTitle(text: "Mes services"),
+                                const SizedBox(height: kDefaultPadding/2),
+                                controller.servicesStatus == AppStatus.appLoading ?
+                                Container(
+                                  height: 270,
+                                  alignment: Alignment.center,
+                                  child: CircularProgressIndicator( color: kPrimaryColor.withOpacity(0.4))
+                                ):
+                                controller.servicesList.isNotEmpty ? Container(
+                                    decoration: const BoxDecoration(),
+                                    child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(children:
+                                          List.generate(controller.servicesList.length, 
+                                          (index)=>Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: kDefaultPadding - 5),
+                                                    child: Container(
+                                                      alignment: Alignment.center,
+                                                      height: 200,
+                                                      width: 200,
+                                                      child: ServiceCard(
+                                                        service: controller.servicesList[index],
+                                                        logoHeight: 65,
+                                                        maxLinesTitle: 2,  
+                                                        maxLinesContent: 4,  
+                                                      ),
+                                                    )),
+                                              ))
+                                        )
+                                            ):  Container(
+                                  height: 270,
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding*1.5),
+                                  child: Text("Vous n'avez encore aucun service pour le moment",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: kBlackColor.withOpacity(0.6)
+                                    ),
+                                  )
+                                ),
+                                const SizedBox(height: kDefaultPadding * 2),
+                              ],
+                            )
+                            : Container(),
                           ),
                         ]),
                   ))));

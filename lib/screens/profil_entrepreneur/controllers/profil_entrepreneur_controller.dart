@@ -6,12 +6,14 @@ import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/models/response_model/entreprise_model.dart';
 import 'package:mdmscoops/models/response_model/produit_model.dart';
 import 'package:mdmscoops/models/response_model/publication_model.dart';
+import 'package:mdmscoops/models/response_model/services_models.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 import 'package:mdmscoops/services/remote_services/entreprises/entreprise.dart';
 import 'package:mdmscoops/services/remote_services/likes/likes.dart';
 import 'package:mdmscoops/services/remote_services/produits/produits.dart';
 import 'package:mdmscoops/services/remote_services/publications/publication.dart';
+import 'package:mdmscoops/services/remote_services/services/service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfilEntrepreneurController extends GetxController {
@@ -22,7 +24,11 @@ class ProfilEntrepreneurController extends GetxController {
 
   final LikesService _likesService = LikesServiceImpl();
 
+  final ServicesService _serviceService = ServicesServiceImpl();
+  final LocalAuthService _authService = LocalAuthServiceImpl();
+
   AppStatus entrepriseStatus = AppStatus.appDefault;
+  AppStatus servicesStatus = AppStatus.appDefault;
 
   Entreprise? entreprise;
 
@@ -32,6 +38,7 @@ class ProfilEntrepreneurController extends GetxController {
 
   List<Publication> publicationsList = [];
   List<Produit> produitsList = [];
+  List<Service> servicesList = [];
 
   int selectedTabs = 0;
 
@@ -39,13 +46,16 @@ class ProfilEntrepreneurController extends GetxController {
     "Publications",
     "Produits",
     "Succursales",
-    // "Entreprises",
+    "Services",
     // "Secteurs",
-    // "Services",
+    // "Entreprises",
   ];
 
-  void onTabChange(int index) {
+  void onTabChange(int index) async {
     selectedTabs = index;
+    if (selectedTabs == 3){
+      await getAllServicesForMy();
+    }
     update();
   }
 
@@ -71,6 +81,23 @@ class ProfilEntrepreneurController extends GetxController {
           update();
         });
   }
+
+  Future getAllServicesForMy() async {
+    servicesStatus = AppStatus.appLoading;
+    update();
+    await _serviceService.getAllServicesForMy(
+      idEntreprise: await _authService.getEntrepriseId(),
+      onSuccess: (data) {
+      servicesList = data.services!;
+      servicesStatus = AppStatus.appSuccess;
+      update();
+    }, onError: (e) {
+      AppSnackBar.show(title: "Error", message: e.response!.data["message"]);
+      servicesStatus = AppStatus.appFailure;
+      update();
+    });
+  }
+
 
    Future likerProduit(int index) async {
     await _likesService.likerProduit(

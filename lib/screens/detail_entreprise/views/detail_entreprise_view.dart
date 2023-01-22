@@ -2,10 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/succursale_card.dart';
+import 'package:mdmscoops/components/textTitle.dart';
 import 'package:mdmscoops/core/app_colors.dart';
 import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/screens/detail_entreprise/controllers/detail_entreprise_controller.dart';
+import 'package:mdmscoops/screens/services/components/service_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
@@ -236,14 +238,7 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "Description",
-                                      style: TextStyle(
-                                        color: kBlackColor.withOpacity(0.8),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
+                                    const TextTitle(text: "Description"),
                                     const SizedBox(height: kDefaultPadding / 2),
                                     Text(
                                       controller.entreprise!.description!
@@ -271,6 +266,48 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                             ),
                                           )
                                         : Container(),
+                                const SizedBox(height: kDefaultPadding - 4),
+                                const TextTitle(text: "Mes services"),
+                                const SizedBox(height: kDefaultPadding/2),
+                                controller.servicesStatus == AppStatus.appLoading ?
+                                Container(
+                                  height: 270,
+                                  alignment: Alignment.center,
+                                  child: CircularProgressIndicator( color: kPrimaryColor.withOpacity(0.4))
+                                ):
+                                controller.servicesList.isNotEmpty ? Container(
+                                    decoration: const BoxDecoration(),
+                                    child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(children:
+                                          List.generate(controller.servicesList.length, 
+                                          (index)=>Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: kDefaultPadding - 5),
+                                                    child: Container(
+                                                      alignment: Alignment.center,
+                                                      height: 200,
+                                                      width: 200,
+                                                      child: ServiceCard(
+                                                        service: controller.servicesList[index],
+                                                        logoHeight: 65,
+                                                        maxLinesTitle: 2,  
+                                                        maxLinesContent: 4,  
+                                                      ),
+                                                    )),
+                                              ))
+                                        )
+                                            ):  Container(
+                                  height: 270,
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding*1.5),
+                                  child: Text("Vous n'avez encore aucun service pour le moment",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: kBlackColor.withOpacity(0.6)
+                                    ),
+                                  )
+                                ),
                                     const SizedBox(height: kDefaultPadding / 2),
                                     ...List.generate(
                                       controller

@@ -1,4 +1,3 @@
-
 import 'package:mdmscoops/models/response_model/entreprise_model.dart';
 
 abstract class ServicesService {
@@ -8,6 +7,12 @@ abstract class ServicesService {
   });
 
   Future<void> getAllServicesNotForMy({
+    String? idEntreprise,
+    Function(dynamic data)? onSuccess,
+    Function(dynamic error)? onError,
+  });
+
+  Future<void> getAllServicesForMy({
     String? idEntreprise,
     Function(dynamic data)? onSuccess,
     Function(dynamic error)? onError,
