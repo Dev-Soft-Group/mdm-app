@@ -129,7 +129,7 @@ class ProduitFormController extends GetxController {
       "idEntreprise": await _localService.getEntrepriseId(),
       "nom": textEditingNomProduit.text.trim(),
       "description": textEditingDescriptionProduit.text.trim(),
-      "prix": int.parse(textEditingPrixProduit.text.trim()),
+      "prix": textEditingPrixProduit.text.trim().isNotEmpty ? int.parse(textEditingPrixProduit.text.trim()) : 0,
       "categorie": categories.firstWhere(
           (element) => element['libelle'] == selectedCategory)['id'],
       "image": imageFile != null
