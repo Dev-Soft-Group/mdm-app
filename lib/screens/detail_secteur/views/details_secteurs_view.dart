@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/components/app_banner.dart';
@@ -134,16 +135,14 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                               )
                             : controller.corpsMetierList.isNotEmpty
                                 ? Expanded(
-                                    child: GridView.count(
-                                      crossAxisCount: 3,
-                                      mainAxisSpacing: 10,
-                                      crossAxisSpacing: 10,
-                                      shrinkWrap: true,
-                                      children: List.generate(
-                                          controller.corpsMetierList.length,
-                                          (index) => CoprsMetier(
-                                              item: controller
-                                                  .corpsMetierList[index])),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: List.generate(
+                                            controller.corpsMetierList.length,
+                                            (index) => CoprsMetier(
+                                                item: controller
+                                                    .corpsMetierList[index])),
+                                      ),
                                     ),
                                   )
                                 : Expanded(
@@ -190,47 +189,48 @@ class CoprsMetier extends StatelessWidget {
       onTap: (){ Get.toNamed(AppRoutes.CROPS_METIER_DETAIL, arguments: {"corpsMetier": item});},
       child: Card(
         elevation: 0,
+        margin: const EdgeInsets.symmetric(vertical: 6),
         child: Container(
-            alignment: Alignment.center,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              color: kWhiteColor,
-              borderRadius: BorderRadius.circular(kDefaultRadius),
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(0, 1),
-                  blurRadius: 3,
-                  color: kBlackColor.withOpacity(0.3),
-                )
-              ],
+          height: 70,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          alignment: Alignment.topLeft,
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: kWhiteColor,
+            borderRadius: BorderRadius.circular(kDefaultRadius),
+            boxShadow: [
+              BoxShadow(
+                offset: const Offset(0, 1),
+                blurRadius: 3,
+                color: kBlackColor.withOpacity(0.3),
+              )
+            ],
+          ),
+          child: ListTile(
+            title: Text(
+              item!.nom!.toString().capitalizeFirst!,
+              style: TextStyle(
+                color: kBlackColor.withOpacity(0.8),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-            child: Stack(
-              children: [
-                Image.asset("assets/images/photo.jpg",
-                height: double.infinity,
-                    width: double.infinity, fit: BoxFit.cover),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      color: kBlackColor.withOpacity(0.7),
-                    ),
-                    child: Text(item.nom!.toString().capitalizeFirst!,
-                      style: const TextStyle(
-                        color: kWhiteColor,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-                
-              ],
-            )),
+            trailing: Icon(
+              CupertinoIcons.chevron_right,
+              size: 30,
+              color: kPrimaryColor.withOpacity(0.7),
+            ),
+            subtitle: Text(
+              "Ajouté le : ${DateTime.parse(item!.created_at!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(item!.created_at!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(item!.created_at!.toString()).year.toString().padLeft(2, "0")}",
+              style: TextStyle(
+                color: kBlackColor.withOpacity(0.6),
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            contentPadding: const EdgeInsets.only(left: 0, right: 0),
+          ),
+        ),
       ),
     );
   }
