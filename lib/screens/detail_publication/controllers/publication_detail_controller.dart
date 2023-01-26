@@ -18,7 +18,7 @@ class PublicationDetailController extends GetxController {
   
   final LikesService _likesService = LikesServiceImpl();
 
-  List<Commentaire>? commentaires;
+  List<Commentaire>? commentaires = [];
 
   AppStatus publicationStatus = AppStatus.appDefault;
 
@@ -52,7 +52,7 @@ class PublicationDetailController extends GetxController {
   }
 
   Future<void> sendWhatsAppMessenger() async {
-    var number = "+237652310829";
+    var number = publication!.entreprise!.telephone;
     String message =
         "Bonjour M./Mme\nJe vous contacte depuis la plateforme mobile MDM SCOOPS\n\nJ'éprouve un intérêt particulier pour le produit: ${publication!.titre.toString().toUpperCase()} trouvé sur la plateforme";
     var whatsappUrlAndroid = "whatsapp://send?phone=$number&text=$message";

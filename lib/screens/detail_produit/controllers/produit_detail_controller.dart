@@ -103,7 +103,7 @@ class ProduitDetailController extends GetxController {
   }
 
   Future<void> sendWhatsAppMessenger() async {
-    var number = "+237652310829";
+    var number = produit!.entreprises!.first.telephone!;
     String message =
         "Bonjour M./Mme\nJe vous contacte depuis la plateforme mobile MDM SCOOPS\n\nJ'éprouve un intérêt particulier pour le produit: ${produit!.nom.toString().toUpperCase()} trouvé sur la plateforme";
     var whatsappUrlAndroid = "whatsapp://send?phone=$number&text=$message";

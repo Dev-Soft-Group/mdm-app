@@ -171,7 +171,7 @@ class ProfilEntrepreneurController extends GetxController {
   }
 
   Future<void> sendWhatsAppMessenger(Publication publication) async {
-    var number = "+237652310829";
+    var number = publication.entreprise!.telephone!;
     String message =
         "Bonjour M./Mme\nJe vous contacte depuis la plateforme mobile MDM SCOOPS\n\nJ'éprouve un intérêt particulier pour la publication du produit: ${publication.titre.toString().toUpperCase()} trouvé sur la plateforme";
     var whatsappUrlAndroid = "whatsapp://send?phone=$number&text=$message";
@@ -197,7 +197,7 @@ class ProfilEntrepreneurController extends GetxController {
   }
 
   Future<void> sendWhatsAppMessengerProduit(Produit produit) async {
-    var number = "+237652310829";
+    var number = produit.entreprises!.first.telephone;
     String message =
         "Bonjour M./Mme\nJe vous contacte depuis la plateforme mobile MDM SCOOPS\n\nJ'éprouve un intérêt particulier pour la publication du produit: ${produit.nom.toString().toUpperCase()} trouvé sur la plateforme";
     var whatsappUrlAndroid = "whatsapp://send?phone=$number&text=$message";

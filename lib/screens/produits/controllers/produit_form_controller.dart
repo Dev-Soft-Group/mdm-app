@@ -146,6 +146,7 @@ class ProduitFormController extends GetxController {
               message: data["message"].toString(),
               backColor: kBlackColor);
           produitFormStatus = AppStatus.appSuccess;
+          clearForm();
           update();
         },
         onError: (e) {
@@ -154,6 +155,13 @@ class ProduitFormController extends GetxController {
           produitFormStatus = AppStatus.appFailure;
           update();
         });
+  }
+
+  void clearForm() {
+    textEditingNomProduit.clear();
+    textEditingDescriptionProduit.clear();
+    textEditingPrixProduit.clear();
+    imageFile = null;
   }
 
   Future<void> updateProduit() async {

@@ -62,7 +62,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                 child: AspectRatio(
                                   aspectRatio: 4 / 3,
                                   child: CachedNetworkImage(
-                                    imageUrl: controller.produit!.imageUrl!
+                                    imageUrl: controller.produit == null ? "" : controller.produit!.imageUrl!
                                         .toString(),
                                     imageBuilder: (context, imageProvider) =>
                                         Container(

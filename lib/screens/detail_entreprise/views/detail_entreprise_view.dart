@@ -63,20 +63,6 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                     size: 26,
                                                     color: kWhiteColor)),
                                             const Spacer(),
-                                            // InkWell(
-                                            //           onTap: (){ Get.toNamed(AppRoutes.COMPTEENTREPRISE, arguments: { "entreprise": controller.entreprise! }); },
-                                            //           child: Container(
-                                            //             height: 30,
-                                            //             width: 30,
-                                            //             alignment: Alignment.center,
-                                            //             decoration: BoxDecoration(
-                                            //               color: Colors.grey[300],
-                                            //               shape: BoxShape.circle,
-                                            //             ),
-                                            //             child: const Icon(Icons.edit, size: 20, color: kPrimaryColor)
-                                            //           ),
-                                            //         ),
-
                                             Container(
                                                 height: 30,
                                                 width: 30,
