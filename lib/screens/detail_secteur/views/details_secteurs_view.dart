@@ -208,7 +208,7 @@ class CoprsMetier extends StatelessWidget {
           ),
           child: ListTile(
             title: Text(
-              item!.nom!.toString().capitalizeFirst!,
+              item.nom!.toString().capitalizeFirst!,
               style: TextStyle(
                 color: kBlackColor.withOpacity(0.8),
                 fontSize: 16,
@@ -221,7 +221,7 @@ class CoprsMetier extends StatelessWidget {
               color: kPrimaryColor.withOpacity(0.7),
             ),
             subtitle: Text(
-              "Ajouté le : ${DateTime.parse(item!.created_at!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(item!.created_at!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(item!.created_at!.toString()).year.toString().padLeft(2, "0")}",
+              "Ajouté le : ${DateTime.parse(item.created_at!.toString()).day.toString().padLeft(2, "0")}-${DateTime.parse(item.created_at!.toString()).month.toString().padLeft(2, "0")}-${DateTime.parse(item.created_at!.toString()).year.toString().padLeft(2, "0")}",
               style: TextStyle(
                 color: kBlackColor.withOpacity(0.6),
                 fontSize: 12,
