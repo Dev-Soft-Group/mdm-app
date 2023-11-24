@@ -22,7 +22,7 @@ class EntreprisesView extends GetView<EntrepriseController> {
       child: GetBuilder<EntrepriseController>(
         builder: (controller) => Scaffold(
           key: _scaffoldKey,
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,

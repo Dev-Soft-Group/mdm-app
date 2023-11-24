@@ -22,7 +22,7 @@ class ProduitsView extends GetView<ProduitController> {
       child: GetBuilder<ProduitController>(
         builder: (controller) => Scaffold(
           key: _scaffoldKey,
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -36,7 +36,9 @@ class ProduitsView extends GetView<ProduitController> {
                 AppBanner(open: openDrawer),
                 Expanded(
                   child: RefreshIndicator(
-                    onRefresh: ()async{  await controller.getAllPublications();},
+                    onRefresh: () async {
+                      await controller.getAllPublications();
+                    },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -67,7 +69,8 @@ class ProduitsView extends GetView<ProduitController> {
                                         controller.menus[index],
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: controller.selectedTabs == index
+                                          color: controller.selectedTabs ==
+                                                  index
                                               ? kBlackColor
                                               : kBlackColor.withOpacity(0.4),
                                           fontWeight:

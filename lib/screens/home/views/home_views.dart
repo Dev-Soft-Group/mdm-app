@@ -23,7 +23,7 @@ class HomeView extends GetView<HomeController> {
       child: GetBuilder<HomeController>(
         builder: (controller) => Scaffold(
           key: _scaffoldKey,
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,

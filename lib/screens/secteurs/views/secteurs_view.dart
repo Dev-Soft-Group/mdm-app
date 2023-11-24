@@ -18,11 +18,12 @@ class SecteursView extends GetView<SecteursController> {
     void openDrawer() {
       _scaffoldKey.currentState!.openDrawer();
     }
+
     return SafeArea(
       child: GetBuilder<SecteursController>(
         builder: (controller) => Scaffold(
           key: _scaffoldKey,
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -36,10 +37,12 @@ class SecteursView extends GetView<SecteursController> {
                 AppBanner(open: openDrawer),
                 Expanded(
                   child: RefreshIndicator(
-                    onRefresh: () async { await controller.getAllSecteurActivite();},
+                    onRefresh: () async {
+                      await controller.getAllSecteurActivite();
+                    },
                     child: Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: kDefaultPadding),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -86,10 +89,12 @@ class SecteursView extends GetView<SecteursController> {
                               crossAxisSpacing: 10,
                               shrinkWrap: true,
                               children: List.generate(
-                                  controller.categories.length, (index) => CustomCard(item: controller.categories[index])),
+                                  controller.categories.length,
+                                  (index) => CustomCard(
+                                      item: controller.categories[index])),
                             ),
                           ),
-                          const SizedBox(height: kDefaultPadding*1.5)
+                          const SizedBox(height: kDefaultPadding * 1.5)
                         ],
                       ),
                     ),
@@ -115,7 +120,9 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){ Get.toNamed(AppRoutes.DETAILSSECTEURS); },
+      onTap: () {
+        Get.toNamed(AppRoutes.DETAILSSECTEURS);
+      },
       child: Card(
         elevation: 0,
         child: Container(
@@ -147,13 +154,14 @@ class CustomCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: kBlackColor.withOpacity(0.7),
                     ),
-                    child: Text("$item",
+                    child: Text(
+                      "$item",
                       style: const TextStyle(
                         color: kWhiteColor,
                         fontSize: 16,
                       ),
                     ),
-                  ), 
+                  ),
                 ),
               ],
             )),

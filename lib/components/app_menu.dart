@@ -5,8 +5,8 @@ import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({
+class AppNavigationDrawer extends StatelessWidget {
+  const AppNavigationDrawer({
     Key? key,
   }) : super(key: key);
 
@@ -35,8 +35,7 @@ class NavigationDrawer extends StatelessWidget {
                         height: 60,
                         width: 60,
                         alignment: Alignment.center,
-                        child: Image.asset(
-                            "assets/images/D-SoftTechWhite.png",
+                        child: Image.asset("assets/images/D-SoftTechWhite.png",
                             fit: BoxFit.fill)),
                     const SizedBox(height: kDefaultPadding - 4),
                     const Text(
@@ -61,25 +60,30 @@ class NavigationDrawer extends StatelessWidget {
                       MenuItem(
                         image: "assets/icons/Icon-home.png",
                         title: "Accueil",
-                        onTap: () { Get.offAndToNamed(AppRoutes.PRODUCTS);},
+                        onTap: () {
+                          Get.offAndToNamed(AppRoutes.PRODUCTS);
+                        },
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-building.png",
                         title: "Entreprises",
                         onTap: () {
                           Get.offAndToNamed(AppRoutes.ENTREPRISES);
-                        
                         },
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-room-service.png",
                         title: "Publications",
-                        onTap: () {Get.offAndToNamed(AppRoutes.PRODUITS); },
+                        onTap: () {
+                          Get.offAndToNamed(AppRoutes.PRODUITS);
+                        },
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-room-service.png",
                         title: "Secteurs d'activités",
-                        onTap: () {Get.offAndToNamed(AppRoutes.SECTEURS); },
+                        onTap: () {
+                          Get.offAndToNamed(AppRoutes.SECTEURS);
+                        },
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-product-hunt.png",
@@ -91,12 +95,16 @@ class NavigationDrawer extends StatelessWidget {
                       MenuItem(
                         image: "assets/icons/Icon-profile.png",
                         title: "Profil",
-                        onTap: () {Get.offAndToNamed(AppRoutes.PROFILENTREPRENEUR);},
+                        onTap: () {
+                          Get.offAndToNamed(AppRoutes.PROFILENTREPRENEUR);
+                        },
                       ),
                       MenuItem(
                         image: "assets/icons/Icon-account-box.png",
                         title: "Créer un compte",
-                        onTap: () {Get.offAndToNamed(AppRoutes.COMPTEENTREPRISE);},
+                        onTap: () {
+                          Get.offAndToNamed(AppRoutes.COMPTEENTREPRISE);
+                        },
                       ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -113,7 +121,8 @@ class NavigationDrawer extends StatelessWidget {
                         onTap: () {},
                       ),
                       MenuItem(
-                        image: "assets/icons/Icon-information-circle-outline.png",
+                        image:
+                            "assets/icons/Icon-information-circle-outline.png",
                         title: "A propos",
                         onTap: () {},
                       ),
@@ -121,27 +130,27 @@ class NavigationDrawer extends StatelessWidget {
                         image: "assets/icons/Icon-account-logout.png",
                         title: "Se déconnecter",
                         onTap: () async {
-                          final LocalAuthService _localAuth = LocalAuthServiceImpl();
+                          final LocalAuthService _localAuth =
+                              LocalAuthServiceImpl();
                           await _localAuth.deleteToken();
                           Get.offAllNamed(AppRoutes.CONNEXION);
                         },
                       ),
-                      
                     ],
                   ),
                 ),
               ),
             ),
             Container(
-              height: 25,
-              alignment: Alignment.center,
-              child: Text("(c) All right reserved. by DouxSoftTech",
-                style: TextStyle(
-                  color: Colors.black.withOpacity(0.4),
-                  fontSize: 11,
-                ),
-              )
-            ),
+                height: 25,
+                alignment: Alignment.center,
+                child: Text(
+                  "(c) All right reserved. by DouxSoftTech",
+                  style: TextStyle(
+                    color: Colors.black.withOpacity(0.4),
+                    fontSize: 11,
+                  ),
+                )),
           ],
         ),
       ),

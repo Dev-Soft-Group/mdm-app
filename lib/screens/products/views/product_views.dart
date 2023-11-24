@@ -24,7 +24,7 @@ class ProductView extends GetView<ProductController> {
       child: GetBuilder<ProductController>(
         builder: (controller) => Scaffold(
           key: _scaffoldKey,
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -70,7 +70,8 @@ class ProductView extends GetView<ProductController> {
                                         height: 150,
                                         child: Center(
                                           child: CircularProgressIndicator(
-                                              color: kPrimaryColor.withOpacity(0.3)),
+                                              color: kPrimaryColor
+                                                  .withOpacity(0.3)),
                                         ),
                                       )
                                     : Container(),
@@ -121,7 +122,12 @@ class RowWidget extends StatelessWidget {
         if (childScrollController.position.maxScrollExtent ==
             childScrollController.offset) {
           next = controller.categoriesList[index].produitModel!.next;
-          if ((next != null && controller.categoriesList[index].produitModel!.isSearching == null) || (next != null && !controller.categoriesList[index].produitModel!.isSearching ) ) {
+          if ((next != null &&
+                  controller.categoriesList[index].produitModel!.isSearching ==
+                      null) ||
+              (next != null &&
+                  !controller
+                      .categoriesList[index].produitModel!.isSearching)) {
             controller.categoriesList[index].produitModel!.isSearching = true;
             controller.update();
             await Future.delayed(const Duration(seconds: 3));
@@ -132,13 +138,16 @@ class RowWidget extends StatelessWidget {
         }
       });
     }
+
     listenner();
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: kDefaultPadding,),
+            padding: const EdgeInsets.only(
+              left: kDefaultPadding,
+            ),
             child: TextTitle(
                 text: controller.categoriesList[index].nom!
                     .toString()
@@ -156,14 +165,18 @@ class RowWidget extends StatelessWidget {
                     (j) => CardItem(
                         item: controller
                             .categoriesList[index].produitModel!.produits![j])),
-                        controller.categoriesList[index].produitModel!.isSearching != null && controller.categoriesList[index].produitModel!.isSearching == true
+                controller.categoriesList[index].produitModel!.isSearching !=
+                            null &&
+                        controller.categoriesList[index].produitModel!
+                                .isSearching ==
+                            true
                     ? Container(
                         padding: const EdgeInsets.all(0),
                         height: 150,
                         width: 240,
                         child: Center(
-                          child:
-                              CircularProgressIndicator(color: kPrimaryColor.withOpacity(0.3)),
+                          child: CircularProgressIndicator(
+                              color: kPrimaryColor.withOpacity(0.3)),
                         ),
                       )
                     : Container(width: 20),

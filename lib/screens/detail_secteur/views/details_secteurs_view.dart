@@ -17,11 +17,12 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
     void openDrawer() {
       _scaffoldKey.currentState!.openDrawer();
     }
+
     return SafeArea(
       child: GetBuilder<SecteurDetailsController>(
         builder: (controller) => Scaffold(
           key: _scaffoldKey,
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
