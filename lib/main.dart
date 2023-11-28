@@ -14,14 +14,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'MDM-SCOOPS',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      getPages: AppPages.pages,
-      initialRoute: AppRoutes.START // Route de départ de l'application
-    );
+        title: 'MDM-SCOOPS',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        getPages: AppPages.pages,
+        initialRoute: AppRoutes.START // Route de départ de l'application
+        );
   }
 }
 
+
+// Build the application
+// flutter build apk --split-per-abi

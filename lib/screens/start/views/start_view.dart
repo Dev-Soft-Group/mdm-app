@@ -10,20 +10,21 @@ class StartView extends GetView<StartController> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: GetBuilder<StartController>(builder: (controller) {
         return Scaffold(
           body: Container(
-              height: Get.height,
-              width: Get.height,
+              height: height,
+              width: width,
               decoration: const BoxDecoration(
                 color: kPrimaryColor,
               ),
               child: Stack(
                 children: [
-
                   Positioned(
-                    top: Get.height*0.23,
+                    top: height * 0.23,
                     left: 0,
                     right: 0,
                     child: const Text(
@@ -40,23 +41,30 @@ class StartView extends GetView<StartController> {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    child: Container(
-                      height: 400,
-                      width: double.infinity,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: const BoxDecoration(),
-                      child: Image.asset(
-                        "assets/images/footerimg.png",
-                        fit: BoxFit.fill,
+                    child: InkWell(
+                      onTap: () {
+                        Get.offAllNamed(AppRoutes.ONBOARDING);
+                      },
+                      child: Container(
+                        height: 400,
+                        width: double.infinity,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: const BoxDecoration(),
+                        child: Image.asset(
+                          "assets/images/footerimg.png",
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                   ),
                   Positioned(
-                    top: Get.height / 1.6,
-                    left: Get.width / 4,
-                    right: Get.width / 4,
+                    top: height / 1.6,
+                    left: width / 4,
+                    right: width / 4,
                     child: InkWell(
-                      onTap: (){ Get.offAllNamed(AppRoutes.ONBOARDING);},
+                      onTap: () {
+                        Get.offAllNamed(AppRoutes.ONBOARDING);
+                      },
                       child: Container(
                         height: 45,
                         width: 140,

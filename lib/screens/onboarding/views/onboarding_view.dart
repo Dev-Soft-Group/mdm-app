@@ -26,7 +26,7 @@ class OnboardingView extends GetView<OnboardingController> {
                       children: [
                         controller.pages[index],
                         Positioned(
-                          bottom: 340,
+                          top: 290,
                           left: 0,
                           right: 0,
                           child: Row(
@@ -34,11 +34,13 @@ class OnboardingView extends GetView<OnboardingController> {
                             children: List.generate(
                                 controller.pages.length,
                                 (index) => Container(
-                                      height: 15,
-                                      width: 15,
+                                      height: 13,
+                                      width: 13,
                                       margin: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
-                                        color: controller.selectedPage == index ? kPrimaryColor : kPrimaryColor.withOpacity(0.2),
+                                        color: controller.selectedPage == index
+                                            ? kPrimaryColor
+                                            : kPrimaryColor.withOpacity(0.2),
                                         shape: BoxShape.circle,
                                       ),
                                     )),

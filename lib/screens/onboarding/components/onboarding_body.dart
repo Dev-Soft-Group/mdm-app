@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mdmscoops/core/app_colors.dart';
@@ -60,7 +59,7 @@ class OnboardingBody extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: kPrimaryColor,
-                          fontSize: 36,
+                          fontSize: 30,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
