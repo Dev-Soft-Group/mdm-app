@@ -1,7 +1,8 @@
-class Constantes {
-  static const String API_URL = "https://mdmscoops.pythonanywhere.com/api/v1";
+// ignore_for_file: constant_identifier_names
 
-  // static const String API_URL = "http://10.228.47.156:8000/api/v1";
+class Constantes {
+  static const String API_URL =
+      "https://mdmsiteapp.com/api/v1"; // https://mdmscoops.pythonanywhere.com/admin
   static const String ACCESSTOKEN = "ACCESSTOKEN";
   static const String USERDATA = "USERDATA";
 }
