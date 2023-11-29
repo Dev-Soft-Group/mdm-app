@@ -46,12 +46,8 @@ class InscriptionController extends GetxController {
           message: "Votre nom doit contenir au moins 04 caractères !");
       return;
     }
-    if (textEditingPassword.text.trim().isEmpty) {
-      AppSnackBar.show(
-          title: "Erreur", message: "Veuillez entrer votre mot de passe svp");
-      return;
-    }
-    if (textEditingNom.text.trim().length < 6) {
+    
+    if (textEditingPassword.text.trim().length < 6) {
       AppSnackBar.show(
           title: "Erreur",
           message: "Votre mot de passe doit contenir au moins 06 caractères !");
