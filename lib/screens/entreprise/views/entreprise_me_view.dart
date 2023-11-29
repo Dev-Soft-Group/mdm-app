@@ -17,15 +17,18 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
       child: GetBuilder<MyEnterpriseController>(builder: (context) {
         return Scaffold(
             appBar: AppBar(
+              foregroundColor: kWhiteColor,
               backgroundColor: kPrimaryColor,
-               title: const Text("Mes entreprises"),
+              title: const Text(
+                "Mes entreprises",
+              ),
               actions: [
                 Container(
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
                     clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration( shape: BoxShape.circle),
+                    decoration: const BoxDecoration(shape: BoxShape.circle),
                     child: Image.asset("assets/images/logo-mdm-scoops.jpg",
                         fit: BoxFit.fill)),
                 const SizedBox(
@@ -75,7 +78,9 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
                                   controller.entreprisesList.length,
                                   (index) => InkWell(
                                         onTap: () async {
-                                          controller.saveEntreprise(controller.entreprisesList[index].id!.toString());
+                                          controller.saveEntreprise(controller
+                                              .entreprisesList[index].id!
+                                              .toString());
                                         },
                                         child: Card(
                                           child: Container(
@@ -85,36 +90,48 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
                                                 children: [
                                                   Expanded(
                                                     child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        height: 70,
-                                                        width: 70,
-                                                        clipBehavior:
-                                                            Clip.antiAlias,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: kBlackColor
-                                                              .withOpacity(
-                                                                  0.08),
-                                                          shape:
-                                                              BoxShape.circle,
-                                                        ),
-                                                        child: CachedNetworkImage(
-                                                          imageUrl: controller.entreprisesList[index].logoUrl!.toString(),
-                                                          imageBuilder: (context, imageProvider) => Container(
-                                                            decoration: BoxDecoration(
-                                                              image: DecorationImage(
-                                                                  image: imageProvider,
-                                                                  fit: BoxFit.fill,
-                                                                  colorFilter: const ColorFilter.mode(
-                                                                      Colors.transparent, BlendMode.colorBurn)),
-                                                            ),
-                                                          ),
-                                                          errorWidget: (context, url, error) =>
-                                                              const Icon(Icons.error, size: 36),
-                                                        ),
-                                        
+                                                      alignment:
+                                                          Alignment.center,
+                                                      height: 70,
+                                                      width: 70,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: BoxDecoration(
+                                                        color: kBlackColor
+                                                            .withOpacity(0.08),
+                                                        shape: BoxShape.circle,
                                                       ),
+                                                      child: CachedNetworkImage(
+                                                        imageUrl: controller
+                                                            .entreprisesList[
+                                                                index]
+                                                            .logoUrl!
+                                                            .toString(),
+                                                        imageBuilder: (context,
+                                                                imageProvider) =>
+                                                            Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            image: DecorationImage(
+                                                                image:
+                                                                    imageProvider,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                                colorFilter: const ColorFilter
+                                                                    .mode(
+                                                                    Colors
+                                                                        .transparent,
+                                                                    BlendMode
+                                                                        .colorBurn)),
+                                                          ),
+                                                        ),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            const Icon(
+                                                                Icons.error,
+                                                                size: 36),
+                                                      ),
+                                                    ),
                                                   ),
                                                   const SizedBox(
                                                       height: kDefaultPadding),
