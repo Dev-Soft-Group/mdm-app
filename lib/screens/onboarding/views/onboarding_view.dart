@@ -38,7 +38,9 @@ class OnboardingView extends GetView<OnboardingController> {
                                       width: 15,
                                       margin: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
-                                        color: controller.selectedPage == index ? kPrimaryColor : kPrimaryColor.withOpacity(0.2),
+                                        color: controller.selectedPage == index
+                                            ? kPrimaryColor
+                                            : kPrimaryColor.withOpacity(0.2),
                                         shape: BoxShape.circle,
                                       ),
                                     )),

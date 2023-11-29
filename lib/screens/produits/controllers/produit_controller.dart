@@ -18,7 +18,7 @@ class ProduitController extends GetxController {
   final CategorieService _categorieService = CategorieServiceImpl();
 
   final ProduitService _produitService = ProduitServiceImpl();
-  
+
   final LikesService _likesService = LikesServiceImpl();
 
   TextEditingController searchText = TextEditingController();
@@ -30,6 +30,8 @@ class ProduitController extends GetxController {
   int _count = 0;
   var next, previous;
   bool is_searching = false;
+
+  bool isDataPresent = false;
 
   @override
   void onInit() async {
@@ -43,6 +45,11 @@ class ProduitController extends GetxController {
     _count = 0;
     next = null;
     previous = null;
+    update();
+  }
+
+  void toggleDataPresent(bool value) {
+    isDataPresent = value;
     update();
   }
 
@@ -62,47 +69,48 @@ class ProduitController extends GetxController {
     });
   }
 
-
   Future searchAllProductsCategories({String? value}) async {
     searchText.text = value!;
     productStatus = AppStatus.appLoading;
     update();
     await _categorieService.searchAllProductsCategories(
-      url: next,
-      pageSize: 3.toString(),
-      data: { "search": searchText.text.trim() },
-      onSuccess: (data) {
-      _count = data.count!;
-      next = data.next;
-      previous = data.previous;
-      categoriesList.addAll(data.categories!);
-      productStatus = AppStatus.appSuccess;
-      is_searching = false;
-      update();
-    }, onError: (e) {
-      AppSnackBar.show(title: "Error", message: e.response!.data["message"].toString());
-      productStatus = AppStatus.appFailure;
-      update();
-    });
+        url: next,
+        pageSize: 3.toString(),
+        data: {"search": searchText.text.trim()},
+        onSuccess: (data) {
+          _count = data.count!;
+          next = data.next;
+          previous = data.previous;
+          categoriesList.addAll(data.categories!);
+          productStatus = AppStatus.appSuccess;
+          is_searching = false;
+          update();
+        },
+        onError: (e) {
+          AppSnackBar.show(
+              title: "Error", message: e.response!.data["message"].toString());
+          productStatus = AppStatus.appFailure;
+          update();
+        });
   }
 
   Future<bool?> getPaginateProducts(dynamic next, int index) async {
     await _produitService.getPaginateProduits(
-      next: next,
-      onSuccess: (data) {
-        update();
-        categoriesList[index].produitModel!.next = data.next;
-        categoriesList[index].produitModel!.produits!.addAll(data.produits!);
-        update();
-        return true;
-      }, onError: (e) {
-        update();
-        return false;
-      }
-    );
+        next: next,
+        onSuccess: (data) {
+          update();
+          categoriesList[index].produitModel!.next = data.next;
+          categoriesList[index].produitModel!.produits!.addAll(data.produits!);
+          update();
+          return true;
+        },
+        onError: (e) {
+          update();
+          return false;
+        });
   }
 
-   Future<void> sendWhatsAppMessenger(Produit produit) async {
+  Future<void> sendWhatsAppMessenger(Produit produit) async {
     var number = produit.entreprises!.first.telephone!;
     String message =
         "Bonjour M./Mme\nJe vous contacte depuis la plateforme mobile MDM SCOOPS\n\nJ'éprouve un intérêt particulier pour le produit: ${produit.nom.toString().toUpperCase()} trouvé sur la plateforme";
@@ -128,13 +136,14 @@ class ProduitController extends GetxController {
     }
   }
 
-
-   Future likerProduit(int indexCat, int indexProd) async {
-    Produit produit = categoriesList[indexCat].produitModel!.produits![indexProd];
+  Future likerProduit(int indexCat, int indexProd) async {
+    Produit produit =
+        categoriesList[indexCat].produitModel!.produits![indexProd];
     await _likesService.likerProduit(
         idProduit: produit.id.toString(),
         onSuccess: (data) {
-          categoriesList[indexCat].produitModel!.produits![indexProd].likes = produit.likes! + data["results"] as int ?;
+          categoriesList[indexCat].produitModel!.produits![indexProd].likes =
+              produit.likes! + data["results"] as int?;
           update();
         },
         onError: (e) {
@@ -143,5 +152,4 @@ class ProduitController extends GetxController {
           update();
         });
   }
-
 }

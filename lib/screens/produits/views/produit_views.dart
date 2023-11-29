@@ -68,14 +68,14 @@ class ProduitsView extends GetView<ProduitController> {
                               children: [
                                 ...List.generate(
                                     controller.categoriesList.length,
-                                    (i) => controller.categoriesList[i]
+                                    (i) => ((controller.categoriesList[i]
                                                 .produitModel!.count !=
-                                            0
+                                            0)
                                         ? RowWidget(
                                             controller: controller,
                                             index: i,
                                           )
-                                        : Container()),
+                                        : Container())),
                                 controller.productStatus == AppStatus.appLoading
                                     ? Container(
                                         padding: const EdgeInsets.all(0),
@@ -87,9 +87,10 @@ class ProduitsView extends GetView<ProduitController> {
                                         ),
                                       )
                                     : Container(),
-                                controller.categoriesList.isEmpty &&
-                                        controller.productStatus ==
-                                            AppStatus.appSuccess
+                                ((controller.categoriesList.isEmpty &&
+                                            controller.productStatus ==
+                                                AppStatus.appSuccess) ||
+                                        !controller.isDataPresent)
                                     ? Container(
                                         alignment: Alignment.center,
                                         decoration: const BoxDecoration(),
@@ -128,6 +129,7 @@ class RowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dynamic next;
+    controller.toggleDataPresent(true);
     ScrollController childScrollController = ScrollController();
 
     void listenner() {
