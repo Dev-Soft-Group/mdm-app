@@ -60,7 +60,7 @@ class ApiRequest {
       if (onError != null) onError(error);
     });
   }
-  
+
   void put({
     Function()? beforeSend,
     Function(dynamic data)? onSuccess,

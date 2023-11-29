@@ -13,11 +13,14 @@ class AproposView extends GetView<AproposController> {
       child: GetBuilder<AproposController>(builder: (context) {
         return Scaffold(
             appBar: AppBar(
+              foregroundColor: kWhiteColor,
               backgroundColor: kPrimaryColor,
               leading: InkWell(
-                onTap: (){Get.back();},
-                child: const Icon(Icons.arrow_back, size: 26, color: Colors.white)
-              ),
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: const Icon(Icons.arrow_back,
+                      size: 26, color: Colors.white)),
               title: const Text("A propos"),
               actions: [
                 Container(
@@ -33,7 +36,7 @@ class AproposView extends GetView<AproposController> {
                 const SizedBox(
                   width: kDefaultPadding,
                 )
-              ],  
+              ],
             ),
             body: Container(
               height: Get.height,
@@ -48,15 +51,15 @@ class AproposView extends GetView<AproposController> {
                     const SizedBox(
                       height: kDefaultPadding * 1.5,
                     ),
-                    Text("Accompagnement, appui,coachings, conseils y compris le financement. Nous amenons les entrepreneurs à pouvoir coaliser  les efforts dans tous ses aspects techniques du front commun : partenariats ou en associé ; prestations de services ; représentation ; exposition vente. Nous aidons également d'une manière spécifique, l'élaboration des protocoles accord ou des contrats de partenariat entre les membres.",
-                    textAlign: TextAlign.justify,
+                    Text(
+                      "Accompagnement, appui,coachings, conseils y compris le financement. Nous amenons les entrepreneurs à pouvoir coaliser  les efforts dans tous ses aspects techniques du front commun : partenariats ou en associé ; prestations de services ; représentation ; exposition vente. Nous aidons également d'une manière spécifique, l'élaboration des protocoles accord ou des contrats de partenariat entre les membres.",
+                      textAlign: TextAlign.justify,
                       style: TextStyle(
-                        color: kBlackColor.withOpacity(0.8),
-                        fontSize: 16,
-                        height: 1.5,
-                        letterSpacing: 1.1,
-                        fontWeight: FontWeight.w400
-                      ),
+                          color: kBlackColor.withOpacity(0.8),
+                          fontSize: 16,
+                          height: 1.5,
+                          letterSpacing: 1.1,
+                          fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(
                       height: kDefaultPadding * 1.5,

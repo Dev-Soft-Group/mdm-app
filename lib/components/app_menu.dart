@@ -5,8 +5,8 @@ import 'package:mdmscoops/core/app_sizes.dart';
 import 'package:mdmscoops/routes/app_routes.dart';
 import 'package:mdmscoops/services/local_services/authentification/authentification.dart';
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({
+class AppNavigationDrawer extends StatelessWidget {
+  const AppNavigationDrawer({
     Key? key,
   }) : super(key: key);
 
@@ -125,7 +125,7 @@ class NavigationDrawer extends StatelessWidget {
                       MenuItem(
                         image: "assets/icons/Icon-contacts.png",
                         title: "Aide et contact",
-                         onTap: () {
+                        onTap: () {
                           Get.offAndToNamed(AppRoutes.CONTACTS);
                         },
                       ),
@@ -133,7 +133,7 @@ class NavigationDrawer extends StatelessWidget {
                         image:
                             "assets/icons/Icon-information-circle-outline.png",
                         title: "A propos",
-                         onTap: () {
+                        onTap: () {
                           Get.offAndToNamed(AppRoutes.APROPOS);
                         },
                       ),

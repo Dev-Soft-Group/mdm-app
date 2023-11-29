@@ -10,8 +10,8 @@ class StartView extends GetView<StartController> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: GetBuilder<StartController>(builder: (controller) {
         return Scaffold(
@@ -24,7 +24,7 @@ class StartView extends GetView<StartController> {
               child: Stack(
                 children: [
                   Positioned(
-                    top: height*0.23,
+                    top: height * 0.23,
                     left: 0,
                     right: 0,
                     child: const Text(
@@ -57,7 +57,9 @@ class StartView extends GetView<StartController> {
                     left: width / 4,
                     right: width / 4,
                     child: InkWell(
-                      onTap: (){ Get.offAllNamed(AppRoutes.ONBOARDING);},
+                      onTap: () {
+                        Get.offAllNamed(AppRoutes.ONBOARDING);
+                      },
                       child: Container(
                         height: 45,
                         width: 140,

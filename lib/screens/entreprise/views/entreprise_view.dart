@@ -28,7 +28,7 @@ class EntreprisesView extends GetView<EntrepriseController> {
       child: GetBuilder<EntrepriseController>(
         builder: (controller) => Scaffold(
           key: scaffoldKey,
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -39,9 +39,12 @@ class EntreprisesView extends GetView<EntrepriseController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBanner(open: openDrawer, onChanged: (text) async {
-                  await controller.searchAllEntreprises(value: text);
-                },),
+                AppBanner(
+                  open: openDrawer,
+                  onChanged: (text) async {
+                    await controller.searchAllEntreprises(value: text);
+                  },
+                ),
                 controller.entrepriseStatus == AppStatus.appLoading
                     ? Expanded(
                         child: Container(
@@ -111,31 +114,41 @@ class EntreprisesView extends GetView<EntrepriseController> {
                                                   .withOpacity(0.4)),
                                         ),
                                       )
-                                    : controller.entreprisesList.isNotEmpty ? Expanded(
-                                        child: GridView.count(
-                                          crossAxisCount: 3,
-                                          mainAxisSpacing: 10,
-                                          crossAxisSpacing: 10,
-                                          shrinkWrap: true,
-                                          children: List.generate(
-                                              controller.entreprisesList.length,
-                                              (index) => CustomCard(
-                                                  item: controller
-                                                      .entreprisesList[index])),
-                                        ),
-                                      ) : Expanded(
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding*1.5),
-                                          alignment: Alignment.center,
-                                          child: Text("Aucune entreprise pour le corps métier ${controller.menus[controller.selectedTabs]["libelle"]} !!!",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: kBlackColor.withOpacity(0.6),
-                                              fontSize: 16,
+                                    : controller.entreprisesList.isNotEmpty
+                                        ? Expanded(
+                                            child: GridView.count(
+                                              crossAxisCount: 3,
+                                              mainAxisSpacing: 10,
+                                              crossAxisSpacing: 10,
+                                              shrinkWrap: true,
+                                              children: List.generate(
+                                                  controller
+                                                      .entreprisesList.length,
+                                                  (index) => CustomCard(
+                                                      item: controller
+                                                              .entreprisesList[
+                                                          index])),
+                                            ),
+                                          )
+                                        : Expanded(
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal:
+                                                          kDefaultPadding *
+                                                              1.5),
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "Aucune entreprise pour le corps métier ${controller.menus[controller.selectedTabs]["libelle"]} !!!",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: kBlackColor
+                                                      .withOpacity(0.6),
+                                                  fontSize: 16,
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
                                 const SizedBox(height: kDefaultPadding * 1.5)
                               ],
                             ),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +19,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
     return SafeArea(
       child: GetBuilder<SecteurDetailsController>(
         builder: (controller) => Scaffold(
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -35,7 +34,10 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                     open: () {
                       Get.back();
                     },
-                    onChanged: (text) async { await controller.searchAllCoprsForSecteurActivite(value: text); },
+                    onChanged: (text) async {
+                      await controller.searchAllCoprsForSecteurActivite(
+                          value: text);
+                    },
                     iconData: Icons.arrow_back),
                 Expanded(
                   child: Padding(
@@ -68,13 +70,16 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                     width: 20,
                                   ),
                                   Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           "Secteur d'activité",
                                           style: TextStyle(
-                                              color: kBlackColor.withOpacity(0.5),
+                                              color:
+                                                  kBlackColor.withOpacity(0.5),
                                               fontSize: 14),
                                         ),
                                         const SizedBox(height: 3),
@@ -151,7 +156,7 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
                                             horizontal: kDefaultPadding * 1.5),
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "Aucun corps métier trouvé dont le secteur d'activité est ${ controller.searchText.text.isEmpty ? controller.secteur!.nom!.toUpperCase() : controller.searchText.text.toUpperCase()}.",
+                                          "Aucun corps métier trouvé dont le secteur d'activité est ${controller.searchText.text.isEmpty ? controller.secteur!.nom!.toUpperCase() : controller.searchText.text.toUpperCase()}.",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: kBlackColor.withOpacity(0.5),
@@ -174,7 +179,6 @@ class SecteurDetailView extends GetView<SecteurDetailsController> {
   }
 }
 
-
 class CoprsMetier extends StatelessWidget {
   const CoprsMetier({
     Key? key,
@@ -186,7 +190,10 @@ class CoprsMetier extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){ Get.toNamed(AppRoutes.CROPS_METIER_DETAIL, arguments: {"corpsMetier": item});},
+      onTap: () {
+        Get.toNamed(AppRoutes.CROPS_METIER_DETAIL,
+            arguments: {"corpsMetier": item});
+      },
       child: Card(
         elevation: 0,
         margin: const EdgeInsets.symmetric(vertical: 6),

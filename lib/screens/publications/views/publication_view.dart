@@ -24,7 +24,7 @@ class PublicationsView extends GetView<PublicationsController> {
       child: GetBuilder<PublicationsController>(
         builder: (controller) => Scaffold(
           key: scaffoldKey,
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -103,7 +103,18 @@ class PublicationsView extends GetView<PublicationsController> {
                                         ...List.generate(
                                             controller.publicationsList.length,
                                             (index) => CardPubItem(
-                                              onTap: (){Get.toNamed(AppRoutes.PUBLICATION_DETAIL, arguments: { 'idPublication': controller.publicationsList[index].id! }); },
+                                                  onTap: () {
+                                                    Get.toNamed(
+                                                        AppRoutes
+                                                            .PUBLICATION_DETAIL,
+                                                        arguments: {
+                                                          'idPublication':
+                                                              controller
+                                                                  .publicationsList[
+                                                                      index]
+                                                                  .id!
+                                                        });
+                                                  },
                                                   onMessage: () async {
                                                     await controller
                                                         .sendWhatsAppMessenger(
@@ -111,7 +122,11 @@ class PublicationsView extends GetView<PublicationsController> {
                                                                     .publicationsList[
                                                                 index]);
                                                   },
-                                                  liker: () async { await controller.likerPublication(index);},
+                                                  liker: () async {
+                                                    await controller
+                                                        .likerPublication(
+                                                            index);
+                                                  },
                                                   item: controller
                                                       .publicationsList[index],
                                                   width: Get.width / 2 - 25,
@@ -126,29 +141,36 @@ class PublicationsView extends GetView<PublicationsController> {
                                         const SizedBox(height: kDefaultPadding),
                                       ],
                                     )
-                                  : 
-                                  controller.publicationsList.isEmpty && controller.publicationStatus == AppStatus.appLoading ?
-                                  Container(
-                                    height: Get.height- 220,
-                                    width: Get.width,
-                                    alignment: Alignment.center,
-                                    child: CircularProgressIndicator(color: kPrimaryColor.withOpacity(0.4)),
-                                  )
-                                  : Container(
-                                    height: Get.height - 220,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: kDefaultPadding * 1.5),
-                                      alignment: Alignment.center,
-                                      child: Text( controller.searchText.text.isNotEmpty ?
-                                        "Aucune publication trouvée dont le titre contient ${controller.searchText.text.toUpperCase()} !!!" :
-                                        "Aucune publication trouvée dont la catégorie est ${controller.menus[controller.selectedTabs]['libelle'].toString().toUpperCase()} !!!" ,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: kBlackColor.withOpacity(0.6),
-                                          fontSize: 16,
+                                  : controller.publicationsList.isEmpty &&
+                                          controller.publicationStatus ==
+                                              AppStatus.appLoading
+                                      ? Container(
+                                          height: Get.height - 220,
+                                          width: Get.width,
+                                          alignment: Alignment.center,
+                                          child: CircularProgressIndicator(
+                                              color: kPrimaryColor
+                                                  .withOpacity(0.4)),
+                                        )
+                                      : Container(
+                                          height: Get.height - 220,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal:
+                                                  kDefaultPadding * 1.5),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            controller
+                                                    .searchText.text.isNotEmpty
+                                                ? "Aucune publication trouvée dont le titre contient ${controller.searchText.text.toUpperCase()} !!!"
+                                                : "Aucune publication trouvée dont la catégorie est ${controller.menus[controller.selectedTabs]['libelle'].toString().toUpperCase()} !!!",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color:
+                                                  kBlackColor.withOpacity(0.6),
+                                              fontSize: 16,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
                             ),
                           ),
                         ),

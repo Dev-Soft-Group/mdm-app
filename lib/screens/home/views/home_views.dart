@@ -25,7 +25,7 @@ class HomeView extends GetView<HomeController> {
       child: GetBuilder<HomeController>(
         builder: (controller) => Scaffold(
           key: scaffoldKey,
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -58,18 +58,20 @@ class HomeView extends GetView<HomeController> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   const Padding(
-                                    padding: EdgeInsets.only(left:10.0),
-                                    child: TextTitle(
-                                        text: "List des roduits"),
+                                    padding: EdgeInsets.only(left: 10.0),
+                                    child: TextTitle(text: "List des roduits"),
                                   ),
                                   const SizedBox(height: kDefaultPadding),
                                   ...List.generate(
                                       controller.categoriesList.length,
-                                      (i) => controller.categoriesList[i].produitModel!.count != 0 ? RowWidget(
-                                            controller: controller,
-                                            index: i,
-                                          ): Container()),
-
+                                      (i) => controller.categoriesList[i]
+                                                  .produitModel!.count !=
+                                              0
+                                          ? RowWidget(
+                                              controller: controller,
+                                              index: i,
+                                            )
+                                          : Container()),
                                   controller.productStatus ==
                                           AppStatus.appLoading
                                       ? Container(
@@ -86,22 +88,21 @@ class HomeView extends GetView<HomeController> {
                                           controller.productStatus ==
                                               AppStatus.appSuccess
                                       ? Container(
-                                        height: Get.height / 2,
-                                        width: double.infinity,
-                                        decoration: const BoxDecoration(),
-                                        child: Text(
-                                          "Ooops !!!\nAucune catégorie trouvée",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: kBlackColor
-                                                .withOpacity(0.7),
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w400,
+                                          height: Get.height / 2,
+                                          width: double.infinity,
+                                          decoration: const BoxDecoration(),
+                                          child: Text(
+                                            "Ooops !!!\nAucune catégorie trouvée",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color:
+                                                  kBlackColor.withOpacity(0.7),
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                            ),
                                           ),
-                                        ),
-                                      )
+                                        )
                                       : Container(),
-
                                 ],
                               ),
                             ),
@@ -175,13 +176,13 @@ class RowWidget extends StatelessWidget {
                         .categoriesList[index].produitModel!.produits!.length,
                     (j) => ProductItem(
                         onTap: () {
-                          Get.toNamed(AppRoutes.PRODUITSDETAILS,
-                              arguments: {'idProduit': controller.categoriesList[index].produitModel!.produits![j].id!});
+                          Get.toNamed(AppRoutes.PRODUITSDETAILS, arguments: {
+                            'idProduit': controller.categoriesList[index]
+                                .produitModel!.produits![j].id!
+                          });
                         },
                         item: controller
-                            .categoriesList[index].produitModel!.produits![j]
-
-                        )),
+                            .categoriesList[index].produitModel!.produits![j])),
                 controller.categoriesList[index].produitModel!.isSearching !=
                             null &&
                         controller.categoriesList[index].produitModel!

@@ -17,11 +17,14 @@ class ServicesView extends GetView<ServiceController> {
       child: GetBuilder<ServiceController>(builder: (context) {
         return Scaffold(
             appBar: AppBar(
+              foregroundColor: kWhiteColor,
               backgroundColor: kPrimaryColor,
               leading: InkWell(
-                onTap: (){Get.back();},
-                child: const Icon(Icons.arrow_back, size: 26, color: Colors.white)
-              ),
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: const Icon(Icons.arrow_back,
+                      size: 26, color: Colors.white)),
               title: const Text("Services"),
               actions: [
                 Container(
@@ -37,7 +40,7 @@ class ServicesView extends GetView<ServiceController> {
                 const SizedBox(
                   width: kDefaultPadding,
                 )
-              ],  
+              ],
             ),
             body: Container(
               height: Get.height,
@@ -70,7 +73,8 @@ class ServicesView extends GetView<ServiceController> {
                             children: [
                               ...List.generate(
                                   controller.servicesList.length,
-                                  (index) => ServiceCard(service: controller.servicesList[index])),
+                                  (index) => ServiceCard(
+                                      service: controller.servicesList[index])),
                             ],
                           ),
                   ),
@@ -81,5 +85,3 @@ class ServicesView extends GetView<ServiceController> {
     );
   }
 }
-
-
