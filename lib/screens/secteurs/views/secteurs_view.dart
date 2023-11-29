@@ -26,7 +26,7 @@ class SecteursView extends GetView<SecteursController> {
       child: GetBuilder<SecteursController>(
         builder: (controller) => Scaffold(
           key: scaffoldKey,
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -57,7 +57,6 @@ class SecteursView extends GetView<SecteursController> {
                         children: [
                           const TextTitle(text: "Secteurs d'activités"),
                           const SizedBox(height: kDefaultPadding),
-                          
                           controller.secteursStatus == AppStatus.appLoading
                               ? Expanded(
                                   child: Container(
@@ -68,20 +67,19 @@ class SecteursView extends GetView<SecteursController> {
                                 )
                               : controller.secteurActivitesList.isNotEmpty
                                   ? Expanded(
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        children: [
-                                          ...List.generate(
-                                              controller
-                                                  .secteurActivitesList.length,
-                                              (index) => CustomCard(
-                                                  item: controller
-                                                          .secteurActivitesList[
-                                                      index])),
-                                        ],
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            ...List.generate(
+                                                controller.secteurActivitesList
+                                                    .length,
+                                                (index) => CustomCard(
+                                                    item: controller
+                                                            .secteurActivitesList[
+                                                        index])),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                     
                                     )
                                   : Expanded(
                                       child: Container(

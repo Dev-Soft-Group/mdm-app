@@ -19,7 +19,7 @@ class CorpsMetierDetailView extends GetView<CorpsMetierDetailController> {
     return SafeArea(
       child: GetBuilder<CorpsMetierDetailController>(
         builder: (controller) => Scaffold(
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -34,7 +34,9 @@ class CorpsMetierDetailView extends GetView<CorpsMetierDetailController> {
                     open: () {
                       Get.back();
                     },
-                    onChanged: (text) async { await controller.searchAllEntreprises(value: text);},
+                    onChanged: (text) async {
+                      await controller.searchAllEntreprises(value: text);
+                    },
                     iconData: Icons.arrow_back),
                 Expanded(
                   child: Padding(
@@ -67,13 +69,16 @@ class CorpsMetierDetailView extends GetView<CorpsMetierDetailController> {
                                     width: 20,
                                   ),
                                   Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           "Corps Métier",
                                           style: TextStyle(
-                                              color: kBlackColor.withOpacity(0.5),
+                                              color:
+                                                  kBlackColor.withOpacity(0.5),
                                               fontSize: 14),
                                         ),
                                         const SizedBox(height: 3),
@@ -152,7 +157,7 @@ class CorpsMetierDetailView extends GetView<CorpsMetierDetailController> {
                                             horizontal: kDefaultPadding * 1.5),
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "Aucune entreprise trouvée dont le corps métier est ${ controller.searchText.text.isEmpty ? controller.corpsMetier!.nom!.toUpperCase() : controller.searchText.text.toUpperCase() }.",
+                                          "Aucune entreprise trouvée dont le corps métier est ${controller.searchText.text.isEmpty ? controller.corpsMetier!.nom!.toUpperCase() : controller.searchText.text.toUpperCase()}.",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: kBlackColor.withOpacity(0.5),
@@ -174,4 +179,3 @@ class CorpsMetierDetailView extends GetView<CorpsMetierDetailController> {
     );
   }
 }
-

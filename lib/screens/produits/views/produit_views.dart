@@ -25,7 +25,7 @@ class ProduitsView extends GetView<ProduitController> {
       child: GetBuilder<ProduitController>(
         builder: (controller) => Scaffold(
           key: scaffoldKey,
-          drawer: const NavigationDrawer(),
+          drawer: const AppNavigationDrawer(),
           body: Container(
             height: Get.height,
             width: Get.width,
@@ -36,9 +36,12 @@ class ProduitsView extends GetView<ProduitController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBanner(open: openDrawer, onChanged: (text) async { 
-                  controller.clearVariables();
-                  await controller.searchAllProductsCategories(value: text);}),
+                AppBanner(
+                    open: openDrawer,
+                    onChanged: (text) async {
+                      controller.clearVariables();
+                      await controller.searchAllProductsCategories(value: text);
+                    }),
                 Expanded(
                   child: RefreshIndicator(
                     color: kPrimaryColor,
@@ -47,7 +50,8 @@ class ProduitsView extends GetView<ProduitController> {
                       controller.categoriesList.clear();
                       controller.next = null;
                       controller.update();
-                      await controller.searchAllProductsCategories(value: controller.searchText.text);
+                      await controller.searchAllProductsCategories(
+                          value: controller.searchText.text);
                     },
                     child: controller.productStatus == AppStatus.appLoading &&
                             controller.categoriesList.isEmpty
@@ -64,10 +68,14 @@ class ProduitsView extends GetView<ProduitController> {
                               children: [
                                 ...List.generate(
                                     controller.categoriesList.length,
-                                    (i) => controller.categoriesList[i].produitModel!.count != 0 ? RowWidget(
-                                          controller: controller,
-                                          index: i,
-                                        ) : Container()),
+                                    (i) => controller.categoriesList[i]
+                                                .produitModel!.count !=
+                                            0
+                                        ? RowWidget(
+                                            controller: controller,
+                                            index: i,
+                                          )
+                                        : Container()),
                                 controller.productStatus == AppStatus.appLoading
                                     ? Container(
                                         padding: const EdgeInsets.all(0),
@@ -83,7 +91,7 @@ class ProduitsView extends GetView<ProduitController> {
                                         controller.productStatus ==
                                             AppStatus.appSuccess
                                     ? Container(
-                                      alignment: Alignment.center,
+                                        alignment: Alignment.center,
                                         decoration: const BoxDecoration(),
                                         width: double.infinity,
                                         height: Get.height - 125,
@@ -164,13 +172,23 @@ class RowWidget extends StatelessWidget {
             child: Row(
               children: [
                 ...List.generate(
-                    controller.categoriesList[index].produitModel!.produits!.length,
+                    controller
+                        .categoriesList[index].produitModel!.produits!.length,
                     (j) => CardItem(
-                        liker: () async { await controller.likerProduit(index, j);},
-                        onMessage: () async { await controller.sendWhatsAppMessenger(controller.categoriesList[index].produitModel!.produits![j]);},
+                        liker: () async {
+                          await controller.likerProduit(index, j);
+                        },
+                        onMessage: () async {
+                          await controller.sendWhatsAppMessenger(controller
+                              .categoriesList[index]
+                              .produitModel!
+                              .produits![j]);
+                        },
                         onTap: () {
-                          Get.toNamed(AppRoutes.PRODUITSDETAILS,
-                              arguments: {'idProduit': controller.categoriesList[index].produitModel!.produits![j].id!});
+                          Get.toNamed(AppRoutes.PRODUITSDETAILS, arguments: {
+                            'idProduit': controller.categoriesList[index]
+                                .produitModel!.produits![j].id!
+                          });
                         },
                         item: controller
                             .categoriesList[index].produitModel!.produits![j])),
