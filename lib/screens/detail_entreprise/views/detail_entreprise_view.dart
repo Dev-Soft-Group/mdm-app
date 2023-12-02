@@ -272,7 +272,7 @@ class EntrepriseDetailView extends GetView<EntrepriseDetailController> {
                                                     right: kDefaultPadding - 5),
                                                     child: Container(
                                                       alignment: Alignment.center,
-                                                      height: 200,
+                                                      height: 220,
                                                       width: 200,
                                                       child: ServiceCard(
                                                         service: controller.servicesList[index],

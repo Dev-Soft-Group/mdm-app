@@ -62,8 +62,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                 child: AspectRatio(
                                   aspectRatio: 4 / 3,
                                   child: CachedNetworkImage(
-                                    imageUrl: controller.produit == null ? "" : controller.produit!.imageUrl!
-                                        .toString(),
+                                    imageUrl: controller.produit!.imageUrl!.toString(),
                                     imageBuilder: (context, imageProvider) =>
                                         Container(
                                       decoration: BoxDecoration(
@@ -80,7 +79,7 @@ class DetailProduitView extends GetView<ProduitDetailController> {
                                   ),
                                 ),
                               ),
-                              controller.produit!.prix != null
+                              controller.produit != null
                                   ? Positioned(
                                       bottom: 0,
                                       right: 0,

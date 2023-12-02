@@ -19,7 +19,6 @@ class EntrepriseDetailController extends GetxController {
   AppStatus entrepriseStatus = AppStatus.appDefault;
   AppStatus servicesStatus = AppStatus.appDefault;
 
-  String idEntreprise = "";
   Entreprise? entreprise;
 
   List<String> siteWeb = [];
@@ -27,7 +26,6 @@ class EntrepriseDetailController extends GetxController {
 
   @override
   void onInit() async {
-    idEntreprise = Get.arguments["idEntreprise"];
     await getEntrepriseById();
     await getAllServicesForMy();
     update();
@@ -38,7 +36,7 @@ class EntrepriseDetailController extends GetxController {
     servicesStatus = AppStatus.appLoading;
     update();
     await _serviceService.getAllServicesForMy(
-      idEntreprise: idEntreprise.toString(),
+      idEntreprise: Get.arguments["idEntreprise"],
       onSuccess: (data) {
       servicesList = data.services!;
       servicesStatus = AppStatus.appSuccess;
@@ -54,8 +52,9 @@ class EntrepriseDetailController extends GetxController {
     entrepriseStatus = AppStatus.appLoading;
     update();
 
+
     await _entrepriseService.getEntrepriseById(
-        idEntreprise: idEntreprise.toString(),
+        idEntreprise: Get.arguments["idEntreprise"],
         onSuccess: (data) {
           entreprise = data;
           siteWeb = entreprise!.sites!.split(", ");

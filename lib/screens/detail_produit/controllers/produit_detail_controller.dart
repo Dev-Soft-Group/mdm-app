@@ -39,7 +39,7 @@ class ProduitDetailController extends GetxController {
     productStatus = AppStatus.appLoading;
     update();
     await _produitService.getProduitById(
-        productId: idProduit,
+        productId: Get.arguments["idProduit"],
         onSuccess: (data) {
           produit = data;
           productStatus = AppStatus.appSuccess;
@@ -56,7 +56,7 @@ class ProduitDetailController extends GetxController {
     productStatus = AppStatus.appLoading;
     update();
     await _commentaireService.getAllCommentForProduit(
-        idProduit: idProduit.toString(),
+        idProduit: Get.arguments["idProduit"],
         onSuccess: (data) {
           commentaires = data.commentaires!;
           productStatus = AppStatus.appSuccess;
@@ -72,7 +72,7 @@ class ProduitDetailController extends GetxController {
 
   Future likerProduit() async {
     await _likesService.likerProduit(
-        idProduit: idProduit.toString(),
+        idProduit: Get.arguments["idProduit"],
         onSuccess: (data) {
           produit!.likes = produit!.likes! + data["results"] as int ?;
           update();
@@ -88,7 +88,7 @@ class ProduitDetailController extends GetxController {
     // productStatus = AppStatus.appLoading;
     update();
     await _produitService.getAllEntreprisesForProduit(
-        idProduit: idProduit.toString(),
+        idProduit: Get.arguments["idProduit"],
         onSuccess: (data) {
           entreprisesList = data.entreprises!;
           // productStatus = AppStatus.appSuccess;

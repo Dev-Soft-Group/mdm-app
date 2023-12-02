@@ -57,179 +57,188 @@ class MyEnterprisesView extends GetView<MyEnterpriseController> {
                   const SizedBox(
                     height: kDefaultPadding,
                   ),
-                  Container(
-                    height: Get.height - 178,
-                    margin: const EdgeInsets.only(bottom: kDefaultPadding),
-                    decoration: const BoxDecoration(),
-                    child: controller.entrepriseStatus == AppStatus.appLoading
-                        ? Container(
-                            alignment: Alignment.center,
-                            child: CircularProgressIndicator(
-                                color: kPrimaryColor.withOpacity(0.4)),
-                          )
-                        : GridView.count(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            childAspectRatio: 1.0,
-                            shrinkWrap: true,
-                            children: [
-                              ...List.generate(
-                                  controller.entreprisesList.length,
-                                  (index) => InkWell(
-                                        onTap: () async {
-                                          controller.saveEntreprise(controller
-                                              .entreprisesList[index].id!
-                                              .toString());
-                                        },
-                                        child: Card(
-                                          child: Container(
-                                              padding:
-                                                  const EdgeInsets.all(10.0),
-                                              child: Column(
-                                                children: [
-                                                  Expanded(
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: 70,
-                                                      width: 70,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: BoxDecoration(
-                                                        color: kBlackColor
-                                                            .withOpacity(0.08),
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: CachedNetworkImage(
-                                                        imageUrl: controller
-                                                            .entreprisesList[
-                                                                index]
-                                                            .logoUrl!
-                                                            .toString(),
-                                                        imageBuilder: (context,
-                                                                imageProvider) =>
-                                                            Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            image: DecorationImage(
-                                                                image:
-                                                                    imageProvider,
-                                                                fit:
-                                                                    BoxFit.fill,
-                                                                colorFilter: const ColorFilter
-                                                                    .mode(
-                                                                    Colors
-                                                                        .transparent,
-                                                                    BlendMode
-                                                                        .colorBurn)),
-                                                          ),
+                  Expanded(
+                    child: Container(
+                      decoration: const BoxDecoration(),
+                      child: controller.entrepriseStatus == AppStatus.appLoading
+                          ? Container(
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(
+                                  color: kPrimaryColor.withOpacity(0.4)),
+                            )
+                          : GridView.count(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 1.0,
+                              shrinkWrap: true,
+                              children: [
+                                ...List.generate(
+                                    controller.entreprisesList.length,
+                                    (index) => InkWell(
+                                          onTap: () async {
+                                            controller.saveEntreprise(controller
+                                                .entreprisesList[index].id!
+                                                .toString());
+                                          },
+                                          child: Card(
+                                            child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Column(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 70,
+                                                        width: 70,
+                                                        clipBehavior:
+                                                            Clip.antiAlias,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: kBlackColor
+                                                              .withOpacity(
+                                                                  0.08),
+                                                          shape:
+                                                              BoxShape.circle,
                                                         ),
-                                                        errorWidget: (context,
-                                                                url, error) =>
-                                                            const Icon(
-                                                                Icons.error,
-                                                                size: 36),
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          imageUrl: controller
+                                                              .entreprisesList[
+                                                                  index]
+                                                              .logoUrl!
+                                                              .toString(),
+                                                          imageBuilder: (context,
+                                                                  imageProvider) =>
+                                                              Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              image: DecorationImage(
+                                                                  image:
+                                                                      imageProvider,
+                                                                  fit: BoxFit
+                                                                      .fill,
+                                                                  colorFilter: const ColorFilter
+                                                                      .mode(
+                                                                      Colors
+                                                                          .transparent,
+                                                                      BlendMode
+                                                                          .colorBurn)),
+                                                            ),
+                                                          ),
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              const Icon(
+                                                                  Icons.error,
+                                                                  size: 36),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  const SizedBox(
-                                                      height: kDefaultPadding),
-                                                  Expanded(
-                                                    child: Container(
-                                                      width: double.infinity,
-                                                      decoration:
-                                                          const BoxDecoration(),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                              controller
-                                                                  .entreprisesList[
-                                                                      index]
-                                                                  .nom!
-                                                                  .toString()
-                                                                  .capitalizeFirst!,
-                                                              style: TextStyle(
-                                                                color: kBlackColor
-                                                                    .withOpacity(
-                                                                        0.8),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 16,
-                                                              )),
-                                                          Text(
-                                                              "Tel: ${controller.entreprisesList[index].telephone!.toString().capitalizeFirst!}",
-                                                              textAlign:
-                                                                  TextAlign.end,
-                                                              style: TextStyle(
-                                                                color: kBlackColor
-                                                                    .withOpacity(
-                                                                        0.6),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                fontSize: 14,
-                                                              )),
-                                                        ],
+                                                    const SizedBox(
+                                                        height:
+                                                            kDefaultPadding),
+                                                    Expanded(
+                                                      child: Container(
+                                                        width: double.infinity,
+                                                        decoration:
+                                                            const BoxDecoration(),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                                controller
+                                                                    .entreprisesList[
+                                                                        index]
+                                                                    .nom!
+                                                                    .toString()
+                                                                    .capitalizeFirst!,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: kBlackColor
+                                                                      .withOpacity(
+                                                                          0.8),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 16,
+                                                                )),
+                                                            Text(
+                                                                "Tel: ${controller.entreprisesList[index].telephone!.toString().capitalizeFirst!}",
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .end,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: kBlackColor
+                                                                      .withOpacity(
+                                                                          0.6),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontSize: 14,
+                                                                )),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              )),
-                                        ),
-                                      )),
-                              InkWell(
-                                onTap: () {
-                                  Get.offAndToNamed(AppRoutes.COMPTEENTREPRISE);
-                                },
-                                child: Card(
-                                  child: Container(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                              alignment: Alignment.center,
-                                              height: 70,
-                                              width: 70,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
-                                                color: kBlackColor
-                                                    .withOpacity(0.08),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: const Icon(
-                                                  CupertinoIcons.add,
-                                                  size: 36)),
-                                        ),
-                                        const SizedBox(
-                                            height: kDefaultPadding * 1.5),
-                                        Expanded(
-                                          child: Container(
-                                            width: double.infinity,
-                                            decoration: const BoxDecoration(),
-                                            child: Text(
-                                                "Ajouter une entreprise",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: kBlackColor
-                                                      .withOpacity(0.8),
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 16,
+                                                  ],
                                                 )),
                                           ),
-                                        ),
-                                      ],
+                                        )),
+                                InkWell(
+                                  onTap: () {
+                                    Get.offAndToNamed(
+                                        AppRoutes.COMPTEENTREPRISE);
+                                  },
+                                  child: Card(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Column(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                                alignment: Alignment.center,
+                                                height: 70,
+                                                width: 70,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  color: kBlackColor
+                                                      .withOpacity(0.08),
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: const Icon(
+                                                    CupertinoIcons.add,
+                                                    size: 36)),
+                                          ),
+                                          const SizedBox(
+                                              height: kDefaultPadding * 1.5),
+                                          Expanded(
+                                            child: Container(
+                                              width: double.infinity,
+                                              decoration: const BoxDecoration(),
+                                              child: Text(
+                                                  "Ajouter une entreprise",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: kBlackColor
+                                                        .withOpacity(0.8),
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 16,
+                                                  )),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                    ),
                   ),
                 ],
               ),

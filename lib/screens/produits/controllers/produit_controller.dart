@@ -50,7 +50,6 @@ class ProduitController extends GetxController {
 
   void toggleDataPresent(bool value) {
     isDataPresent = value;
-    update();
   }
 
   Future listerner() async {

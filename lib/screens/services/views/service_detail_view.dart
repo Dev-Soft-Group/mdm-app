@@ -16,13 +16,14 @@ class ServicesDetailView extends GetView<ServiceDetailController> {
       child: GetBuilder<ServiceDetailController>(builder: (context) {
         return Scaffold(
             appBar: AppBar(
+              foregroundColor: kWhiteColor,
               backgroundColor: kPrimaryColor,
               leading: InkWell(
                 onTap: (){Get.back();},
                 child: const Icon(Icons.arrow_back, size: 26, color: Colors.white)
               ),
               title: Text( controller.service != null ? controller.service!.nom!.capitalizeFirst! : "Detail Services",
-                style: const TextStyle( fontSize: 16),
+                style: const TextStyle( fontSize: 14),
               ),
               actions: [
                 Container(
@@ -53,12 +54,12 @@ class ServicesDetailView extends GetView<ServiceDetailController> {
                     ),
                     Text(controller.service!.description!.capitalizeFirst!,
                       style: const TextStyle(
-                        fontSize: 16,
-                        height: 1.3,
+                        fontSize: 14,
+                        height: 1.4,
                         fontWeight: FontWeight.w400,
                     )),
                      const SizedBox(
-                      height: kDefaultPadding * 1.3,
+                      height: kDefaultPadding * 0.6,
                     ),
                     const Text("Entreprises",
                       style: TextStyle(
