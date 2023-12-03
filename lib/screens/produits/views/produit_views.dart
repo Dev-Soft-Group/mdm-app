@@ -87,10 +87,9 @@ class ProduitsView extends GetView<ProduitController> {
                                         ),
                                       )
                                     : Container(),
-                                ((controller.categoriesList.isEmpty &&
+                                (controller.categoriesList.isEmpty &&
                                             controller.productStatus ==
-                                                AppStatus.appSuccess) ||
-                                        !controller.isDataPresent)
+                                                AppStatus.appSuccess)
                                     ? Container(
                                         alignment: Alignment.center,
                                         decoration: const BoxDecoration(),
@@ -129,7 +128,6 @@ class RowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dynamic next;
-    controller.toggleDataPresent(true);
     ScrollController childScrollController = ScrollController();
 
     void listenner() {
