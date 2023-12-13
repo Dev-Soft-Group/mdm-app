@@ -78,7 +78,7 @@ class ProduitsView extends GetView<ProduitController> {
                                         : Container())),
                                 controller.productStatus == AppStatus.appLoading
                                     ? Container(
-                                        padding: const EdgeInsets.all(0),
+                                        padding: const EdgeInsets.all(0), 
                                         height: 150,
                                         child: Center(
                                           child: CircularProgressIndicator(
@@ -87,25 +87,25 @@ class ProduitsView extends GetView<ProduitController> {
                                         ),
                                       )
                                     : Container(),
-                                (controller.categoriesList.isEmpty &&
-                                            controller.productStatus ==
-                                                AppStatus.appSuccess)
-                                    ? Container(
-                                        alignment: Alignment.center,
-                                        decoration: const BoxDecoration(),
-                                        width: double.infinity,
-                                        height: Get.height - 125,
-                                        child: Text(
-                                          "Ooops !!!\nAucune catégorie trouvée",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: kBlackColor.withOpacity(0.7),
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      )
-                                    : Container(),
+                                // (controller.categoriesList.isEmpty &&
+                                //             controller.productStatus ==
+                                //                 AppStatus.appSuccess)
+                                //     ? Container(
+                                //         alignment: Alignment.center,
+                                //         decoration: const BoxDecoration(),
+                                //         width: double.infinity,
+                                //         height: Get.height - 125,
+                                //         child: Text(
+                                //           "Ooops !!!\nAucune catégorie trouvée",
+                                //           textAlign: TextAlign.center,
+                                //           style: TextStyle(
+                                //             color: kBlackColor.withOpacity(0.7),
+                                //             fontSize: 18,
+                                //             fontWeight: FontWeight.w400,
+                                //           ),
+                                //         ),
+                                //       )
+                                //     : Container(),
                                 const SizedBox(height: kDefaultPadding * 2),
                               ],
                             ),
