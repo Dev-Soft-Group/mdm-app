@@ -4,9 +4,7 @@ import 'package:mdmscoops/core/app_status.dart';
 import 'package:mdmscoops/models/response_model/services_models.dart';
 import 'package:mdmscoops/services/remote_services/services/service.dart';
 
-
-
-class ServiceController extends GetxController{
+class ServiceController extends GetxController {
   final ServicesService _servicetService = ServicesServiceImpl();
 
   AppStatus servicesStatus = AppStatus.appDefault;
@@ -26,6 +24,9 @@ class ServiceController extends GetxController{
     update();
     await _servicetService.getAllServices(onSuccess: (data) {
       servicesList = data.services!;
+      print("Liste des service de l'applications");
+      print(servicesList);
+      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
       servicesStatus = AppStatus.appSuccess;
       update();
     }, onError: (e) {

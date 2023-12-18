@@ -23,7 +23,6 @@ class CategorieServiceImpl implements CategorieService {
     });
   }
 
-
   @override
   Future<void> getAllCategoriesServices(
       {Function(dynamic data)? onSuccess,
@@ -40,7 +39,6 @@ class CategorieServiceImpl implements CategorieService {
     });
   }
 
-  
   @override
   Future<void> getAllProductsCategories(
       {dynamic url,
