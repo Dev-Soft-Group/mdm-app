@@ -31,8 +31,6 @@ class ProduitController extends GetxController {
   var next, previous;
   bool is_searching = false;
 
-  bool isDataPresent = false;
-
   @override
   void onInit() async {
     await searchAllProductsCategories(value: "");
@@ -45,11 +43,6 @@ class ProduitController extends GetxController {
     _count = 0;
     next = null;
     previous = null;
-    update();
-  }
-
-  void toggleDataPresent(bool value) {
-    isDataPresent = value;
     update();
   }
 

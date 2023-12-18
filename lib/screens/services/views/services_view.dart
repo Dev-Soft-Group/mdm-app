@@ -74,6 +74,7 @@ class ServicesView extends GetView<ServiceController> {
                               ...List.generate(
                                   controller.servicesList.length,
                                   (index) => ServiceCard(
+                                    maxLinesContent: 3,
                                       service: controller.servicesList[index])),
                             ],
                           ),
