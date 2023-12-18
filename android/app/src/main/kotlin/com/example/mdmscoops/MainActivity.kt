@@ -1,4 +1,4 @@
-package com.example.mdmscoops
+package com.app.mdmscoops
 
 import io.flutter.embedding.android.FlutterActivity
 
